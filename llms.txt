@@ -1,0 +1,15 @@
+# Padlboard
+
+> Padlboard is a padel scoring companion for Apple Watch, iPhone, and web. Currently pre-launch — this site is a coming-soon landing page collecting waitlist signups.
+
+## What it does
+Live padel scoring reduced to one input: tap the team that won the point. Padlboard derives games, sets, serve, side, and golden point automatically from that single tap. Ships first on Apple Watch (the primary scoring device) and iPhone (setup, sync, and stats), with a web app planned. Backed by Supabase, EU-hosted.
+
+## Status
+Pre-launch / coming soon. No public app release yet. The only live surface is this waitlist landing page at https://padlboard.ai.
+
+## Primary market
+Greece first, then Spain — the site defaults to Greek with an English toggle.
+
+## Contact
+https://padlboard.ai (waitlist signup form)

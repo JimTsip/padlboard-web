@@ -1,0 +1,5 @@
+# All crawlers welcome — search engines and AI assistants/agents alike.
+User-agent: *
+Allow: /
+
+Sitemap: https://padlboard.ai/sitemap.xml

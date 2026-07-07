@@ -1,0 +1,12 @@
+{
+  "name": "Padlboard",
+  "short_name": "Padlboard",
+  "description": "Score. Track. Elevate.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080420",
+  "theme_color": "#080420",
+  "icons": [
+    { "src": "logo.png", "sizes": "992x992", "type": "image/png" }
+  ]
+}

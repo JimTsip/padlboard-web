@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="el">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -70,7 +70,7 @@
   nav .wrap {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     height: 80px;
   }
 
@@ -86,6 +86,67 @@
     font-weight: 800;
     font-size: 1.25rem;
   }
+
+  /* ---------- Language switcher ---------- */
+
+  .lang-switcher { position: relative; }
+
+  .lang-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 12px;
+    border-radius: 20px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    color: var(--text-primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .lang-pill svg:first-child { color: var(--text-secondary); }
+  .lang-pill svg:last-child { color: var(--text-tertiary); transition: transform 0.15s ease; }
+  .lang-switcher[data-open="true"] .lang-pill svg:last-child { transform: rotate(180deg); }
+
+  .lang-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 150px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 6px;
+    display: none;
+    flex-direction: column;
+    gap: 2px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+  }
+
+  .lang-switcher[data-open="true"] .lang-menu { display: flex; }
+
+  .lang-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 9px 12px;
+    border-radius: 9px;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+  }
+
+  .lang-option:hover { background: var(--elevated); }
+  .lang-option[data-active="true"] { color: var(--text-primary); }
+  .lang-option[data-active="true"] svg { color: var(--green); }
+  .lang-option svg { color: transparent; flex: none; }
 
   /* ---------- Hero ---------- */
 
@@ -513,6 +574,24 @@
       <img src="logo.png" alt="">
       <span>Padlboard</span>
     </div>
+
+    <div class="lang-switcher" id="lang-switcher">
+      <button class="lang-pill" id="lang-pill" type="button" aria-haspopup="listbox" aria-expanded="false">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        <span id="lang-current">ΕΛ</span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="lang-menu" role="listbox">
+        <button class="lang-option" type="button" data-lang="el">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <span style="flex:1">Ελληνικά</span>
+        </button>
+        <button class="lang-option" type="button" data-lang="en">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <span style="flex:1">English</span>
+        </button>
+      </div>
+    </div>
   </div>
 </nav>
 
@@ -521,16 +600,16 @@
   <div class="glow glow-purple"></div>
   <div class="wrap">
     <div class="hero-inner">
-      <div class="badge"><span class="dot"></span>Coming soon</div>
+      <div class="badge"><span class="dot"></span><span data-i18n="badge">Έρχεται σύντομα</span></div>
 
-      <h1>Padlboard will be<span class="accent">with you shortly.</span></h1>
+      <h1><span data-i18n="h1_line1">Το Padlboard θα είναι</span><span class="accent" data-i18n="h1_line2">κοντά σου σύντομα.</span></h1>
 
-      <p class="sub">Score. Track. Elevate. The padel companion for iPhone &amp; Apple Watch is almost here — join the waitlist and be first on the court.</p>
+      <p class="sub" data-i18n="sub">Σκόραρε. Κατέγραψε. Ανέβα επίπεδο. Ο σύντροφος του padel για iPhone &amp; Apple Watch φτάνει σε λίγο — μπες στη λίστα αναμονής και γίνε πρώτος στο γήπεδο.</p>
 
       <form id="waitlist-form">
         <input type="email" id="email" name="email" placeholder="you@email.com" autocomplete="email" required>
         <button type="submit" id="submit-btn">
-          Join the waitlist
+          <span data-i18n="join_btn">Μπες στη λίστα αναμονής</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </button>
       </form>
@@ -539,15 +618,15 @@
       <div class="trust">
         <span>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
-          First 500 get founder perks
+          <span data-i18n="trust1">Οι πρώτοι 500 κερδίζουν αποκλειστικά προνόμια</span>
         </span>
         <span>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          No spam, ever
+          <span data-i18n="trust2">Ποτέ spam</span>
         </span>
         <span>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-          One email when we launch
+          <span data-i18n="trust3">Ένα email μόνο, όταν κάνουμε launch</span>
         </span>
       </div>
     </div>
@@ -557,35 +636,35 @@
 <section class="screenshots">
   <div class="wrap">
     <div class="section-header">
-      <span class="eyebrow">Sneak peek</span>
-      <h2>A glimpse of what's coming</h2>
-      <p>Real screens from the app we're putting the finishing touches on.</p>
+      <span class="eyebrow" data-i18n="shots_eyebrow">Πρώτη ματιά</span>
+      <h2 data-i18n="shots_heading">Μια πρώτη γεύση από αυτό που έρχεται</h2>
+      <p data-i18n="shots_sub">Πραγματικές οθόνες από την εφαρμογή που φτιάχνουμε τις τελευταίες λεπτομέρειες.</p>
     </div>
 
     <div class="gallery">
       <div class="phone-shot">
         <div class="phone-frame"><div class="screen" style="background-image:url('images/f1zjt.png')"></div></div>
-        <span class="shot-caption">Live tap-to-score</span>
+        <span class="shot-caption" data-i18n="shot1_caption">Live σκοράρισμα με ένα tap</span>
       </div>
       <div class="phone-shot">
         <div class="phone-frame"><div class="screen" style="background-image:url('images/Z6c3Sr.png')"></div></div>
-        <span class="shot-caption">Profile &amp; rewards</span>
+        <span class="shot-caption" data-i18n="shot2_caption">Προφίλ &amp; ανταμοιβές</span>
       </div>
       <div class="phone-shot">
         <div class="phone-frame"><div class="screen" style="background-image:url('images/F1PK5.png')"></div></div>
-        <span class="shot-caption">Book a court</span>
+        <span class="shot-caption" data-i18n="shot3_caption">Κλείσε γήπεδο</span>
       </div>
     </div>
 
-    <p class="also-on">⌚ Also on Apple Watch</p>
+    <p class="also-on"><span data-i18n="also_on">⌚ Επίσης σε Apple Watch</span></p>
     <div class="watch-gallery">
       <div class="watch-shot">
         <div class="watch-frame"><div class="screen" style="background-image:url('images/bHfXv.png')"></div></div>
-        <span class="shot-caption">Live scoring</span>
+        <span class="shot-caption" data-i18n="watch1_caption">Live σκοράρισμα</span>
       </div>
       <div class="watch-shot">
         <div class="watch-frame"><div class="screen" style="background-image:url('images/j4afJz.png')"></div></div>
-        <span class="shot-caption">Match summary</span>
+        <span class="shot-caption" data-i18n="watch2_caption">Σύνοψη αγώνα</span>
       </div>
     </div>
   </div>
@@ -594,9 +673,9 @@
 <section class="features">
   <div class="wrap">
     <div class="section-header">
-      <span class="eyebrow">What to expect</span>
-      <h2>A new way to play padel</h2>
-      <p>A sneak peek at the tools that will change how you track your game.</p>
+      <span class="eyebrow" data-i18n="features_eyebrow">Τι να περιμένεις</span>
+      <h2 data-i18n="features_heading">Ένας νέος τρόπος να παίζεις padel</h2>
+      <p data-i18n="features_sub">Μια πρώτη ματιά στα εργαλεία που θα αλλάξουν τον τρόπο που παρακολουθείς το παιχνίδι σου.</p>
     </div>
 
     <div class="feature-cards">
@@ -604,33 +683,33 @@
         <div class="icon-tile" style="background:rgba(0,255,163,0.12)">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00ffa3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 3 7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/></svg>
         </div>
-        <h3>Tap to score</h3>
-        <p>One tap per point, we handle the rest.</p>
+        <h3 data-i18n="card1_title">Σκοράρισμα με ένα tap</h3>
+        <p data-i18n="card1_body">Ένα tap ανά πόντο, τα υπόλοιπα τα αναλαμβάνουμε εμείς.</p>
       </div>
       <div class="feature-card">
         <div class="icon-tile" style="background:rgba(155,92,255,0.14)">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9b5cff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="5" width="10" height="16" rx="3"/><path d="M12 17.5h.01"/><path d="M10 2h4"/></svg>
         </div>
-        <h3>Score on your wrist</h3>
-        <p>Full live scoring on Apple Watch.</p>
+        <h3 data-i18n="card2_title">Σκόραρε από τον καρπό σου</h3>
+        <p data-i18n="card2_body">Πλήρες live σκοράρισμα στο Apple Watch.</p>
       </div>
       <div class="feature-card">
         <div class="icon-tile" style="background:rgba(245,255,0,0.12)">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f5ff00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
         </div>
-        <h3>Deep match stats</h3>
-        <p>Serve %, shot maps, performance score.</p>
+        <h3 data-i18n="card3_title">Αναλυτικά στατιστικά αγώνα</h3>
+        <p data-i18n="card3_body">Ποσοστό σερβίς, χάρτες χτυπημάτων, βαθμολογία απόδοσης.</p>
       </div>
       <div class="feature-card">
         <div class="icon-tile" style="background:rgba(0,255,163,0.12)">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00ffa3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
         </div>
-        <h3>Book real courts</h3>
-        <p>Find &amp; reserve padel courts nearby.</p>
+        <h3 data-i18n="card4_title">Κλείσε πραγματικά γήπεδα</h3>
+        <p data-i18n="card4_body">Βρες &amp; κλείσε γήπεδα padel κοντά σου.</p>
       </div>
     </div>
 
-    <p class="teaser-line">Plus rewards, achievements, and a lot more — built for players who take their padel seriously.</p>
+    <p class="teaser-line" data-i18n="teaser">Επιπλέον ανταμοιβές, επιτεύγματα, και πολλά ακόμα — φτιαγμένο για παίκτες που παίρνουν το padel στα σοβαρά.</p>
   </div>
 </section>
 
@@ -642,7 +721,7 @@
           <img src="logo.png" alt="">
           <span>Padlboard</span>
         </div>
-        <span class="tag">Score. Track. Elevate. Launching soon.</span>
+        <span class="tag" data-i18n="footer_tag">Σκόραρε. Κατέγραψε. Ανέβα επίπεδο. Έρχεται σύντομα.</span>
       </div>
       <div class="social">
         <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
@@ -653,17 +732,152 @@
     <div class="footer-legal">
       <span id="copyright"></span>
       <div class="links">
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
-        <a href="#">Contact</a>
+        <a href="#" data-i18n="footer_privacy">Απόρρητο</a>
+        <a href="#" data-i18n="footer_terms">Όροι</a>
+        <a href="#" data-i18n="footer_contact">Επικοινωνία</a>
       </div>
     </div>
   </div>
 </footer>
 
 <script>
+  // ---------- i18n ----------
+  // Markup ships in Greek by default (the primary market — see
+  // docs/padlboard-master-plan.md's "Greece-first beachhead"), so the `el`
+  // table below just mirrors what's already in the DOM (used when switching
+  // back from English without a reload); `en` is the only table actually
+  // applied at runtime.
+  const translations = {
+    el: {
+      badge: 'Έρχεται σύντομα',
+      h1_line1: 'Το Padlboard θα είναι',
+      h1_line2: 'κοντά σου σύντομα.',
+      sub: 'Σκόραρε. Κατέγραψε. Ανέβα επίπεδο. Ο σύντροφος του padel για iPhone & Apple Watch φτάνει σε λίγο — μπες στη λίστα αναμονής και γίνε πρώτος στο γήπεδο.',
+      join_btn: 'Μπες στη λίστα αναμονής',
+      trust1: 'Οι πρώτοι 500 κερδίζουν αποκλειστικά προνόμια',
+      trust2: 'Ποτέ spam',
+      trust3: 'Ένα email μόνο, όταν κάνουμε launch',
+      shots_eyebrow: 'Πρώτη ματιά',
+      shots_heading: 'Μια πρώτη γεύση από αυτό που έρχεται',
+      shots_sub: 'Πραγματικές οθόνες από την εφαρμογή που φτιάχνουμε τις τελευταίες λεπτομέρειες.',
+      shot1_caption: 'Live σκοράρισμα με ένα tap',
+      shot2_caption: 'Προφίλ & ανταμοιβές',
+      shot3_caption: 'Κλείσε γήπεδο',
+      also_on: '⌚ Επίσης σε Apple Watch',
+      watch1_caption: 'Live σκοράρισμα',
+      watch2_caption: 'Σύνοψη αγώνα',
+      features_eyebrow: 'Τι να περιμένεις',
+      features_heading: 'Ένας νέος τρόπος να παίζεις padel',
+      features_sub: 'Μια πρώτη ματιά στα εργαλεία που θα αλλάξουν τον τρόπο που παρακολουθείς το παιχνίδι σου.',
+      card1_title: 'Σκοράρισμα με ένα tap',
+      card1_body: 'Ένα tap ανά πόντο, τα υπόλοιπα τα αναλαμβάνουμε εμείς.',
+      card2_title: 'Σκόραρε από τον καρπό σου',
+      card2_body: 'Πλήρες live σκοράρισμα στο Apple Watch.',
+      card3_title: 'Αναλυτικά στατιστικά αγώνα',
+      card3_body: 'Ποσοστό σερβίς, χάρτες χτυπημάτων, βαθμολογία απόδοσης.',
+      card4_title: 'Κλείσε πραγματικά γήπεδα',
+      card4_body: 'Βρες & κλείσε γήπεδα padel κοντά σου.',
+      teaser: 'Επιπλέον ανταμοιβές, επιτεύγματα, και πολλά ακόμα — φτιαγμένο για παίκτες που παίρνουν το padel στα σοβαρά.',
+      footer_tag: 'Σκόραρε. Κατέγραψε. Ανέβα επίπεδο. Έρχεται σύντομα.',
+      footer_privacy: 'Απόρρητο',
+      footer_terms: 'Όροι',
+      footer_contact: 'Επικοινωνία',
+      status_joining: 'Καταχώρηση…',
+      status_ok: 'Είσαι στη λίστα — θα σου στείλουμε email μόλις κάνουμε launch.',
+      status_dupe: 'Είσαι ήδη στη λίστα!',
+      status_error: 'Κάτι πήγε στραβά — δοκίμασε ξανά.'
+    },
+    en: {
+      badge: 'Coming soon',
+      h1_line1: 'Padlboard will be',
+      h1_line2: 'with you shortly.',
+      sub: 'Score. Track. Elevate. The padel companion for iPhone & Apple Watch is almost here — join the waitlist and be first on the court.',
+      join_btn: 'Join the waitlist',
+      trust1: 'First 500 get founder perks',
+      trust2: 'No spam, ever',
+      trust3: 'One email when we launch',
+      shots_eyebrow: 'Sneak peek',
+      shots_heading: "A glimpse of what's coming",
+      shots_sub: "Real screens from the app we're putting the finishing touches on.",
+      shot1_caption: 'Live tap-to-score',
+      shot2_caption: 'Profile & rewards',
+      shot3_caption: 'Book a court',
+      also_on: '⌚ Also on Apple Watch',
+      watch1_caption: 'Live scoring',
+      watch2_caption: 'Match summary',
+      features_eyebrow: 'What to expect',
+      features_heading: 'A new way to play padel',
+      features_sub: 'A sneak peek at the tools that will change how you track your game.',
+      card1_title: 'Tap to score',
+      card1_body: 'One tap per point, we handle the rest.',
+      card2_title: 'Score on your wrist',
+      card2_body: 'Full live scoring on Apple Watch.',
+      card3_title: 'Deep match stats',
+      card3_body: 'Serve %, shot maps, performance score.',
+      card4_title: 'Book real courts',
+      card4_body: 'Find & reserve padel courts nearby.',
+      teaser: 'Plus rewards, achievements, and a lot more — built for players who take their padel seriously.',
+      footer_tag: 'Score. Track. Elevate. Launching soon.',
+      footer_privacy: 'Privacy',
+      footer_terms: 'Terms',
+      footer_contact: 'Contact',
+      status_joining: 'Joining…',
+      status_ok: "You're on the list — we'll email you at launch.",
+      status_dupe: "You're already on the list!",
+      status_error: 'Something went wrong — please try again.'
+    }
+  };
+
+  const LANG_KEY = 'padlboard-lang';
+  let currentLang = localStorage.getItem(LANG_KEY) || 'el';
+
+  const langCurrentEl = document.getElementById('lang-current');
+  const langSwitcher = document.getElementById('lang-switcher');
+  const langPill = document.getElementById('lang-pill');
+
+  function applyLanguage(lang) {
+    const dict = translations[lang];
+    document.querySelectorAll('[data-i18n]').forEach((el) => {
+      const key = el.dataset.i18n;
+      if (dict[key] !== undefined) el.textContent = dict[key];
+    });
+    document.documentElement.lang = lang;
+    langCurrentEl.textContent = lang === 'el' ? 'ΕΛ' : 'EN';
+    document.querySelectorAll('.lang-option').forEach((btn) => {
+      btn.dataset.active = String(btn.dataset.lang === lang);
+    });
+    currentLang = lang;
+    localStorage.setItem(LANG_KEY, lang);
+  }
+
+  if (currentLang !== 'el') applyLanguage(currentLang);
+  else applyLanguage('el'); // sets pill/option active state to match the baked-in Greek markup
+
+  langPill.addEventListener('click', () => {
+    const isOpen = langSwitcher.dataset.open === 'true';
+    langSwitcher.dataset.open = String(!isOpen);
+    langPill.setAttribute('aria-expanded', String(!isOpen));
+  });
+
+  document.querySelectorAll('.lang-option').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      applyLanguage(btn.dataset.lang);
+      langSwitcher.dataset.open = 'false';
+      langPill.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!langSwitcher.contains(event.target)) {
+      langSwitcher.dataset.open = 'false';
+      langPill.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // ---------- Footer year ----------
   document.getElementById('copyright').textContent = `© ${new Date().getFullYear()} Padlboard · Made for padel in the EU`;
 
+  // ---------- Waitlist form ----------
   const SUPABASE_URL = 'https://hcgyuslsqorhvsmxvemf.supabase.co';
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhjZ3l1c2xzcW9yaHZzbXh2ZW1mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMyNTEwNDUsImV4cCI6MjA5ODgyNzA0NX0.MYl6pUmxDM6qSM2wmHoXdLbNh4lwHYBuYOK3jgGy5k0';
 
@@ -678,7 +892,7 @@
 
     submitBtn.disabled = true;
     statusEl.dataset.state = 'pending';
-    statusEl.textContent = 'Joining…';
+    statusEl.textContent = translations[currentLang].status_joining;
 
     try {
       const response = await fetch(`${SUPABASE_URL}/rest/v1/waitlist_signups`, {
@@ -694,17 +908,17 @@
 
       if (response.ok) {
         statusEl.dataset.state = 'ok';
-        statusEl.textContent = "You're on the list — we'll email you at launch.";
+        statusEl.textContent = translations[currentLang].status_ok;
         form.reset();
       } else if (response.status === 409) {
         statusEl.dataset.state = 'ok';
-        statusEl.textContent = "You're already on the list!";
+        statusEl.textContent = translations[currentLang].status_dupe;
       } else {
         throw new Error('Request failed');
       }
     } catch (err) {
       statusEl.dataset.state = 'error';
-      statusEl.textContent = 'Something went wrong — please try again.';
+      statusEl.textContent = translations[currentLang].status_error;
     } finally {
       submitBtn.disabled = false;
     }

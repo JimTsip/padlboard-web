@@ -12,13 +12,15 @@
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#080420">
 
-<!-- Nunito (headings/logo) + Inter (body) — matches the Pencil design's
-     type pairing. Not system fonts, so they must be loaded explicitly;
-     without this link the CSS font-family silently fell back to the OS's
-     default sans-serif. -->
+<!-- M PLUS Rounded 1c (headings/logo) + Inter (body). Nunito (the Pencil
+     design's original heading face) has no Greek glyphs at all — Google's
+     own subset split for it only covers latin/latin-ext/cyrillic/vietnamese
+     — so Greek headlines would silently fall back to the OS default font
+     per glyph. M PLUS Rounded 1c is a purpose-built rounded family with
+     full Greek + Latin coverage and supports weight 800, same as Nunito. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
@@ -112,10 +114,11 @@
     margin: 0;
   }
 
-  /* Nunito is the heading/logo face in the Pencil design; feature-card
-     titles (h3) are Inter there, so they're excluded from this rule. */
+  /* M PLUS Rounded 1c stands in for Nunito (see note above) on
+     headings/logo; feature-card titles (h3) are Inter in the Pencil
+     design, so they're excluded from this rule. */
   h1, h2, .logo span {
-    font-family: Nunito, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'M PLUS Rounded 1c', -apple-system, BlinkMacSystemFont, sans-serif;
   }
 
   h3 {

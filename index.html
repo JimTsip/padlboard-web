@@ -155,11 +155,16 @@
     gap: 10px;
   }
 
-  .logo img { width: 44px; height: 44px; }
+  .logo img {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    filter: drop-shadow(0 0 14px rgba(245, 255, 0, 0.33));
+  }
 
   .logo span {
     font-weight: 800;
-    font-size: 1.25rem;
+    font-size: 22px;
   }
 
   /* ---------- Language switcher ---------- */
@@ -590,8 +595,13 @@
     gap: 12px;
   }
 
-  .footer-brand .logo img { width: 28px; height: 28px; }
-  .footer-brand .logo span { font-size: 1.05rem; }
+  .footer-brand .logo img {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    filter: drop-shadow(0 0 10px rgba(245, 255, 0, 0.267));
+  }
+  .footer-brand .logo span { font-size: 17px; }
 
   .footer-brand .tag {
     color: var(--text-secondary);

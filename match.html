@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Padel match · Padlboard</title>
+<meta name="theme-color" content="#080420">
+<meta name="description" content="A padel match scored on Padlboard — see the result and track your own matches on iPhone & Apple Watch.">
+
+<!-- Open Graph / link preview -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Padlboard">
+<meta property="og:title" content="Padel match on Padlboard 🎾">
+<meta property="og:description" content="See this match and track your own — Score. Track. Elevate.">
+<meta property="og:image" content="https://padlboard.ai/logo.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080420; --card1: #6A00FF; --card2: #2E0A7A;
+    --green: #00FFA3; --purple: #9B5CFF; --action: #F5FF00;
+    --text: #ffffff; --text-2: #A69FD1; --text-3: #6E67A0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; padding: 28px 18px 48px;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; margin-bottom: 26px; }
+  .brand img { width: 34px; height: 34px; border-radius: 9px; }
+  .brand span { font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 800; font-size: 20px; }
+
+  .card {
+    width: 100%; max-width: 440px; border-radius: 32px;
+    background: linear-gradient(135deg, var(--card1), var(--card2));
+    padding: 40px 28px; text-align: center;
+    box-shadow: 0 30px 80px rgba(106,0,255,.35);
+  }
+  .result {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,0,0,.22); border-radius: 999px;
+    padding: 10px 20px; font-weight: 800; letter-spacing: .5px;
+    font-size: 15px; color: var(--green);
+  }
+  .score {
+    font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 800;
+    font-size: 96px; line-height: 1.05; margin: 22px 0 6px;
+    display: flex; align-items: center; justify-content: center; gap: 18px;
+  }
+  .score .a { color: var(--green); }
+  .score .dash { color: rgba(255,255,255,.5); }
+  .score .b { color: var(--purple); }
+  .sets {
+    display: inline-block; background: rgba(0,0,0,.22); border-radius: 999px;
+    padding: 10px 22px; font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-weight: 800; font-size: 22px; margin-bottom: 16px;
+  }
+  .players { font-size: 17px; font-weight: 600; color: rgba(255,255,255,.9); }
+  .date { font-size: 14px; color: rgba(255,255,255,.6); margin-top: 8px; }
+
+  .cta-wrap { max-width: 440px; width: 100%; margin-top: 34px; text-align: center; }
+  .cta-title {
+    font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 800;
+    font-size: 26px; line-height: 1.2; margin-bottom: 8px;
+  }
+  .cta-sub { color: var(--text-2); font-size: 16px; margin-bottom: 20px; line-height: 1.5; }
+  .cta-btn {
+    display: inline-block; background: var(--action); color: #080420;
+    font-weight: 800; font-size: 18px; text-decoration: none;
+    padding: 16px 34px; border-radius: 999px;
+    box-shadow: 0 12px 34px rgba(245,255,0,.33);
+  }
+  .foot { color: var(--text-3); font-size: 13px; margin-top: 22px; }
+  .foot a { color: var(--text-2); }
+</style>
+</head>
+<body>
+  <div class="brand"><img src="logo.png" alt=""><span>Padlboard</span></div>
+
+  <div class="card" id="card">
+    <div class="result" id="result">🎾 Match result</div>
+    <div class="score"><span class="a" id="sa">–</span><span class="dash">–</span><span class="b" id="sb">–</span></div>
+    <div class="sets" id="sets"></div>
+    <div class="players" id="players"></div>
+    <div class="date" id="date"></div>
+  </div>
+
+  <div class="cta-wrap">
+    <div class="cta-title">Want stats like these?</div>
+    <div class="cta-sub">Padlboard scores your padel matches with one tap — on iPhone &amp; Apple Watch — and tracks your stats, badges and progress.</div>
+    <a class="cta-btn" href="https://padlboard.ai/">Get Padlboard</a>
+    <div class="foot">Score. Track. Elevate. · <a href="https://padlboard.ai/">padlboard.ai</a></div>
+  </div>
+
+<script>
+  function b64urlDecode(str) {
+    str = str.replace(/-/g, '+').replace(/_/g, '/');
+    while (str.length % 4) str += '=';
+    return decodeURIComponent(escape(atob(str)));
+  }
+  function fmtDate(iso) {
+    try {
+      const d = new Date(iso);
+      return d.toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' });
+    } catch (e) { return ''; }
+  }
+  function render(m) {
+    const winnerLabel = m.w === 'a' ? m.a : m.b;
+    document.getElementById('result').textContent = '🏆 ' + winnerLabel + ' won';
+    document.getElementById('sa').textContent = m.sa;
+    document.getElementById('sb').textContent = m.sb;
+    document.getElementById('sets').textContent = (m.s || []).map(function (x) { return x[0] + '–' + x[1]; }).join('   ·   ');
+    document.getElementById('players').textContent = m.a + '  vs  ' + m.b;
+    document.getElementById('date').textContent = fmtDate(m.d);
+    document.title = winnerLabel + ' won ' + m.sa + '–' + m.sb + ' · Padlboard';
+  }
+  (function () {
+    const hash = (location.hash || '').replace(/^#/, '');
+    if (!hash) {
+      // No match encoded — show a generic promo instead of an empty card.
+      document.getElementById('card').style.display = 'none';
+      document.querySelector('.cta-title').textContent = 'Track your padel matches';
+      return;
+    }
+    try { render(JSON.parse(b64urlDecode(hash))); }
+    catch (e) { document.getElementById('card').style.display = 'none'; }
+  })();
+</script>
+</body>
+</html>

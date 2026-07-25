@@ -120,12 +120,24 @@ function fitStage(){
   else{s.style.transform='';s.parentElement.style.height='';}
 }
 addEventListener('resize',fitStage);addEventListener('load',fitStage);
-// Every CTA in the design opens the App Store.
+// CTAs open the App Store; footer/legal items open their pages.
 addEventListener('DOMContentLoaded',function(){
-  var words=['Download','App Store','Get in the game','Get the app'];
+  var words=['Download','App Store','Get in the game','Get the app','Κατέβασέ το','Μπες στο παιχνίδι'];
+  var links={'Privacy':'/privacy','Απόρρητο':'/privacy','Terms':'/terms','Όροι':'/terms',
+             'GDPR':'/gdpr','Cookies':'/cookies',
+             'Contact':'mailto:hello@padlboard.ai','Επικοινωνία':'mailto:hello@padlboard.ai',
+             'About':'mailto:hello@padlboard.ai','Σχετικά':'mailto:hello@padlboard.ai',
+             'Careers':'mailto:hello@padlboard.ai','Καριέρα':'mailto:hello@padlboard.ai',
+             'Press':'mailto:hello@padlboard.ai','Τύπος':'mailto:hello@padlboard.ai'};
   document.querySelectorAll('#d-landing div,#d-landing span').forEach(function(el){
     var t=(el.textContent||'').trim();
-    if(t && t.length<40 && words.some(function(w){return t.indexOf(w)>-1;})){
+    if(!t) return;
+    if(links[t] && el.children.length===0){
+      el.style.cursor='pointer';
+      el.addEventListener('click',function(e){e.stopPropagation();location.href=links[(el.textContent||'').trim()]||links[t];});
+      return;
+    }
+    if(t.length<40 && words.some(function(w){return t.indexOf(w)>-1;})){
       el.style.cursor='pointer';
       el.addEventListener('click',function(){location.href='https://apps.apple.com/gr/app/padlboard/id6788730009';});
     }

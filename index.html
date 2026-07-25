@@ -78,942 +78,1606 @@
   }
 }
 </script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Nunito:wght@200..1000&display=swap" rel="stylesheet">
+<script>tailwind = { config: { corePlugins: { preflight: false } } };</script>
+<script src="https://cdn.tailwindcss.com"></script>
+
 <style>
-  :root {
-    --bg: #080420;
-    --card: #1a1046;
-    --elevated: #120a33;
-    --line: #2a1f5c;
-    --action: #f5ff00;
-    --action-dim: rgba(245, 255, 0, 0.12);
-    --green: #00ffa3;
-    --purple: #6a00ff;
-    --purple-light: #9b5cff;
-    --text-primary: #ffffff;
-    --text-secondary: #a69fd1;
-    --text-tertiary: #6e67a0;
-  }
-
-  * { box-sizing: border-box; min-width: 0; }
-
-  html {
-    scroll-behavior: smooth;
-    overflow-x: hidden;
-  }
-
-  body {
-    margin: 0;
-    overflow-x: hidden;
-    background: var(--bg);
-    color: var(--text-primary);
-    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  h1, h2, h3 {
-    margin: 0;
-  }
-
-  /* M PLUS Rounded 1c stands in for Nunito (see note above) on
-     headings/logo; feature-card titles (h3) are Inter in the Pencil
-     design, so they're excluded from this rule. */
-  h1, h2, .logo span {
-    font-family: 'M PLUS Rounded 1c', -apple-system, BlinkMacSystemFont, sans-serif;
-  }
-
-  h3 {
-    font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
-  }
-
-  img { max-width: 100%; display: block; }
-
-  .wrap {
-    max-width: 1248px;
-    margin: 0 auto;
-    padding-left: clamp(20px, 6vw, 96px);
-    padding-right: clamp(20px, 6vw, 96px);
-  }
-
-  /* ---------- Nav ---------- */
-
-  nav {
-    position: sticky;
-    top: 0;
-    z-index: 20;
-    background: rgba(8, 4, 32, 0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid transparent;
-  }
-
-  nav .wrap {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 80px;
-  }
-
-  .logo {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .logo img {
-    width: 64px;
-    height: 64px;
-    border-radius: 19px;
-    filter: drop-shadow(0 0 26px rgba(245, 255, 0, 0.33));
-  }
-
-  .logo span {
-    font-weight: 800;
-    font-size: 22px;
-  }
-
-  /* ---------- Language switcher ---------- */
-
-  .lang-switcher { position: relative; }
-
-  .lang-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    padding: 8px 12px;
-    border-radius: 20px;
-    background: var(--card);
-    border: 1px solid var(--line);
-    color: var(--text-primary);
-    font-size: 0.8rem;
-    font-weight: 700;
-    cursor: pointer;
-  }
-
-  .lang-pill svg:first-child { color: var(--text-secondary); }
-  .lang-pill svg:last-child { color: var(--text-tertiary); transition: transform 0.15s ease; }
-  .lang-switcher[data-open="true"] .lang-pill svg:last-child { transform: rotate(180deg); }
-
-  .lang-menu {
-    position: absolute;
-    top: calc(100% + 8px);
-    right: 0;
-    min-width: 150px;
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    padding: 6px;
-    display: none;
-    flex-direction: column;
-    gap: 2px;
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
-  }
-
-  .lang-switcher[data-open="true"] .lang-menu { display: flex; }
-
-  .lang-option {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    padding: 9px 12px;
-    border-radius: 9px;
-    background: none;
-    border: none;
-    color: var(--text-secondary);
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    text-align: left;
-    font-family: inherit;
-  }
-
-  .lang-option:hover { background: var(--elevated); }
-  .lang-option[data-active="true"] { color: var(--text-primary); }
-  .lang-option[data-active="true"] svg { color: var(--green); }
-  .lang-option svg { color: transparent; flex: none; }
-
-  /* ---------- Hero ---------- */
-
-  .hero {
-    position: relative;
-    overflow: clip;
-    background: linear-gradient(120deg, #160a3e 0%, var(--bg) 60%);
-    padding: 64px 0 56px;
-  }
-
-  .glow {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(90px);
-    pointer-events: none;
-  }
-
-  .glow-green {
-    width: 340px; height: 340px;
-    background: var(--green);
-    opacity: 0.22;
-    top: 40px; left: 4%;
-  }
-
-  .glow-purple {
-    width: 380px; height: 380px;
-    background: var(--purple);
-    opacity: 0.3;
-    top: 220px; right: 4%;
-  }
-
-  .hero-inner {
-    position: relative;
-    max-width: 720px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 22px;
-    text-align: center;
-  }
-
-  .badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    border-radius: 20px;
-    background: var(--card);
-    border: 1px solid var(--line);
-    color: var(--text-secondary);
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.03em;
-  }
-
-  .badge .dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--green);
-    box-shadow: 0 0 8px 1px rgba(0, 255, 163, 0.6);
-  }
-
-  .hero h1 {
-    font-size: clamp(2.1rem, 6vw, 4rem);
-    font-weight: 800;
-    line-height: 1.05;
-  }
-
-  .hero h1 .accent { color: var(--green); display: block; }
-
-  .hero p.sub {
-    max-width: 560px;
-    color: var(--text-secondary);
-    font-size: clamp(1rem, 2vw, 1.25rem);
-    line-height: 1.5;
-    margin: 0;
-  }
-
-  form#waitlist-form {
-    width: 100%;
-    max-width: 480px;
-    display: flex;
-    gap: 10px;
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: 20px;
-    padding: 6px 6px 6px 20px;
-  }
-
-  @media (max-width: 560px) {
-    form#waitlist-form {
-      flex-direction: column;
-      padding: 16px;
-      border-radius: 20px;
-    }
-  }
-
-  form#waitlist-form input[type="email"] {
-    flex: 1;
-    min-width: 0;
-    background: transparent;
-    border: none;
-    outline: none;
-    color: var(--text-primary);
-    font-size: 0.95rem;
-    padding: 12px 0;
-  }
-
-  @media (max-width: 560px) {
-    form#waitlist-form input[type="email"] {
-      background: var(--elevated);
-      border-radius: 12px;
-      padding: 12px 14px;
-    }
-  }
-
-  form#waitlist-form input::placeholder { color: var(--text-tertiary); }
-
-  button#submit-btn {
-    appearance: none;
-    border: none;
-    border-radius: 12px;
-    background: var(--action);
-    color: #080420;
-    font-weight: 800;
-    font-size: 0.95rem;
-    padding: 14px 20px;
-    cursor: pointer;
-    white-space: nowrap;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    box-shadow: 0 0 20px rgba(245, 255, 0, 0.33);
-    transition: transform 0.15s ease, opacity 0.15s ease;
-  }
-
-  button#submit-btn:hover { transform: translateY(-1px); }
-  button#submit-btn:disabled { opacity: 0.6; cursor: default; transform: none; }
-
-  #status {
-    min-height: 1.2em;
-    font-size: 0.9rem;
-    font-weight: 600;
-  }
-
-  #status[data-state="ok"] { color: var(--green); }
-  #status[data-state="error"] { color: #ff4d6d; }
-  #status[data-state="pending"] { color: var(--text-tertiary); }
-
-  .trust {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 18px;
-    color: var(--text-secondary);
-    font-size: 0.8rem;
-    font-weight: 600;
-  }
-
-  .trust span { display: inline-flex; align-items: center; gap: 6px; }
-  .trust svg { color: var(--green); flex: none; }
-
-  /* ---------- Section shared ---------- */
-
-  section { padding: 72px 0; }
-
-  .section-header {
-    text-align: center;
-    max-width: 560px;
-    margin: 0 auto 40px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    align-items: center;
-  }
-
-  .eyebrow {
-    color: var(--action);
-    font-weight: 800;
-    font-size: 0.8rem;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-  }
-
-  .section-header h2 {
-    font-size: clamp(1.7rem, 4vw, 2.5rem);
-    font-weight: 800;
-  }
-
-  .section-header p {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-    line-height: 1.5;
-    margin: 0;
-  }
-
-  /* ---------- Screenshots ---------- */
-
-  .screenshots { background: var(--elevated); }
-
-  .gallery {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 32px;
-  }
-
-  .phone-shot {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    width: 200px;
-  }
-
-  .phone-shot:nth-child(1) { transform: rotate(-4deg); }
-  .phone-shot:nth-child(3) { transform: rotate(4deg); }
-
-  @media (max-width: 720px) {
-    .phone-shot:nth-child(1),
-    .phone-shot:nth-child(3) { transform: none; }
-  }
-
-  .phone-frame {
-    width: 100%;
-    aspect-ratio: 220 / 452;
-    border-radius: 32px;
-    background: #000;
-    border: 2px solid var(--line);
-    padding: 6px;
-    box-shadow: 0 20px 44px rgba(0, 0, 0, 0.53);
-  }
-
-  .phone-frame .screen {
-    width: 100%;
-    height: 100%;
-    border-radius: 26px;
-    overflow: hidden;
-    background-size: cover;
-    background-position: top center;
-  }
-
-  .shot-caption {
-    color: var(--text-secondary);
-    font-size: 0.85rem;
-    font-weight: 600;
-  }
-
-  .also-on {
-    text-align: center;
-    color: var(--purple-light);
-    font-weight: 700;
-    font-size: 0.95rem;
-    margin: 48px 0 24px;
-  }
-
-  .watch-gallery {
-    display: flex;
-    justify-content: center;
-    gap: 28px;
-    flex-wrap: wrap;
-  }
-
-  .watch-shot {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .watch-frame {
-    width: 110px;
-    aspect-ratio: 110 / 134;
-    border-radius: 28px;
-    background: #0a0812;
-    border: 2px solid var(--line);
-    padding: 4px;
-    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.53);
-  }
-
-  .watch-frame .screen {
-    width: 100%;
-    height: 100%;
-    border-radius: 22px;
-    overflow: hidden;
-    background-size: cover;
-    background-position: center;
-  }
-
-  /* ---------- Features ---------- */
-
-  .feature-cards {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-  }
-
-  @media (max-width: 980px) {
-    .feature-cards { grid-template-columns: repeat(2, 1fr); }
-  }
-
-  @media (max-width: 560px) {
-    .feature-cards { grid-template-columns: 1fr; }
-  }
-
-  .feature-card {
-    background: var(--card);
-    border-radius: 28px;
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .icon-tile {
-    width: 52px; height: 52px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .feature-card h3 {
-    font-size: 1.25rem;
-    font-weight: 700;
-  }
-
-  .feature-card p {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-    line-height: 1.4;
-    margin: 0;
-  }
-
-  .teaser-line {
-    text-align: center;
-    max-width: 700px;
-    margin: 32px auto 0;
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-  }
-
-  /* ---------- Footer ---------- */
-
-  footer {
-    background: var(--bg);
-    border-top: 1px solid var(--line);
-    padding: 48px 0;
-  }
-
-  .footer-bottom {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    margin-bottom: 24px;
-  }
-
-  .footer-brand {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .footer-brand .logo img {
-    width: 53px;
-    height: 53px;
-    border-radius: 15px;
-    filter: drop-shadow(0 0 19px rgba(245, 255, 0, 0.267));
-  }
-  .footer-brand .logo span { font-size: 17px; }
-
-  .footer-brand .tag {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-  }
-
-  .social {
-    display: flex;
-    gap: 14px;
-  }
-
-  .social a {
-    width: 36px; height: 36px;
-    border-radius: 18px;
-    background: var(--card);
-    border: 1px solid var(--line);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-secondary);
-    text-decoration: none;
-  }
-
-  .footer-legal {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding-top: 24px;
-    border-top: 1px solid var(--line);
-    color: var(--text-tertiary);
-    font-size: 0.78rem;
-  }
-
-  .footer-legal .links {
-    display: flex;
-    gap: 20px;
-  }
-
-  .footer-legal a {
-    color: var(--text-tertiary);
-    text-decoration: none;
-    font-weight: 600;
-  }
-
-  .footer-legal a:hover { color: var(--text-secondary); }
+html,body{margin:0;padding:0;background:#080420;overflow-x:hidden}
+#d-landing{display:none}
+#m-landing{display:block;background:#0a0426;color:#fff;font-family:Inter,system-ui,sans-serif;min-height:100vh;padding:28px 22px 40px;box-sizing:border-box;text-align:center}
+#m-landing .m-logo{width:64px;border-radius:14px}
+#m-landing h1{font-family:Nunito,Inter,sans-serif;font-weight:900;font-size:clamp(26px,7.6vw,44px);line-height:1.05;margin:26px 0 0;letter-spacing:-.5px}
+#m-landing h1 span{color:#F5FF00}
+#m-landing .m-sub{color:#cfc8ee;font-size:15px;line-height:1.6;max-width:34ch;margin:16px auto 24px}
+#m-landing .m-store{display:inline-flex;align-items:center;gap:10px;background:#F5FF00;color:#080420;text-decoration:none;font-weight:800;border-radius:16px;padding:12px 22px;font-size:17px;line-height:1.1;text-align:left}
+#m-landing .m-store small{font-weight:600;font-size:11px}
+#m-landing .m-shots{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:34px 0 30px}
+#m-landing .m-shots img{width:100%;border-radius:18px;display:block}
+#m-landing .m-store-bottom{display:block;text-align:center;border-radius:16px}
+#m-landing .m-foot{margin-top:34px;color:#8f86bb;font-size:13px}
+#m-landing .m-foot a{color:#8f86bb}
+@media (min-width:1024px){
+  #m-landing{display:none}
+  #d-landing{display:block;overflow-x:hidden}
+  #d-landing .pencil-stage{width:1440px;margin:0 auto;position:relative}
+}
+@media (min-width:1024px) and (max-width:1439px){
+  #d-landing .pencil-stage{transform-origin:top center;transform:scale(calc(100vw/1440px))}
+}
 </style>
+<script>
+// Fit the fixed 1440px artboard on 1024-1439px screens.
+function fitStage(){
+  var s=document.querySelector('#d-landing .pencil-stage');
+  if(!s) return;
+  var w=window.innerWidth;
+  if(w>=1024&&w<1440){s.style.transform='scale('+(w/1440)+')';s.parentElement.style.height=(s.offsetHeight*w/1440)+'px';}
+  else{s.style.transform='';s.parentElement.style.height='';}
+}
+addEventListener('resize',fitStage);addEventListener('load',fitStage);
+// Every CTA in the design opens the App Store.
+addEventListener('DOMContentLoaded',function(){
+  var words=['Download','App Store','Get in the game','Get the app'];
+  document.querySelectorAll('#d-landing div,#d-landing span').forEach(function(el){
+    var t=(el.textContent||'').trim();
+    if(t && t.length<40 && words.some(function(w){return t.indexOf(w)>-1;})){
+      el.style.cursor='pointer';
+      el.addEventListener('click',function(){location.href='https://apps.apple.com/gr/app/padlboard/id6788730009';});
+    }
+  });
+  fitStage();
+});
+</script>
+
 </head>
 <body>
 
-<nav>
-  <div class="wrap">
-    <div class="logo">
-      <img src="logo.png" alt="">
-      <span>Padlboard</span>
-    </div>
-
-    <div class="lang-switcher" id="lang-switcher">
-      <button class="lang-pill" id="lang-pill" type="button" aria-haspopup="listbox" aria-expanded="false">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-        <span id="lang-current">ΕΛ</span>
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
-      <div class="lang-menu" role="listbox">
-        <button class="lang-option" type="button" data-lang="el">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          <span style="flex:1">Ελληνικά</span>
-        </button>
-        <button class="lang-option" type="button" data-lang="en">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          <span style="flex:1">English</span>
-        </button>
-      </div>
-    </div>
+<div id="m-landing">
+  <header class="m-head"><img src="logo.png" alt="Padlboard" class="m-logo"></header>
+  <h1>EVERYTHING<br>PADEL. <span>ONE APP.</span></h1>
+  <p class="m-sub">Σκόραρε με ένα άγγιγμα από το Apple Watch ή το iPhone, βρες παρέα, γήπεδα και προπονητές — και δες πώς πραγματικά παίζεις.</p>
+  <a class="m-store" href="https://apps.apple.com/gr/app/padlboard/id6788730009">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.08zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+    <span><small>Κατέβασέ το στο</small><br>App Store</span>
+  </a>
+  <div class="m-shots">
+    <img src="images/shots/01-20.1.jpg" alt="Το padel σου ξεκινά εδώ" loading="lazy">
+    <img src="images/shots/02-20.2.jpg" alt="Σκόραρε. Παίξε. Τέλος." loading="lazy">
+    <img src="images/shots/03-20.3.jpg" alt="Χτίσε το προφίλ σου" loading="lazy">
+    <img src="images/shots/04-19.3.jpg" alt="Ανέβασε επίπεδο" loading="lazy">
   </div>
-</nav>
+  <a class="m-store m-store-bottom" href="https://apps.apple.com/gr/app/padlboard/id6788730009">Κατέβασε το Padlboard — δωρεάν</a>
+  <footer class="m-foot">
+    <a href="/privacy.html">Απόρρητο</a> · <a href="/terms.html">Όροι</a> · <a href="/support.html">Υποστήριξη</a>
+    <p>© 2026 Padlboard · padlboard.ai</p>
+  </footer>
+</div>
 
-<section class="hero">
-  <div class="glow glow-green"></div>
-  <div class="glow glow-purple"></div>
-  <div class="wrap">
-    <div class="hero-inner">
-      <div class="badge"><span class="dot"></span><span data-i18n="badge">Έρχεται σύντομα</span></div>
+<div id="d-landing"><div class="pencil-stage">
 
-      <h1><span data-i18n="h1_line1">Το Padlboard θα είναι</span><span class="accent" data-i18n="h1_line2">κοντά σου σύντομα.</span></h1>
-
-      <p class="sub" data-i18n="sub">Σκόραρε. Κατέγραψε. Ανέβα επίπεδο. Ο σύντροφος του padel για iPhone &amp; Apple Watch φτάνει σε λίγο — μπες στη λίστα αναμονής και γίνε πρώτος στο γήπεδο.</p>
-
-      <form id="waitlist-form">
-        <input type="email" id="email" name="email" placeholder="you@email.com" autocomplete="email" required>
-        <button type="submit" id="submit-btn">
-          <span data-i18n="join_btn">Μπες στη λίστα αναμονής</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </button>
-      </form>
-      <p id="status" role="status" aria-live="polite"></p>
-
-      <div class="trust">
-        <span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
-          <span data-i18n="trust1">Οι πρώτοι 500 κερδίζουν αποκλειστικά προνόμια</span>
-        </span>
-        <span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          <span data-i18n="trust2">Ποτέ spam</span>
-        </span>
-        <span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-          <span data-i18n="trust3">Ένα email μόνο, όταν κάνουμε launch</span>
-        </span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="screenshots">
-  <div class="wrap">
-    <div class="section-header">
-      <span class="eyebrow" data-i18n="shots_eyebrow">Πρώτη ματιά</span>
-      <h2 data-i18n="shots_heading">Μια πρώτη γεύση από αυτό που έρχεται</h2>
-      <p data-i18n="shots_sub">Πραγματικές οθόνες από την εφαρμογή που φτιάχνουμε τις τελευταίες λεπτομέρειες.</p>
-    </div>
-
-    <div class="gallery">
-      <div class="phone-shot">
-        <div class="phone-frame"><div class="screen" style="background-image:url('images/f1zjt.png')"></div></div>
-        <span class="shot-caption" data-i18n="shot1_caption">Live σκοράρισμα με ένα tap</span>
-      </div>
-      <div class="phone-shot">
-        <div class="phone-frame"><div class="screen" style="background-image:url('images/Z6c3Sr.png')"></div></div>
-        <span class="shot-caption" data-i18n="shot2_caption">Προφίλ &amp; ανταμοιβές</span>
-      </div>
-      <div class="phone-shot">
-        <div class="phone-frame"><div class="screen" style="background-image:url('images/F1PK5.png')"></div></div>
-        <span class="shot-caption" data-i18n="shot3_caption">Κλείσε γήπεδο</span>
-      </div>
-    </div>
-
-    <p class="also-on"><span data-i18n="also_on">⌚ Επίσης σε Apple Watch</span></p>
-    <div class="watch-gallery">
-      <div class="watch-shot">
-        <div class="watch-frame"><div class="screen" style="background-image:url('images/bHfXv.png')"></div></div>
-        <span class="shot-caption" data-i18n="watch1_caption">Live σκοράρισμα</span>
-      </div>
-      <div class="watch-shot">
-        <div class="watch-frame"><div class="screen" style="background-image:url('images/j4afJz.png')"></div></div>
-        <span class="shot-caption" data-i18n="watch2_caption">Σύνοψη αγώνα</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="features">
-  <div class="wrap">
-    <div class="section-header">
-      <span class="eyebrow" data-i18n="features_eyebrow">Τι να περιμένεις</span>
-      <h2 data-i18n="features_heading">Ένας νέος τρόπος να παίζεις padel</h2>
-      <p data-i18n="features_sub">Μια πρώτη ματιά στα εργαλεία που θα αλλάξουν τον τρόπο που παρακολουθείς το παιχνίδι σου.</p>
-    </div>
-
-    <div class="feature-cards">
-      <div class="feature-card">
-        <div class="icon-tile" style="background:rgba(0,255,163,0.12)">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00ffa3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 3 7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/></svg>
+    <div
+      data-pencil-name="Landing Page v2 · Sport Energy"
+      class="box-border w-[1440px] h-fit flex flex-col gap-0 justify-start items-start bg-[#080420] overflow-hidden"
+    >
+      <div
+        data-pencil-name="Section/Hero"
+        class="box-border w-full h-[920px] shrink-0 overflow-hidden relative"
+      >
+        <div
+          data-pencil-name="Hero Photo"
+          class="box-border w-[1440px] h-[920px] absolute left-0 top-0 bg-[url('images/generated-1784580996177.jpg')] bg-no-repeat bg-cover bg-center [z-index:0]"
+        ></div>
+        <div
+          data-pencil-name="Overlay"
+          class="box-border w-[1440px] h-[920px] absolute left-0 top-0 [background-image:linear-gradient(-90deg,_#080420F2_0%,_#080420A6_50%,_#08042066_100%)] bg-no-repeat bg-[length:100%_100%] [z-index:1]"
+        ></div>
+        <div
+          data-pencil-name="Overlay Bottom"
+          class="box-border w-[1440px] h-[360px] absolute left-0 top-[560px] [background-image:linear-gradient(-90deg,_#08042000_0%,_#080420_100%)] bg-no-repeat bg-[length:100%_100%] [z-index:2]"
+        ></div>
+        <div
+          data-pencil-name="Nav"
+          class="box-border w-[1440px] h-[84px] absolute left-0 top-0 flex flex-row gap-0 p-[0px_100px] justify-between items-center [z-index:3]"
+        >
+          <div
+            data-pencil-name="Logo"
+            class="box-border w-fit shrink-0 h-fit flex flex-row gap-[10px] justify-start items-center"
+          >
+            <div
+              data-pencil-name="Emblem"
+              class="box-border w-[34px] shrink-0 h-[34px] [box-shadow:0px_0px_14px_0px_#F5FF0055] flex flex-col gap-0 justify-center items-center bg-[#F5FF00] rounded-[10px]"
+            >
+              <div
+                data-pencil-name="Mark"
+                class="box-border w-[16px] h-[19px] shrink-0 bg-[#f1ff2900] relative"
+              >
+                <svg
+                  data-pencil-name="P Shape"
+                  viewBox="0 0 85.42 98.91"
+                  preserveAspectRatio="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="box-border w-[21px] h-[24px] absolute left-[-2.5px] top-[-2.5px] overflow-visible [z-index:0]"
+                >
+                  <path
+                    d="M39.16406 0.03331c-1.797 0-6.418-0.076-8.045 0.12-9.215 0.905-17.304 4.46-23.274 11.729-3.27644 3.95929-5.61846 8.60608-6.852 13.595-1.346 5.678-0.937 37.973-0.927 44.01l16.334 0c-0.012-4.98 0.028-29.936 0.129-34.914 0.11-5.444 1.126-9.62 5.053-13.593 5.515-5.581 12.5-5.052 19.724-4.934 3.474 0.069 7.301-0.048 10.807-0.052 10.64-0.012 17.637 8.913 17.168 19.171-0.248 5.444-1.398 10.106-5.523 14.04999-3.434 3.231-6.824 4.8-11.489 5.29201-10.672-0.009-21.215-1.472-24.895 11.76599-1.098 3.953-0.629 10.63-0.61 14.837l0 14.52 0.03 3.28199c5.342-0.737 8.887-2.356 12.223-6.69 4.67-6.069 3.283-11.155 3.864-18.055 0.104-1.237 0.72-3.366 3.194-3.52 11.021 0.305 19.228-0.891 27.675-8.87599 7.2083-6.83454 11.40161-16.25591 11.655-26.18599 0.24-9.81-2.6-18.444-9.466-25.607-5.94946-6.28607-14.20413-9.87553-22.859-9.94-4.557-0.082-9.348-0.007-13.916-0.006"
+                    fill="#1A1046"
+                  ></path>
+                </svg>
+                <svg
+                  data-pencil-name="Dot Grid"
+                  viewBox="0 0 32 20"
+                  preserveAspectRatio="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="box-border w-[8px] h-[5px] absolute left-[4px] top-[4px] overflow-visible [z-index:1]"
+                >
+                  <path
+                    d="M3.14948 0.09174c1.40626-0.3063 2.86866 0.16649 3.82946 1.23805 0.9608 1.07157 1.27185 2.57669 0.81452 3.94133-0.45732 1.36464-1.6125 2.37839-3.02498 2.65461-2.15173 0.4208-4.2412-0.96897-4.68493-3.11609-0.44373-2.14712 0.92367-4.2513 3.06593-4.7179m12.00001 0c1.40626-0.3063 2.86866 0.16649 3.82945 1.23805 0.9608 1.07157 1.27185 2.57669 0.81452 3.94133-0.45732 1.36464-1.6125 2.37839-3.02498 2.65461-2.15173 0.4208-4.2412-0.96897-4.68493-3.11609-0.44373-2.14712 0.92367-4.2513 3.06593-4.7179m12 0c1.40626-0.3063 2.86866 0.16649 3.82946 1.23805 0.9608 1.07157 1.27185 2.57669 0.81452 3.94133-0.45732 1.36464-1.6125 2.37839-3.02498 2.65461-2.15173 0.4208-4.2412-0.96897-4.68493-3.11609-0.44373-2.14712 0.92367-4.2513 3.06593-4.7179m-24 12c1.40626-0.3063 2.86866 0.16649 3.82946 1.23805 0.9608 1.07157 1.27185 2.57668 0.81452 3.94133-0.45732 1.36464-1.6125 2.37839-3.02498 2.65461-2.15173 0.4208-4.2412-0.96897-4.68493-3.11608-0.44373-2.14712 0.92367-4.2513 3.06593-4.71792m12.00001 0c1.40626-0.3063 2.86866 0.16649 3.82945 1.23806 0.9608 1.07157 1.27185 2.57668 0.81452 3.94133-0.45732 1.36464-1.6125 2.37839-3.02498 2.65461-2.15173 0.4208-4.2412-0.96897-4.68493-3.11608-0.44373-2.14712 0.92367-4.2513 3.06593-4.71792m12 0c1.40626-0.3063 2.86866 0.16649 3.82946 1.23806 0.9608 1.07157 1.27185 2.57668 0.81452 3.94133-0.45732 1.36464-1.6125 2.37839-3.02498 2.65461-2.15173 0.4208-4.2412-0.96897-4.68493-3.11608-0.44373-2.14712 0.92367-4.2513 3.06593-4.71792"
+                    fill="#1A1046"
+                  ></path>
+                </svg>
+              </div>
+            </div>
+            <div
+              data-pencil-name="Word"
+              class="text-[22px]/[normal] box-border text-[#FFFFFF] font-[Nunito,system-ui,sans-serif] font-extrabold text-left [white-space:nowrap]"
+            >
+              Padlboard
+            </div>
+          </div>
+          <div
+            data-pencil-name="NavRight"
+            class="box-border w-fit shrink-0 h-fit flex flex-row gap-[32px] justify-start items-center"
+          >
+            <div
+              data-pencil-name="Links"
+              class="box-border w-fit shrink-0 h-fit flex flex-row gap-[28px] justify-start items-center"
+            >
+              <div
+                data-pencil-name="Games"
+                class="text-[15px]/[normal] box-border text-[#FFFFFF] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
+              >
+                Games
+              </div>
+              <div
+                data-pencil-name="Coaches"
+                class="text-[15px]/[normal] box-border text-[#FFFFFF] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
+              >
+                Coaches
+              </div>
+              <div
+                data-pencil-name="Courts"
+                class="text-[15px]/[normal] box-border text-[#FFFFFF] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
+              >
+                Courts
+              </div>
+              <div
+                data-pencil-name="Scoring"
+                class="text-[15px]/[normal] box-border text-[#FFFFFF] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
+              >
+                Scoring
+              </div>
+            </div>
+            <div
+              data-pencil-name="Download"
+              class="box-border w-fit shrink-0 h-fit flex flex-row gap-[8px] p-[11px_20px] justify-start items-center bg-[#F5FF00] rounded-[12px]"
+            >
+              <svg
+                data-pencil-name="I"
+                data-icon-name="apple"
+                data-icon-set="lucide"
+                viewBox="0 0 13.99993896484375 14"
+                preserveAspectRatio="xMidYMid meet"
+                xmlns="http://www.w3.org/2000/svg"
+                class="box-border w-[16px] shrink-0 h-[16px]"
+              >
+                <path
+                  d="M7.44775 0.60156q-0.39307 0.02734-0.70068 0.33496-0.14014 0.15381-0.2085 0.28028-0.08545 0.1709-0.09912 0.31103-0.01367 0.13672-0.01367 0.61524 0 0.57422-0.01367 0.57422-0.01367 0-0.2085-0.08545-0.71436-0.29395-1.52099-0.29395-0.80322 0-1.50391 0.28027-0.16748 0.06836-0.3999 0.18799-0.23242 0.11963-0.36914 0.20508-0.68701 0.46143-1.15869 1.17578-0.46826 0.71436-0.6084 1.53809-0.06836 0.40674-0.05469 0.99463 0.01367 0.58789 0.11279 1.18945 0.28027 1.75 1.17578 3.2915 0.18115 0.29394 0.44776 0.66651 0.2666 0.36914 0.51611 0.66308 0.19824 0.23926 0.37256 0.3794 0.17432 0.13672 0.41357 0.26318 0.48877 0.23926 1.04932 0.23926 0.30762 0 0.53662-0.05469 0.23242-0.05811 0.61182-0.23926 0.32129-0.15381 0.58105-0.21533 0.25977-0.06494 0.59473-0.06494 0.33496 0 0.59473 0.06494 0.25977 0.06152 0.58105 0.21533 0.36572 0.16748 0.60156 0.23243 0.23926 0.06152 0.54688 0.06152 0.86816 0 1.53808-0.56055 0.22559-0.19482 0.60499-0.68701 1.46973-1.90381 1.8457-4.29639 0.08545-0.56055 0.09912-1.15527 0.01367-0.59473-0.05469-0.98779-0.14014-0.85449-0.63232-1.58252-0.48877-0.72803-1.2168-1.17578-0.25293-0.16748-0.58105-0.30762-0.32813-0.14014-0.6084-0.2085-0.58789-0.15381-1.26123-0.10595-0.67334 0.04785-1.26123 0.28711-0.19482 0.08545-0.2085 0.08545-0.01367 0-0.01367-0.47852l0-0.48877 0.08545 0q0.12305-0.01367 0.25635-0.10254 0.1333-0.09229 0.1914-0.20508 0.02734-0.07178 0.04102-0.18115 0.04102-0.18457-0.05127-0.36572-0.08887-0.18115-0.25635-0.24951-0.16748-0.07178-0.39307-0.04444z m-2.43701 2.92578q0.43408 0.05811 0.80322 0.21192 0.37256 0.15381 0.72461 0.44775 0.15381 0.12646 0.23584 0.16065 0.08545 0.03418 0.22559 0.03418 0.14014 0 0.22217-0.03418 0.08545-0.03418 0.23926-0.16065 0.51953-0.42041 1.12793-0.58789 0.6084-0.16748 1.2373-0.0581 0.58789 0.09912 1.09033 0.42724 0.50586 0.32813 0.83057 0.82031 0.27685 0.43408 0.39648 0.875 0.11963 0.44092 0.10596 1.01514-0.04102 0.89551-0.23242 1.69531-0.18799 0.79639-0.56397 1.60645-0.25293 0.51953-0.65966 1.11426-0.40674 0.59473-0.70069 0.875-0.19482 0.16748-0.48193 0.23925-0.28711 0.06836-0.55371 0.01368-0.12646-0.04101-0.42041-0.17432-0.29395-0.1333-0.54004-0.2085-0.24268-0.07861-0.5503-0.13671-0.15381-0.02734-0.54687-0.02735-0.39307 0-0.54688 0.02735-0.30762 0.0581-0.55371 0.13671-0.24268 0.0752-0.53662 0.2085-0.29395 0.1333-0.42041 0.17432-0.2666 0.05469-0.55371-0.01368-0.28711-0.07178-0.48535-0.25293-0.19482-0.18115-0.4751-0.55029-0.27686-0.37256-0.51611-0.76562-0.12646-0.2085-0.30078-0.56397-0.17432-0.35889-0.28711-0.62549-0.2666-0.68701-0.40674-1.35693-0.14014-0.67334-0.16748-1.44238-0.01367-0.46484 0.05469-0.82032 0.07178-0.35547 0.25293-0.69384 0.42041-0.85449 1.2373-1.28858 0.82031-0.43408 1.71582-0.32129z"
+                  fill="#080420"
+                ></path>
+              </svg>
+              <div
+                data-pencil-name="T"
+                class="text-[15px]/[normal] box-border text-[#080420] font-[Inter,system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
+              >
+                Download
+              </div>
+            </div>
+          </div>
         </div>
-        <h3 data-i18n="card1_title">Σκοράρισμα με ένα tap</h3>
-        <p data-i18n="card1_body">Ένα tap ανά πόντο, τα υπόλοιπα τα αναλαμβάνουμε εμείς.</p>
-      </div>
-      <div class="feature-card">
-        <div class="icon-tile" style="background:rgba(155,92,255,0.14)">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9b5cff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="5" width="10" height="16" rx="3"/><path d="M12 17.5h.01"/><path d="M10 2h4"/></svg>
+        <div
+          data-pencil-name="Hero Content"
+          class="box-border w-[840px] h-fit absolute left-[100px] top-[200px] flex flex-col gap-[28px] justify-start items-start [z-index:4]"
+        >
+          <div
+            data-pencil-name="Eyebrow"
+            class="box-border w-fit h-fit shrink-0 flex flex-row gap-[10px] p-[9px_16px] justify-start items-center bg-[#FFFFFF14] [border:1px_solid_#FFFFFF2E] rounded-[40px]"
+          >
+            <div
+              data-pencil-name="Dot"
+              class="box-border w-[8px] shrink-0 h-[8px] bg-[#00FFA3] rounded-full"
+            ></div>
+            <div
+              data-pencil-name="T"
+              class="text-[13px]/[normal] box-border text-[#FFFFFF] font-[Inter,system-ui,sans-serif] font-extrabold tracking-[2px] text-left [white-space:nowrap]"
+            >
+              GAMES · COACHES · COURTS · SCORES
+            </div>
+          </div>
+          <div
+            data-pencil-name="Headline"
+            class="box-border w-full h-fit shrink-0 flex flex-col gap-0 justify-start items-start"
+          >
+            <div
+              data-pencil-name="L1"
+              class="text-[104px]/[96px] box-border w-full text-[#FFFFFF] font-[Nunito,system-ui,sans-serif] font-extrabold tracking-[-2px] text-left"
+            >
+              EVERYTHING PADEL.
+            </div>
+            <div
+              data-pencil-name="L2"
+              class="text-[104px]/[96px] box-border w-full text-[#00FFA3] font-[Nunito,system-ui,sans-serif] font-extrabold tracking-[-2px] text-left"
+            >
+              ONE APP.
+            </div>
+          </div>
+          <div
+            data-pencil-name="Sub"
+            class="text-[20px]/[27px] box-border w-[560px] text-[#A69FD1] font-[Inter,system-ui,sans-serif] font-medium text-left"
+          >
+            Find open games near you, book top coaches, reserve courts, and track every match on
+            your Apple Watch. The whole padel world — in one app.
+          </div>
+          <div
+            data-pencil-name="CTAs"
+            class="box-border w-fit h-fit shrink-0 flex flex-row gap-[14px] p-[8px_0px_0px_0px] justify-start items-center"
+          >
+            <div
+              data-pencil-name="AppStore"
+              class="box-border w-fit shrink-0 h-[50px] [box-shadow:0px_0px_30px_0px_#F5FF0066] flex flex-row gap-[10px] p-[16px_28px] justify-start items-center bg-[#F5FF00] rounded-[12px]"
+            >
+              <div
+                data-pencil-name="C"
+                class="box-border w-fit shrink-0 h-fit flex flex-col gap-0 justify-start items-start"
+              >
+                <div
+                  data-pencil-name="S"
+                  class="text-[11px]/[normal] box-border text-[#080420] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
+                >
+                  Download on the
+                </div>
+                <div
+                  data-pencil-name="B"
+                  class="text-[20px]/[normal] box-border text-[#080420] font-[Nunito,system-ui,sans-serif] font-extrabold text-left [white-space:nowrap]"
+                >
+                  App Store
+                </div>
+              </div>
+            </div>
+            <div
+              data-pencil-name="Explore"
+              class="box-border w-fit shrink-0 h-fit flex flex-row gap-[9px] p-[16px_24px] justify-start items-center bg-[#FFFFFF12] [border:1.5px_solid_#FFFFFF33] rounded-[12px]"
+            >
+              <svg
+                data-pencil-name="I"
+                data-icon-name="compass"
+                data-icon-set="lucide"
+                viewBox="0 0 13.99993896484375 14"
+                preserveAspectRatio="xMidYMid meet"
+                xmlns="http://www.w3.org/2000/svg"
+                class="box-border w-[18px] shrink-0 h-[18px]"
+              >
+                <path
+                  d="M6.69238 0.60156q-1.16211 0.04102-2.22851 0.50586-1.06299 0.46143-1.90381 1.26807-0.8374 0.80322-1.34326 1.85254-0.48877 1.0083-0.60157 2.15674-0.02734 0.19482-0.02734 0.61523 0 0.42041 0.02734 0.61523 0.11279 1.14844 0.60157 2.15674 0.65967 1.40137 1.89697 2.33789 1.24072 0.93652 2.75146 1.20313 0.5332 0.09912 1.13477 0.09912 0.75537 0 1.43213-0.15381 0.68018-0.15381 1.35351-0.4751 1.26123-0.61865 2.16358-1.70215 0.90234-1.0835 1.25439-2.44384 0.29395-1.11768 0.18116-2.25244-0.11279-1.13477-0.60157-2.17041-0.58789-1.20313-1.62011-2.08497-1.02881-0.88184-2.31397-1.2749-1.0083-0.30762-2.15674-0.25293z m0.96729 1.18946q1.07666 0.14014 1.99267 0.68017 0.91602 0.54004 1.56201 1.4082 0.82715 1.104 1.00831 2.54639 0.01367 0.16748 0.01367 0.57422 0 0.40674-0.01367 0.57422-0.14014 1.16211-0.7212 2.12939-0.58105 0.96387-1.53466 1.62354-0.4751 0.33496-1.04932 0.56055-0.57422 0.22217-1.18945 0.30761-0.25293 0.04102-0.72803 0.04102-0.4751 0-0.72803-0.04102-1.07666-0.15381-1.95849-0.68701-0.88184-0.5332-1.52784-1.3877-0.82715-1.104-1.0083-2.54638-0.01367-0.16748-0.01367-0.57422 0-0.40674 0.01367-0.57422 0.14014-1.12109 0.66993-2.05078 0.5332-0.92969 1.43212-1.58936 0.54346-0.40674 1.20655-0.66992 0.6665-0.2666 1.32617-0.3247l0.25293-0.02735q0.0957-0.01367 0.4751 0 0.37939 0.01367 0.51953 0.02735z m1.67822 2.17041q-0.14014 0.02734-1.70898 0.56054-1.56543 0.5332-1.6919 0.58789-0.5332 0.25293-0.7998 0.75537-0.05469 0.11279-0.15381 0.40674l-0.51611 1.51074q-0.35205 1.05273-0.4375 1.33301-0.08203 0.27686-0.08204 0.34864 0 0.25293 0.16748 0.42041 0.16748 0.16748 0.40674 0.16748 0.08545 0 0.3418-0.0752 0.25977-0.07861 1.42187-0.47168 1.62354-0.54688 1.79102-0.61523 0.54688-0.2666 0.81348-0.81348 0.06836-0.15381 0.61523-1.79102 0.36572-1.09033 0.45459-1.38427 0.09229-0.29395 0.09229-0.36573 0-0.16748-0.08545-0.30761-0.08203-0.14014-0.23584-0.22559-0.19824-0.08203-0.39307-0.04101z m-0.79639 1.51416q0 0.04102-0.35205 1.06982-0.34863 1.02881-0.39306 1.0835-0.04102 0.08545-0.11963 0.14355-0.0752 0.05469-0.32813 0.13672l-0.82373 0.28027q-1.04932 0.35205-1.05957 0.34522-0.00684-0.01025 0.32813-1.02197 0.33838-1.01514 0.37939-1.08692 0.07178-0.16748 0.21192-0.23926 0.05469-0.02734 1.06982-0.37597 1.01514-0.35205 1.04932-0.35205 0.0376 0 0.03759 0.01709z"
+                  fill="#FFFFFF"
+                ></path>
+              </svg>
+              <div
+                data-pencil-name="T"
+                class="text-[15px]/[normal] box-border text-[#FFFFFF] font-[Inter,system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
+              >
+                Explore the app
+              </div>
+            </div>
+          </div>
         </div>
-        <h3 data-i18n="card2_title">Σκόραρε από τον καρπό σου</h3>
-        <p data-i18n="card2_body">Πλήρες live σκοράρισμα στο Apple Watch.</p>
       </div>
-      <div class="feature-card">
-        <div class="icon-tile" style="background:rgba(245,255,0,0.12)">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f5ff00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+      <div
+        data-pencil-name="Section/Find Games"
+        class="box-border w-full h-[660px] shrink-0 bg-[#080420] overflow-hidden relative"
+      >
+        <div
+          data-pencil-name="Photo"
+          class="box-border w-[760px] h-[660px] absolute left-[680px] top-0 bg-[url('images/generated-1784581114483.jpg')] bg-no-repeat bg-cover bg-center [z-index:0]"
+        ></div>
+        <div
+          data-pencil-name="Overlay"
+          class="box-border w-[520px] h-[660px] absolute left-[480px] top-0 [background-image:linear-gradient(0deg,_#080420_0%,_#08042000_100%)] bg-no-repeat bg-[length:100%_100%] [z-index:1]"
+        ></div>
+        <div
+          data-pencil-name="Copy"
+          class="box-border w-[560px] h-fit absolute left-[100px] top-[110px] flex flex-col gap-[24px] justify-start items-start [z-index:2]"
+        >
+          <div
+            data-pencil-name="Eyebrow"
+            class="box-border w-fit h-fit shrink-0 flex flex-row gap-[10px] justify-start items-center"
+          >
+            <svg
+              data-pencil-name="I"
+              data-icon-name="users"
+              data-icon-set="lucide"
+              viewBox="0 0 13.99993896484375 14"
+              preserveAspectRatio="xMidYMid meet"
+              xmlns="http://www.w3.org/2000/svg"
+              class="box-border w-[18px] shrink-0 h-[18px]"
+            >
+              <path
+                d="M4.84326 1.20313q-0.81006 0.11279-1.42871 0.61865-0.61523 0.50244-0.89551 1.24414-0.18115 0.48877-0.18115 1.02197 0 0.28027 0.04102 0.50586 0.04443 0.22217 0.14013 0.48877 0.15381 0.46143 0.46826 0.84766 0.31787 0.38281 0.7212 0.63574 0.36572 0.22559 0.73486 0.32471 0.37256 0.0957 0.80664 0.0957 0.22559 0 0.3623-0.01367 0.14014-0.01367 0.35206-0.05811 0.60156-0.15381 1.104-0.55713 0.50586-0.40674 0.7998-0.98096 0.19482-0.39307 0.26661-0.88183 0.02734-0.14014 0.02734-0.40674 0-0.2666-0.02734-0.40674-0.09912-0.65625-0.46485-1.20312-0.3623-0.54688-0.93652-0.89551-0.43408-0.2666-0.98096-0.36572-0.15381-0.02734-0.45459-0.03418-0.30078-0.00684-0.45459 0.02051z m4.34082 0.0581q-0.14014 0.04102-0.25293 0.14014-0.11279 0.0957-0.15381 0.2666-0.04102 0.16748 0 0.32129 0.04102 0.15381 0.15381 0.25293 0.11279 0.0957 0.33838 0.18115 0.24951 0.08203 0.40332 0.17432 0.15381 0.08887 0.30762 0.25976 0.33838 0.33496 0.45459 0.76904 0.11963 0.43408 0.01367 0.86817-0.10254 0.43408-0.41699 0.76904-0.31445 0.33496-0.7793 0.48877-0.19482 0.07178-0.28711 0.14356-0.08887 0.06836-0.16064 0.20849-0.05469 0.09912-0.05469 0.23926 0 0.13672 0.05469 0.23584 0.08545 0.19482 0.28027 0.29395 0.12646 0.05811 0.25293 0.05126 0.12646-0.01025 0.33496-0.07861 0.35205-0.11279 0.6084-0.27344 0.25977-0.16064 0.5127-0.42724 0.78271-0.78271 0.85449-1.84912 0.09912-1.18945-0.70069-2.12598-0.48877-0.58789-1.2749-0.85449-0.33496-0.11279-0.48877-0.05469z m-3.73926 1.09033q0.40674 0.02734 0.78272 0.28711 0.37939 0.25977 0.58105 0.65967 0.20508 0.39648 0.18457 0.88184-0.02051 0.48193-0.28711 0.86132-0.15381 0.23584-0.37939 0.41358-0.22217 0.17432-0.46143 0.27002-0.19482 0.05811-0.2871 0.07861-0.08887 0.02051-0.32813 0.02051-0.23926 0-0.33154-0.02051-0.08887-0.02051-0.28369-0.07861-0.39307-0.14014-0.68018-0.46826-0.28711-0.32813-0.3999-0.73487-0.10938-0.46143 0.01367-0.90918 0.12646-0.44775 0.45459-0.76904 0.33154-0.32471 0.79297-0.45117 0.08545-0.02734 0.24609-0.04785 0.16064-0.02051 0.21533-0.00684l0.16748 0.01367z m-2.35156 5.85156q-0.96387 0.14014-1.65088 0.82715-0.54687 0.54688-0.75537 1.31592-0.07178 0.23926-0.08545 0.44092-0.01367 0.20166-0.01367 0.82031l0 0.76904 0.04102 0.1128q0.05811 0.0957 0.14013 0.18115 0.21191 0.19482 0.50586 0.14697 0.29395-0.04785 0.42041-0.31445l0.04102-0.09912 0.01367-0.79639q0.01367-0.61865 0.02734-0.77246 0.01367-0.15381 0.07178-0.34863 0.14014-0.37939 0.46826-0.68018 0.32813-0.30078 0.73487-0.41357 0.15381-0.04102 0.53662-0.05469 0.38623-0.01367 1.66113-0.01367 1.2749 0 1.65771 0.01367 0.38623 0.01367 0.54004 0.05469 0.42041 0.11279 0.75538 0.43066 0.33838 0.31445 0.46142 0.71778 0.05811 0.16748 0.06494 0.3247 0.00684 0.15381 0.02051 0.7417l0.01367 0.79639 0.04102 0.09912q0.12646 0.2666 0.42041 0.31445 0.29395 0.04785 0.50586-0.14697 0.08203-0.08545 0.14013-0.18115l0.04102-0.1128 0-0.76904q0-0.61865-0.01367-0.82031-0.01367-0.20166-0.08545-0.44092-0.08203-0.32129-0.23584-0.61523-0.2666-0.51953-0.73828-0.90235-0.46826-0.38623-1.02539-0.54004l-0.04444-0.01367q-0.16748-0.05811-0.29394-0.07178-0.15381-0.01367-0.56055-0.01367l-1.60986-0.01367q-2.05762 0-2.21143 0.02734z m7.85449 0.05811q-0.23926 0.05469-0.36572 0.27344-0.12305 0.21533-0.05469 0.45459 0.05811 0.19482 0.21192 0.30761 0.06836 0.04102 0.28027 0.12647 0.24951 0.08203 0.40332 0.17432 0.15381 0.08887 0.32471 0.27343 0.33496 0.34863 0.44775 0.78272 0.02734 0.11279 0.03418 0.24609 0.00684 0.1333 0.02051 0.70752l0.01367 0.79639 0.04102 0.09912q0.12646 0.2666 0.42041 0.31445 0.29395 0.04785 0.50586-0.14697 0.08203-0.08545 0.14013-0.18115l0.04102-0.1128 0.01367-0.64599q0-0.64258-0.02734-0.95703-0.02734-0.31445-0.12647-0.59473-0.14014-0.42041-0.42724-0.81006-0.28711-0.39307-0.64942-0.65967-0.31103-0.22559-0.69726-0.35888-0.38281-0.1333-0.5503-0.08887z"
+                fill="#00FFA3"
+              ></path>
+            </svg>
+            <div
+              data-pencil-name="T"
+              class="text-[13px]/[normal] box-border text-[#00FFA3] font-[Inter,system-ui,sans-serif] font-extrabold tracking-[2px] text-left [white-space:nowrap]"
+            >
+              OPEN MATCHES
+            </div>
+          </div>
+          <div
+            data-pencil-name="H"
+            class="box-border w-full h-fit shrink-0 flex flex-col gap-0 justify-start items-start"
+          >
+            <div
+              data-pencil-name="L1"
+              class="text-[76px]/[72px] box-border w-full text-[#FFFFFF] font-[Nunito,system-ui,sans-serif] font-extrabold tracking-[-1px] text-left"
+            >
+              NEVER SIT
+            </div>
+            <div
+              data-pencil-name="L2"
+              class="text-[76px]/[72px] box-border w-full text-[#00FFA3] font-[Nunito,system-ui,sans-serif] font-extrabold tracking-[-1px] text-left"
+            >
+              ON THE BENCH.
+            </div>
+          </div>
+          <div
+            data-pencil-name="Sub"
+            class="text-[20px]/[27px] box-border w-[480px] text-[#A69FD1] font-[Inter,system-ui,sans-serif] font-medium text-left"
+          >
+            Short a player? Post an open match. Free tonight? Jump into a game near you that needs a
+            fourth. Real players, real courts, matched by level.
+          </div>
+          <div
+            data-pencil-name="Btn"
+            class="box-border w-fit h-fit shrink-0 flex flex-row gap-[8px] p-[14px_24px] justify-start items-center bg-[#F5FF00] rounded-[12px]"
+          >
+            <div
+              data-pencil-name="T"
+              class="text-[15px]/[normal] box-border text-[#080420] font-[Inter,system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
+            >
+              Browse open games
+            </div>
+            <svg
+              data-pencil-name="I"
+              data-icon-name="arrow-right"
+              data-icon-set="lucide"
+              viewBox="0 0 13.99993896484375 14"
+              preserveAspectRatio="xMidYMid meet"
+              xmlns="http://www.w3.org/2000/svg"
+              class="box-border w-[17px] shrink-0 h-[17px]"
+            >
+              <path
+                d="M6.90088 2.35156q-0.18115 0.02734-0.32129 0.16748-0.11279 0.11279-0.14697 0.28028-0.03418 0.16748 0.02051 0.32129 0.02734 0.08545 0.25976 0.3247 0.23242 0.23584 1.36377 1.37061 1.58252 1.58252 1.58252 1.59619 0 0.01367-3.45557 0.01367l-3.44531 0-0.08545 0.04102q-0.22217 0.11279-0.30078 0.33838-0.0752 0.22217 0.00684 0.43408 0.05811 0.0957 0.14013 0.18115 0.08545 0.08203 0.16748 0.11963 0.08545 0.03418 0.53321 0.03418l3.01123 0q3.42822 0 3.42822 0.01367 0 0.01367-1.58252 1.59619-1.13135 1.13477-1.36377 1.37402-0.23242 0.23584-0.25976 0.3213-0.05469 0.15381-0.02051 0.32128 0.03418 0.16748 0.14697 0.28028 0.18115 0.18115 0.42041 0.18115l0.04102 0q0.11279 0 0.19824-0.05469 0.14014-0.09912 0.51611-0.46484l1.68164-1.67822q2.1123-2.10205 2.15332-2.18409 0.07178-0.12646 0.07178-0.28027 0-0.15381-0.07178-0.28027-0.04102-0.08203-2.1499-2.18067-2.10547-2.10205-2.17725-2.13623-0.06836-0.0376-0.23584-0.06494-0.04102 0-0.12646 0.01367z"
+                fill="#080420"
+              ></path>
+            </svg>
+          </div>
         </div>
-        <h3 data-i18n="card3_title">Αναλυτικά στατιστικά αγώνα</h3>
-        <p data-i18n="card3_body">Ποσοστό σερβίς, χάρτες χτυπημάτων, βαθμολογία απόδοσης.</p>
+        <div
+          data-pencil-name="Open Match Card"
+          class="box-border w-[380px] h-fit [box-shadow:0px_20px_50px_0px_#00000099] absolute left-[820px] top-[230px] flex flex-col gap-[16px] p-[20px] justify-start items-start bg-[#120A33F2] [border:1px_solid_#2A1F5C] rounded-[28px] [z-index:3]"
+        >
+          <div
+            data-pencil-name="Top"
+            class="box-border w-full h-fit shrink-0 flex flex-row gap-0 justify-between items-center"
+          >
+            <div
+              data-pencil-name="Badge"
+              class="box-border w-fit shrink-0 h-fit flex flex-row gap-[7px] p-[6px_11px] justify-start items-center bg-[#00FFA31F] rounded-[40px]"
+            >
+              <div
+                data-pencil-name="D"
+                class="box-border w-[7px] shrink-0 h-[7px] bg-[#00FFA3] rounded-full"
+              ></div>
+              <div
+                data-pencil-name="T"
+                class="text-[11px]/[normal] box-border text-[#00FFA3] font-[Inter,system-ui,sans-serif] font-extrabold tracking-[1px] text-left [white-space:nowrap]"
+              >
+                1 SPOT LEFT
+              </div>
+            </div>
+            <div
+              data-pencil-name="Time"
+              class="text-[13px]/[normal] box-border text-[#A69FD1] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
+            >
+              Today · 19:30
+            </div>
+          </div>
+          <div
+            data-pencil-name="Court"
+            class="text-[20px]/[normal] box-border text-[#FFFFFF] font-[Nunito,system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
+          >
+            Padel Club Athens · Marousi
+          </div>
+          <div
+            data-pencil-name="Players"
+            class="box-border w-fit h-fit shrink-0 flex flex-row gap-[10px] justify-start items-center"
+          >
+            <div
+              data-pencil-name="Avatars"
+              class="box-border w-fit shrink-0 h-fit flex flex-row gap-[-10px] justify-start items-center"
+            >
+              <div
+                data-pencil-name="P0"
+                class="box-border w-[34px] shrink-0 h-[34px] [background-image:linear-gradient(-135deg,_#00FFA3_14.645%,_#6A00FF_85.355%)] bg-no-repeat bg-[length:100%_100%] [border:2px_solid_#120A33] rounded-full"
+              ></div>
+              <div
+                data-pencil-name="P1"
+                class="box-border w-[34px] shrink-0 h-[34px] [background-image:linear-gradient(-135deg,_#6A00FF_14.645%,_#9B5CFF_85.355%)] bg-no-repeat bg-[length:100%_100%] [border:2px_solid_#120A33] rounded-full"
+              ></div>
+              <div
+                data-pencil-name="P2"
+                class="box-border w-[34px] shrink-0 h-[34px] [background-image:linear-gradient(-135deg,_#9B5CFF_14.645%,_#F5FF00_85.355%)] bg-no-repeat bg-[length:100%_100%] [border:2px_solid_#120A33] rounded-full"
+              ></div>
+              <div
+                data-pencil-name="Open"
+                class="box-border w-[34px] shrink-0 h-[34px] flex flex-row gap-0 justify-center items-center bg-[#000000] [border:1.5px_solid_#00FFA3] rounded-[17px]"
+              >
+                <svg
+                  data-pencil-name="I"
+                  data-icon-name="plus"
+                  data-icon-set="lucide"
+                  viewBox="0 0 13.99993896484375 14"
+                  preserveAspectRatio="xMidYMid meet"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="box-border w-[16px] shrink-0 h-[16px]"
+                >
+                  <path
+                    d="M6.90088 2.35156q-0.0957 0.01367-0.17432 0.05127-0.0752 0.03418-0.15381 0.12647-0.0752 0.08887-0.11279 0.16748-0.03418 0.0752-0.03418 0.32812l0 3.40088-3.66748 0-0.08545 0.04102q-0.22217 0.11279-0.30078 0.33838-0.0752 0.22217 0.00684 0.43408 0.05811 0.0957 0.14013 0.18115 0.08545 0.08203 0.16748 0.11963 0.08545 0.03418 0.33838 0.03418l3.40088 0 0 3.40088q0 0.25293 0.03418 0.33838 0.0376 0.08203 0.11963 0.16748 0.08545 0.08203 0.18799 0.1333 0.10596 0.04785 0.23242 0.04785 0.12646 0 0.229-0.04785 0.10596-0.05127 0.18799-0.1333 0.08545-0.08545 0.11963-0.16748 0.0376-0.08545 0.0376-0.33838l0-3.40088 3.40088 0q0.25293 0 0.33496-0.03418 0.08545-0.0376 0.16748-0.11963 0.08545-0.08545 0.1333-0.18799 0.05127-0.10596 0.05127-0.23242 0-0.12646-0.04102-0.23926-0.09912-0.19482-0.29394-0.29394l-0.08545-0.04102-3.66748 0 0-3.38721q0-0.2666-0.02734-0.32128-0.07178-0.19824-0.25293-0.30079-0.18115-0.10596-0.39307-0.06494z"
+                    fill="#00FFA3"
+                  ></path>
+                </svg>
+              </div>
+            </div>
+            <div
+              data-pencil-name="Lvl"
+              class="text-[13px]/[normal] box-border text-[#A69FD1] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
+            >
+              Level 3.5 – 4.0
+            </div>
+          </div>
+          <div
+            data-pencil-name="Join"
+            class="box-border w-full h-fit shrink-0 flex flex-row gap-[8px] p-[13px_0px] justify-center items-center bg-[#F5FF00] rounded-[12px]"
+          >
+            <div
+              data-pencil-name="T"
+              class="text-[15px]/[normal] box-border text-[#080420] font-[Inter,system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
+            >
+              Join this match
+            </div>
+            <svg
+              data-pencil-name="I"
+              data-icon-name="arrow-right"
+              data-icon-set="lucide"
+              viewBox="0 0 13.99993896484375 14"
+              preserveAspectRatio="xMidYMid meet"
+              xmlns="http://www.w3.org/2000/svg"
+              class="box-border w-[16px] shrink-0 h-[16px]"
+            >
+              <path
+                d="M6.90088 2.35156q-0.18115 0.02734-0.32129 0.16748-0.11279 0.11279-0.14697 0.28028-0.03418 0.16748 0.02051 0.32129 0.02734 0.08545 0.25976 0.3247 0.23242 0.23584 1.36377 1.37061 1.58252 1.58252 1.58252 1.59619 0 0.01367-3.45557 0.01367l-3.44531 0-0.08545 0.04102q-0.22217 0.11279-0.30078 0.33838-0.0752 0.22217 0.00684 0.43408 0.05811 0.0957 0.14013 0.18115 0.08545 0.08203 0.16748 0.11963 0.08545 0.03418 0.53321 0.03418l3.01123 0q3.42822 0 3.42822 0.01367 0 0.01367-1.58252 1.59619-1.13135 1.13477-1.36377 1.37402-0.23242 0.23584-0.25976 0.3213-0.05469 0.15381-0.02051 0.32128 0.03418 0.16748 0.14697 0.28028 0.18115 0.18115 0.42041 0.18115l0.04102 0q0.11279 0 0.19824-0.05469 0.14014-0.09912 0.51611-0.46484l1.68164-1.67822q2.1123-2.10205 2.15332-2.18409 0.07178-0.12646 0.07178-0.28027 0-0.15381-0.07178-0.28027-0.04102-0.08203-2.1499-2.18067-2.10547-2.10205-2.17725-2.13623-0.06836-0.0376-0.23584-0.06494-0.04102 0-0.12646 0.01367z"
+                fill="#080420"
+              ></path>
+            </svg>
+          </div>
+        </div>
       </div>
-      <div class="feature-card">
-        <div class="icon-tile" style="background:rgba(0,255,163,0.12)">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00ffa3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+      <div
+        data-pencil-name="Section/Coaches"
+        class="box-border w-full h-[680px] shrink-0 bg-[#120A33] overflow-hidden relative"
+      >
+        <div
+          data-pencil-name="Photo"
+          class="box-border w-[700px] h-[680px] absolute left-0 top-0 bg-[url('images/generated-1784581179726.jpg')] bg-no-repeat bg-cover bg-center [z-index:0]"
+        ></div>
+        <div
+          data-pencil-name="Overlay"
+          class="box-border w-[400px] h-[680px] absolute left-[440px] top-0 [background-image:linear-gradient(180deg,_#120A33_0%,_#12073300_100%)] bg-no-repeat bg-[length:100%_100%] [z-index:1]"
+        ></div>
+        <div
+          data-pencil-name="Rating Float"
+          class="box-border w-fit h-fit [box-shadow:0px_0px_24px_0px_#00000080] absolute left-[40px] top-[48px] flex flex-row gap-[8px] p-[10px_14px] justify-start items-center bg-[#080420E6] [border:1px_solid_#2A1F5C] rounded-[40px] [z-index:2]"
+        >
+          <svg
+            data-pencil-name="S"
+            data-icon-name="star"
+            data-icon-set="lucide"
+            viewBox="0 0 13.99993896484375 14"
+            preserveAspectRatio="xMidYMid meet"
+            xmlns="http://www.w3.org/2000/svg"
+            class="box-border w-[15px] shrink-0 h-[15px]"
+          >
+            <path
+              d="M6.87354 0.60156q-0.28027 0.02734-0.50245 0.25293-0.08545 0.08203-0.13672 0.16748-0.04785 0.08545-0.21533 0.43408-0.86816 1.75-1.05615 2.11573-0.18799 0.3623-0.27344 0.44092-0.08203 0.0752-0.17431 0.11279-0.09229 0.03418-1.62012 0.25976-1.52441 0.22217-1.63379 0.24952-0.22559 0.05469-0.40674 0.23584-0.11279 0.11279-0.1709 0.21191-0.05469 0.09912-0.08886 0.25293-0.03418 0.15381 0.00683 0.32812 0.04102 0.17432 0.14014 0.32813 0.04102 0.08545 1.20312 1.20312l0.1128 0.09913q0.62891 0.62891 0.81347 0.79638 0.23584 0.25293 0.29395 0.35205 0.04102 0.08203 0.05469 0.2085l0 0.01367q0 0.09912-0.04102 0.39307-0.04102 0.29395-0.22559 1.28857-0.24951 1.55518-0.24951 1.63721 0 0.35205 0.26319 0.6289 0.19824 0.18457 0.44775 0.23926 0.18457 0.04102 0.36572 0 0.09912-0.02734 0.28028-0.11279l1.66455-0.86817q0.81348-0.43408 0.96728-0.50244 0.15381-0.07178 0.23926-0.07177l0.04102-0.01368q0.14014 0 0.24951 0.04444 0.11279 0.04102 1.37402 0.71435l1.34326 0.69727q0.18115 0.08545 0.28028 0.11279 0.18115 0.04102 0.36572 0 0.26318-0.05469 0.44775-0.23926 0.26318-0.27686 0.26319-0.6289 0-0.0957-0.24952-1.62354-0.18457-0.99463-0.22558-1.28857-0.04102-0.29395-0.04102-0.38965l0-0.03076q0.01367-0.12646 0.05469-0.19483 0.0581-0.11279 0.29395-0.34863 0.16748-0.1709 0.7998-0.78613l0.12647-0.12647q1.14844-1.11768 1.21679-1.21679 0.14014-0.22559 0.14014-0.48194 0-0.25977-0.14014-0.48535-0.08545-0.14014-0.23926-0.24267-0.15381-0.10596-0.32128-0.14698-0.08203-0.01367-1.60987-0.23584-1.52441-0.22559-1.6167-0.25976-0.09229-0.0376-0.17773-0.11279-0.08203-0.07861-0.26318-0.42725-0.18115-0.35205-1.04932-2.11572-0.18115-0.34863-0.23242-0.44092-0.04785-0.09229-0.1333-0.17432-0.22217-0.22559-0.4751-0.25293l-0.12647-0.01367q-0.04102 0-0.1538 0.01367z m0.70068 2.65918q0.57422 1.14844 0.64258 1.26123 0.07178 0.11279 0.25293 0.28711 0.18115 0.17432 0.29394 0.25977 0.25293 0.14014 0.5332 0.20849 0.14014 0.04102 1.35694 0.21875 1.2168 0.17432 1.24756 0.18799 0.01367 0-0.03077 0.04102l-0.29394 0.30761-0.8374 0.81348q-0.70068 0.68701-0.77246 0.78272-0.2085 0.29395-0.32129 0.68701-0.02734 0.11279-0.02735 0.40674l0 0.28027 0.2085 1.23047q0.22559 1.23389 0.21875 1.24072-0.00684 0.00684-0.79297-0.41357l-0.05469-0.02735q-0.96729-0.50586-1.23046-0.64599-0.37939-0.18115-0.56055-0.22217-0.14014-0.04443-0.39307-0.04444l-0.02734 0q-0.25293 0-0.39307 0.04444-0.18115 0.04102-0.56055 0.22217-0.26318 0.14014-1.23046 0.64599l-0.05469 0.02735q-0.78613 0.42041-0.79297 0.41357-0.00684-0.00684 0.21875-1.24072l0.2085-1.23047 0-0.29395q0-0.28027-0.02735-0.39306-0.11279-0.39307-0.32129-0.68701-0.07178-0.0957-0.75879-0.76905l-1.02197-0.99463q-0.16748-0.16748-0.15381-0.18115 0.01367-0.01367 1.24414-0.18799 1.23389-0.17773 1.36035-0.21875 0.36572-0.08203 0.65967-0.3042 0.29395-0.22559 0.48877-0.55029 0.05811-0.10938 0.59473-1.20654 0.54004-1.10059 0.55371-1.10059 0.01367 0 0.57422 1.14502z"
+              fill="#F5FF00"
+            ></path>
+          </svg>
+          <div
+            data-pencil-name="T"
+            class="text-[13px]/[normal] box-border text-[#FFFFFF] font-[Inter,system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
+          >
+            4.9 · 120 reviews
+          </div>
         </div>
-        <h3 data-i18n="card4_title">Κλείσε πραγματικά γήπεδα</h3>
-        <p data-i18n="card4_body">Βρες &amp; κλείσε γήπεδα padel κοντά σου.</p>
+        <div
+          data-pencil-name="Name Float"
+          class="box-border w-fit h-fit absolute left-[40px] top-[560px] flex flex-col gap-[8px] justify-start items-start [z-index:3]"
+        >
+          <div
+            data-pencil-name="Tags"
+            class="box-border w-fit h-fit shrink-0 flex flex-row gap-[8px] justify-start items-start"
+          >
+            <div
+              data-pencil-name="Technique"
+              class="box-border w-fit shrink-0 h-fit flex flex-row gap-0 p-[7px_13px] justify-start items-start bg-[#6A00FFCC] rounded-[40px]"
+            >
+              <div
+                data-pencil-name="T"
+                class="text-[11px]/[normal] box-border text-[#FFFFFF] font-[Inter,system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
+              >
+                Technique
+              </div>
+            </div>
+            <div
+              data-pencil-name="Certified · 8 yrs"
+              class="box-border w-fit shrink-0 h-fit flex flex-row gap-0 p-[7px_13px] justify-start items-start bg-[#6A00FFCC] rounded-[40px]"
+            >
+              <div
+                data-pencil-name="T"
+                class="text-[11px]/[normal] box-border text-[#FFFFFF] font-[Inter,system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
+              >
+                Certified · 8 yrs
+              </div>
+            </div>
+          </div>
+          <div
+            data-pencil-name="N"
+            class="text-[32px]/[normal] box-border text-[#FFFFFF] font-[Nunito,system-ui,sans-serif] font-extrabold text-left [white-space:nowrap]"
+          >
+            Elena Vasquez
+          </div>
+        </div>
+        <div
+          data-pencil-name="Copy"
+          class="box-border w-[560px] h-fit absolute left-[780px] top-[80px] flex flex-col gap-[24px] justify-start items-start [z-index:4]"
+        >
+          <div
+            data-pencil-name="Eyebrow"
+            class="box-border w-fit h-fit shrink-0 flex flex-row gap-[10px] justify-start items-center"
+          >
+            <svg
+              data-pencil-name="I"
+              data-icon-name="graduation-cap"
+              data-icon-set="lucide"
+              viewBox="0 0 13.99993896484375 14"
+              preserveAspectRatio="xMidYMid meet"
+              xmlns="http://www.w3.org/2000/svg"
+              class="box-border w-[18px] shrink-0 h-[18px]"
+            >
+              <path
+                d="M6.84619 2.35156q-0.2666 0.01367-0.50586 0.1128-0.13672 0.05469-2.57373 1.1621-2.43701 1.104-2.56348 1.17579-0.12646 0.06836-0.28027 0.22216-0.33496 0.33838-0.33496 0.79981 0 0.28027 0.12647 0.51611 0.16748 0.35205 0.48876 0.51953 0.07178 0.04102 0.89551 0.40674l0.81348 0.37598 0.01367 0.98096q0 0.72803 0.00684 0.875 0.00684 0.14697 0.03418 0.24609 0.14014 0.43408 0.50244 0.7998 0.36572 0.3623 0.92627 0.61524 0.75537 0.33496 1.67822 0.44775 0.92627 0.10938 1.84912 0 0.92627-0.11279 1.66797-0.44775 0.57422-0.25293 0.93652-0.61524 0.36572-0.36572 0.50586-0.7998 0.02734-0.09912 0.03418-0.24609 0.00684-0.14697 0.00684-0.86133l0-0.97754 1.16211-0.53321 0.02734 2.35157 0.04102 0.09912q0.04443 0.08203 0.11279 0.16064 0.07178 0.0752 0.14014 0.1128 0.07178 0.03418 0.16748 0.04785 0.23926 0.04102 0.43408-0.09229 0.19824-0.1333 0.25293-0.36914 0.01367-0.09912 0.01367-1.93457l-0.01367-1.59277q0-0.2666-0.02734-0.36572-0.14014-0.50244-0.57422-0.72803-0.08545-0.04102-2.54297-1.16895-2.4541-1.12793-2.60791-1.18261-0.22559-0.09912-0.45117-0.1128l-0.16748-0.01367q-0.05469 0-0.19483 0.01367z m0.34863 1.18946q0.12646 0.04443 2.59082 1.17236 2.46436 1.12451 2.44385 1.14502-0.02051 0.02051-2.53613 1.14844-2.51221 1.12793-2.59082 1.14843-0.0752 0.02051-0.10254 0.02051-0.02734 0-0.12646-0.02734-0.09912-0.02734-2.6045-1.16895-2.50537-1.1416-2.4917-1.15527 0.01367-0.01367 2.4917-1.1416 2.47803-1.12793 2.54981-1.15528 0.18115-0.05469 0.37597 0.01368z m-1.97216 5.15429q1.104 0.50244 1.21679 0.54346 0.2666 0.08545 0.56739 0.08545 0.30078 0 0.56738-0.09912 0.12646-0.04102 1.22363-0.53662 1.10059-0.49902 1.11426-0.49903 0.01367 0 0 0.60157l0 0.02734q0 0.37939 0 0.47852-0.01367 0.14014-0.04443 0.20507-0.02734 0.06152-0.10938 0.15723l-0.01367 0q-0.2666 0.29395-0.7793 0.49902-0.50928 0.20166-1.22363 0.30078-0.23926 0.02734-0.7417 0.02735-0.50244 0-0.7417-0.02735-0.71436-0.09912-1.22705-0.30078-0.50928-0.20508-0.77588-0.49902l-0.01367 0q-0.08203-0.0957-0.11279-0.15723-0.02734-0.06494-0.04102-0.20507 0-0.09912 0-0.47852l0-0.02734q-0.01367-0.60156 0.00684-0.60157 0.02051 0 1.12793 0.50586z"
+                fill="#9B5CFF"
+              ></path>
+            </svg>
+            <div
+              data-pencil-name="T"
+              class="text-[13px]/[normal] box-border text-[#9B5CFF] font-[Inter,system-ui,sans-serif] font-extrabold tracking-[2px] text-left [white-space:nowrap]"
+            >
+              COACHES
+            </div>
+          </div>
+          <div
+            data-pencil-name="H"
+            class="box-border w-full h-fit shrink-0 flex flex-col gap-0 justify-start items-start"
+          >
+            <div
+              data-pencil-name="L1"
+              class="text-[72px]/[68px] box-border w-full text-[#FFFFFF] font-[Nunito,system-ui,sans-serif] font-extrabold tracking-[-1px] text-left"
+            >
+              LEVEL UP WITH
+            </div>
+            <div
+              data-pencil-name="L2"
+              class="text-[72px]/[68px] box-border w-full text-[#9B5CFF] font-[Nunito,system-ui,sans-serif] font-extrabold tracking-[-1px] text-left"
+            >
+              A REAL COACH.
+            </div>
+          </div>
+          <div
+            data-pencil-name="Sub"
+            class="text-[20px]/[27px] box-border w-[480px] text-[#A69FD1] font-[Inter,system-ui,sans-serif] font-medium text-left"
+          >
+            Browse certified coaches by level, specialty and price. See real ratings from real
+            players, then book a session in seconds.
+          </div>
+          <div
+            data-pencil-name="Feats"
+            class="box-border w-fit h-fit shrink-0 flex flex-col gap-[14px] p-[4px_0px_0px_0px] justify-start items-start"
+          >
+            <div
+              data-pencil-name="Verified certifications &amp; experience"
+              class="box-border w-fit h-fit shrink-0 flex flex-row gap-[12px] justify-start items-center"
+            >
+              <div
+                data-pencil-name="IC"
+                class="box-border w-[34px] shrink-0 h-[34px] flex flex-row gap-0 justify-center items-center bg-[#9B5CFF24] rounded-[10px]"
+              >
+                <svg
+                  data-pencil-name="I"
+                  data-icon-name="badge-check"
+                  data-icon-set="lucide"
+                  viewBox="0 0 13.99993896484375 14"
+                  preserveAspectRatio="xMidYMid meet"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="box-border w-[17px] shrink-0 h-[17px]"
+                >
+                  <path
+                    d="M6.56592 0.61523q-0.4751 0.07178-0.90918 0.3042-0.43408 0.229-0.76904 0.57764l-0.1128 0.11279-0.22558 0q-0.37598 0-0.72803 0.08545-0.72803 0.18115-1.26807 0.68018-0.53662 0.49561-0.78955 1.19287-0.08203 0.25293-0.11279 0.4375-0.02734 0.18115-0.04102 0.44775l0 0.32129-0.09912 0.08203q-0.0957 0.08545-0.22217 0.23926-0.50586 0.60156-0.65966 1.37061-0.04102 0.21191-0.04102 0.5332 0 0.32129 0.04102 0.5332 0.15381 0.76904 0.65966 1.37061 0.12646 0.15381 0.22217 0.23926l0.09912 0.08203 0 0.32129q0.01367 0.2666 0.04102 0.45117 0.03076 0.18115 0.11279 0.43408 0.22559 0.61523 0.68701 1.09033 0.22217 0.22559 0.43067 0.37256 0.21191 0.14697 0.49219 0.2666 0.28027 0.11621 0.52294 0.16748 0.24609 0.04785 0.55713 0.06153l0.32129 0 0.15381 0.15381q0.64258 0.65967 1.59619 0.84082 0.18115 0.02734 0.48194 0.02734 0.30078 0 0.46826-0.02734 0.90918-0.16748 1.56885-0.81348l0.18115-0.18115 0.32129 0q0.23926-0.01367 0.36572-0.02735 0.12646-0.01367 0.30762-0.07177 0.65967-0.16748 1.16211-0.6084 0.50244-0.44092 0.76904-1.05616 0.23926-0.54688 0.23926-1.1621l0-0.23926 0.11279-0.1128q0.30762-0.29395 0.52978-0.69043 0.22559-0.3999 0.32471-0.83398 0.15381-0.72803-0.07861-1.45605-0.23242-0.72803-0.76221-1.23047l-0.12646-0.12647 0-0.23926q0-1.18945-0.81348-2.03027-0.34863-0.3623-0.78271-0.58789-0.34863-0.16748-0.65967-0.23584-0.30762-0.07178-0.6836-0.07178l-0.22558 0-0.1128-0.11279q-0.27686-0.30762-0.67675-0.52978-0.3999-0.22559-0.80664-0.30762-0.22217-0.05811-0.52979-0.06494-0.30762-0.00684-0.5332 0.0205z m0.75537 1.17579q0.32129 0.04443 0.6084 0.23242 0.28711 0.18799 0.51269 0.4956 0.15381 0.21191 0.32129 0.2666 0.09912 0.04102 0.16748 0.04102 0.07178 0 0.19824-0.01367 0.46143-0.08203 0.86475 0.04443 0.40674 0.12305 0.71436 0.43408 0.31104 0.30762 0.43408 0.7212 0.12646 0.41016 0.04443 0.85791-0.02734 0.21191 0.02734 0.37255 0.05469 0.16064 0.26661 0.31446 0.48877 0.35205 0.66992 0.86816 0.08545 0.25293 0.08545 0.57422 0 0.32129-0.08545 0.57422-0.19482 0.5332-0.68359 0.88183-0.19824 0.14014-0.25294 0.30079-0.05469 0.16064-0.02734 0.37255 0.06836 0.38965-0.02392 0.76221-0.08887 0.36914-0.31446 0.66309-0.41699 0.51953-1.06299 0.64599-0.11279 0.02734-0.30078 0.02051-0.18799-0.00684-0.34179-0.02051-0.25293-0.04102-0.39991 0.02051-0.14697 0.06152-0.31445 0.30078-0.29395 0.37939-0.70752 0.56738-0.41357 0.18799-0.86816 0.15381-0.45459-0.03418-0.84766-0.31445-0.23584-0.15381-0.44775-0.43408-0.14014-0.21191-0.29395-0.27344-0.15381-0.06152-0.37597-0.03418-0.35205 0.05469-0.59131 0.02734-0.58789-0.09912-0.99121-0.48876-0.646-0.63232-0.49219-1.56885 0.01367-0.16748 0.00683-0.25977-0.00684-0.09229-0.06152-0.18799-0.04102-0.08545-0.09912-0.14013-0.05469-0.05811-0.19482-0.15381-0.48877-0.36572-0.67334-0.99463-0.02734-0.12646-0.02735-0.42041 0-0.29395 0.02735-0.42041 0.18457-0.62891 0.65966-0.98096 0.23584-0.16748 0.29737-0.28369 0.06494-0.11963 0.07177-0.21191 0.00684-0.09229-0.00683-0.25977-0.08203-0.50244 0.07861-0.94336 0.16064-0.44092 0.54004-0.73486 0.33496-0.2666 0.75537-0.35205 0.10938-0.02734 0.31787-0.02735 0.21191 0 0.36573 0.02735 0.12646 0.01367 0.16748 0.01367 0.04443 0 0.11279-0.01367 0.14014-0.02734 0.22217-0.08887 0.08545-0.06494 0.18457-0.20508 0.25293-0.34863 0.56738-0.52978 0.31445-0.18457 0.74854-0.22559 0.16748-0.01367 0.44775 0.02735z m1.28857 3.47265q-0.06836 0.02734-0.12646 0.05127-0.05469 0.02051-1.06299 1.02539l-0.99463 0.99463-0.40674-0.40332q-0.2666-0.2666-0.3623-0.33838-0.12646-0.11279-0.19824-0.14013-0.06836-0.02734-0.19483-0.02735-0.12646 0-0.16748 0.01367-0.04102 0.01367-0.09912 0.04102-0.18115 0.09912-0.28027 0.2666-0.04102 0.08545-0.04102 0.25293l0 0.01367q0 0.14014 0.03418 0.21192 0.0376 0.06836 0.17774 0.22216 0.0957 0.11279 0.48876 0.50586l0.04102 0.04102q0.42041 0.42041 0.55371 0.54687 0.1333 0.12305 0.20166 0.15381 0.14014 0.06836 0.29395 0.05469 0.15381-0.01367 0.28027-0.09912 0.07178-0.05469 1.28857-1.27149 0.86816-0.86816 1.04932-1.06298 0.18457-0.19824 0.21191-0.27002 0.0957-0.27686-0.0581-0.52295-0.15381-0.24609-0.44775-0.25977-0.12646-0.01367-0.18116 0z"
+                    fill="#9B5CFF"
+                  ></path>
+                </svg>
+              </div>
+              <div
+                data-pencil-name="T"
+                class="text-[15px]/[normal] box-border text-[#FFFFFF] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
+              >
+                Verified certifications &amp; experience
+              </div>
+            </div>
+            <div
+              data-pencil-name="Filter by level, price and location"
+              class="box-border w-fit h-fit shrink-0 flex flex-row gap-[12px] justify-start items-center"
+            >
+              <div
+                data-pencil-name="IC"
+                class="box-border w-[34px] shrink-0 h-[34px] flex flex-row gap-0 justify-center items-center bg-[#9B5CFF24] rounded-[10px]"
+              >
+                <svg
+                  data-pencil-name="I"
+                  data-icon-name="sliders-horizontal"
+                  data-icon-set="lucide"
+                  viewBox="0 0 13.99993896484375 14"
+                  preserveAspectRatio="xMidYMid meet"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="box-border w-[17px] shrink-0 h-[17px]"
+                >
+                  <path
+                    d="M7.98096 1.20313q-0.23926 0.08545-0.35205 0.33837-0.02734 0.05469-0.04102 0.22217l-0.01367 1.09375q0 1.2168 0.01367 1.31592 0.05469 0.24951 0.24951 0.38281 0.19824 0.1333 0.4375 0.09229 0.0957-0.01367 0.16406-0.04785 0.07178-0.0376 0.14014-0.1128 0.07178-0.07861 0.10596-0.15381 0.0376-0.07861 0.04443-0.14013 0.00684-0.06494 0.02051-0.32813l0-0.36572 3.65381-0.01367 0.09912-0.04102q0.2666-0.12646 0.32129-0.42041 0.05469-0.29395-0.15381-0.50586-0.14014-0.14014-0.33496-0.16748-0.11279-0.02734-1.84912-0.02734l-1.73633 0 0-0.36572q-0.01367-0.26318-0.02051-0.32471-0.00684-0.06494-0.04443-0.14014-0.03418-0.07861-0.12647-0.16064-0.08887-0.08545-0.18115-0.11963-0.08887-0.0376-0.20849-0.0376-0.11963 0-0.18799 0.02734z m-6.33008 1.14843q-0.18115 0.02734-0.32129 0.16748-0.2085 0.21191-0.15381 0.50586 0.05469 0.29395 0.32129 0.42041l0.09912 0.04102 4.38184 0 0.09912-0.04102q0.08203-0.04443 0.15722-0.11279 0.07861-0.07178 0.1128-0.14014 0.0376-0.07178 0.05127-0.18115 0.04102-0.19824-0.05127-0.36572-0.08887-0.16748-0.28369-0.2666l-0.09912-0.04102-2.11573 0q-2.1123-0.01367-2.19775 0.01367z m2.87109 2.91211q-0.14014 0.04102-0.25976 0.16065-0.11963 0.11963-0.15381 0.24609-0.03418 0.12646-0.03418 0.44775l0 0.30762-2.4917 0-0.08545 0.05469q-0.18115 0.09912-0.28027 0.2666-0.04102 0.08545-0.04102 0.25293 0 0.16748 0.04102 0.24609 0.04443 0.0752 0.12646 0.16065 0.08545 0.08203 0.15381 0.12646l0.08545 0.04102 2.4917 0 0 0.30762q0 0.32129 0.03418 0.44775 0.03418 0.12646 0.14697 0.23926 0.19824 0.19482 0.46143 0.17431 0.2666-0.02051 0.42041-0.24609l0.01367-0.01367q0.05811-0.06836 0.07178-0.15039 0.01367-0.08545 0.02734-0.35205l0-1.94825q-0.01367-0.28027-0.02734-0.3623-0.01367-0.08545-0.07178-0.15381l0-0.01367q-0.0957-0.14014-0.28027-0.2085-0.18115-0.07178-0.34864-0.03076z m2.32422 1.17578q-0.11279 0.02734-0.21875 0.11963-0.10254 0.09229-0.15381 0.18457-0.04785 0.08887-0.04785 0.25635 0 0.16748 0.04102 0.24609 0.04443 0.0752 0.12646 0.16065 0.08545 0.08203 0.15381 0.12646l0.08545 0.04102 5.58496 0 0.08545-0.04102q0.06836-0.04443 0.15039-0.12646 0.08545-0.08545 0.12647-0.16065 0.04443-0.07861 0.04443-0.24609 0-0.16748-0.04102-0.25293-0.09912-0.16748-0.28027-0.2666l-0.08545-0.05469-2.77197 0q-2.7583 0-2.79932 0.01367z m2.37891 2.91211q-0.12646 0.01367-0.2461 0.10596-0.11621 0.08887-0.17431 0.21533l-0.04102 0.09912 0 2.63184 0.04102 0.09912q0.12646 0.2666 0.42041 0.31445 0.29395 0.04785 0.50586-0.14697 0.08203-0.08545 0.14013-0.18115 0.02734-0.08545 0.03418-0.14698 0.00684-0.06494 0.02051-0.31787l0-0.34863 2.45068-0.01367 0.1128-0.04102q0.2085-0.11279 0.29053-0.32129 0.08545-0.21191 0.00683-0.4204-0.0752-0.21192-0.28369-0.32471l-0.09912-0.04102-2.47803-0.01367 0-0.29395q0-0.29395-0.02734-0.39306-0.04102-0.23584-0.23242-0.36914-0.18799-0.1333-0.44092-0.09229z m-7.61524 1.16211q-0.12646 0.02734-0.23925 0.1333-0.10938 0.10596-0.16749 0.23243-0.06836 0.2085 0.01368 0.42724 0.08545 0.21533 0.29394 0.31445l0.1128 0.04102 5.50292 0 0.1128-0.04102q0.2085-0.11279 0.29053-0.32129 0.08545-0.21191 0.00683-0.4204-0.0752-0.21192-0.28369-0.32471l-0.09912-0.04102-2.73096-0.01367q-2.72754 0-2.81299 0.01367z"
+                    fill="#9B5CFF"
+                  ></path>
+                </svg>
+              </div>
+              <div
+                data-pencil-name="T"
+                class="text-[15px]/[normal] box-border text-[#FFFFFF] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
+              >
+                Filter by level, price and location
+              </div>
+            </div>
+            <div
+              data-pencil-name="Instant booking with live availability"
+              class="box-border w-fit h-fit shrink-0 flex flex-row gap-[12px] justify-start items-center"
+            >
+              <div
+                data-pencil-name="IC"
+                class="box-border w-[34px] shrink-0 h-[34px] flex flex-row gap-0 justify-center items-center bg-[#9B5CFF24] rounded-[10px]"
+              >
+                <svg
+                  data-pencil-name="I"
+                  data-icon-name="calendar-check"
+                  data-icon-set="lucide"
+                  viewBox="0 0 13.99993896484375 14"
+                  preserveAspectRatio="xMidYMid meet"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="box-border w-[17px] shrink-0 h-[17px]"
+                >
+                  <path
+                    d="M4.57666 0.60156q-0.12305 0.01367-0.24268 0.09912-0.11963 0.08203-0.1914 0.19483-0.04102 0.08545-0.05469 0.20508-0.01367 0.11621-0.01367 0.35546l0 0.29395-1.32959 0.01367q-0.14014 0.01367-0.23926 0.02735-0.50244 0.14014-0.85449 0.50586-0.34863 0.3623-0.44776 0.88183-0.02734 0.0957-0.02734 0.81006l0 7.99463 0.05469 0.15381q0.15723 0.51953 0.56055 0.86133 0.40674 0.3418 0.93994 0.3999 0.15381 0.02734 4.26904 0.02734 4.11523 0 4.26904-0.02734 0.30762-0.02734 0.58789-0.16748 0.32471-0.15381 0.56055-0.44092 0.23926-0.28711 0.35205-0.65283l0.05469-0.15381 0-7.99463q0-0.71436-0.02735-0.81006-0.09912-0.51953-0.45117-0.88183-0.34863-0.36572-0.85107-0.50586-0.09912-0.01367-0.23926-0.02735l-1.32959-0.01367 0-0.29395q0-0.32129-0.03418-0.45459-0.03418-0.1333-0.14697-0.24609-0.14014-0.14014-0.35889-0.16064-0.21533-0.02051-0.37597 0.09228-0.16064 0.10938-0.21875 0.29395-0.02734 0.05469-0.03418 0.1333-0.00684 0.0752-0.00684 0.30078l0 0.33496-3.5 0 0-0.34863q0-0.23926-0.00684-0.30762-0.00684-0.07178-0.03418-0.12646-0.08545-0.21191-0.25293-0.30762-0.16748-0.09912-0.37939-0.05811z m-0.50244 2.67285q0.01367 0.25293 0.02051 0.31788 0.00684 0.06152 0.03418 0.14697 0.05811 0.0957 0.14013 0.18115 0.21191 0.19482 0.50586 0.14697 0.29395-0.04785 0.42041-0.31445 0.02734-0.08545 0.03418-0.14014 0.00684-0.05811 0.02051-0.32129l0-0.36572 3.5 0 0 0.36572q0.01367 0.26318 0.02051 0.32129 0.00684 0.05469 0.03418 0.14014 0.12646 0.2666 0.42041 0.31445 0.29395 0.04785 0.50586-0.14697 0.08203-0.08545 0.14013-0.18115 0.02734-0.08545 0.03418-0.14697 0.00684-0.06494 0.02051-0.31788l0-0.34863 1.31592 0 0.08545 0.04102q0.08203 0.04443 0.15722 0.12304 0.07861 0.0752 0.11963 0.16065 0.04443 0.08203 0.05811 0.28027 0.01367 0.19482 0.01367 0.85108l0 0.86816-9.35156 0 0.01367-1.72266q0.01367-0.16748 0.02734-0.20849 0.09912-0.2666 0.35206-0.36572 0.05469-0.01367 0.16748-0.02735l1.18945 0 0 0.34863z m7.58789 5.82422q0 1.89014-0.00684 2.30371-0.00683 0.41357-0.0205 0.45459-0.09912 0.25293-0.35206 0.35205l-0.0957 0.04102-8.37402 0-0.0957-0.04102q-0.15381-0.0581-0.26661-0.19824l-0.02734-0.02734q-0.04443-0.05469-0.05811-0.15381-0.02734-0.14014-0.02734-0.60156l-0.01367-4.80225 9.35156 0-0.01367 2.67285z m-3.01123-1.49707q-0.0957 0.01367-0.16748 0.05127-0.06836 0.03418-1.07666 1.02881l-0.99463 0.99121-0.40674-0.40332q-0.2666-0.2666-0.3623-0.35205-0.11279-0.09912-0.19141-0.12646-0.0752-0.02734-0.21533-0.02735-0.14014 0-0.23926 0.04102-0.19482 0.09912-0.28027 0.31787-0.08203 0.21533-0.01368 0.42383 0.02734 0.07178 0.14014 0.1914 0.11279 0.11963 0.58106 0.58789 0.46826 0.46826 0.58789 0.58106 0.11963 0.11279 0.1914 0.14013 0.2085 0.06836 0.417 0 0.08545-0.02734 0.28027-0.21533 0.19824-0.19141 1.08008-1.08691l0.97754-0.98096q0.25293-0.25293 0.31103-0.34863 0.05469-0.08545 0.05469-0.19824l0-0.02735q0.01367-0.28027-0.19141-0.45459-0.20166-0.17432-0.48193-0.1333z"
+                    fill="#9B5CFF"
+                  ></path>
+                </svg>
+              </div>
+              <div
+                data-pencil-name="T"
+                class="text-[15px]/[normal] box-border text-[#FFFFFF] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
+              >
+                Instant booking with live availability
+              </div>
+            </div>
+          </div>
+          <div
+            data-pencil-name="Btn"
+            class="box-border w-fit h-fit shrink-0 flex flex-row gap-[8px] p-[14px_24px] justify-start items-center bg-[#F5FF00] rounded-[20px]"
+          >
+            <div
+              data-pencil-name="T"
+              class="text-[15px]/[normal] box-border text-[#080420] font-[Inter,system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
+            >
+              Find your coach
+            </div>
+            <svg
+              data-pencil-name="I"
+              data-icon-name="arrow-right"
+              data-icon-set="lucide"
+              viewBox="0 0 13.99993896484375 14"
+              preserveAspectRatio="xMidYMid meet"
+              xmlns="http://www.w3.org/2000/svg"
+              class="box-border w-[17px] shrink-0 h-[17px]"
+            >
+              <path
+                d="M6.90088 2.35156q-0.18115 0.02734-0.32129 0.16748-0.11279 0.11279-0.14697 0.28028-0.03418 0.16748 0.02051 0.32129 0.02734 0.08545 0.25976 0.3247 0.23242 0.23584 1.36377 1.37061 1.58252 1.58252 1.58252 1.59619 0 0.01367-3.45557 0.01367l-3.44531 0-0.08545 0.04102q-0.22217 0.11279-0.30078 0.33838-0.0752 0.22217 0.00684 0.43408 0.05811 0.0957 0.14013 0.18115 0.08545 0.08203 0.16748 0.11963 0.08545 0.03418 0.53321 0.03418l3.01123 0q3.42822 0 3.42822 0.01367 0 0.01367-1.58252 1.59619-1.13135 1.13477-1.36377 1.37402-0.23242 0.23584-0.25976 0.3213-0.05469 0.15381-0.02051 0.32128 0.03418 0.16748 0.14697 0.28028 0.18115 0.18115 0.42041 0.18115l0.04102 0q0.11279 0 0.19824-0.05469 0.14014-0.09912 0.51611-0.46484l1.68164-1.67822q2.1123-2.10205 2.15332-2.18409 0.07178-0.12646 0.07178-0.28027 0-0.15381-0.07178-0.28027-0.04102-0.08203-2.1499-2.18067-2.10547-2.10205-2.17725-2.13623-0.06836-0.0376-0.23584-0.06494-0.04102 0-0.12646 0.01367z"
+                fill="#080420"
+              ></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div
+        data-pencil-name="Section/Courts"
+        class="box-border w-full h-[680px] shrink-0 bg-[#080420] overflow-hidden relative"
+      >
+        <div
+          data-pencil-name="Photo"
+          class="box-border w-[1440px] h-[680px] absolute left-0 top-0 bg-[url('images/generated-1784581213220.jpg')] bg-no-repeat bg-cover bg-center [z-index:0]"
+        ></div>
+        <div
+          data-pencil-name="Overlay"
+          class="box-border w-[1440px] h-[680px] absolute left-0 top-0 [background-image:linear-gradient(-37.624deg,_#080420F2_21.546%,_#08042066_55.691%,_#08042000_78.454%)] bg-no-repeat bg-[length:100%_100%] [z-index:1]"
+        ></div>
+        <div
+          data-pencil-name="Overlay Bottom"
+          class="box-border w-[1440px] h-[280px] absolute left-0 top-[400px] [background-image:linear-gradient(-90deg,_#08042000_0%,_#080420_100%)] bg-no-repeat bg-[length:100%_100%] [z-index:2]"
+        ></div>
+        <div
+          data-pencil-name="Copy"
+          class="box-border w-[640px] h-fit absolute left-[100px] top-[120px] flex flex-col gap-[22px] justify-start items-start [z-index:3]"
+        >
+          <div
+            data-pencil-name="Eyebrow"
+            class="box-border w-fit h-fit shrink-0 flex flex-row gap-[10px] justify-start items-center"
+          >
+            <svg
+              data-pencil-name="I"
+              data-icon-name="map-pin"
+              data-icon-set="lucide"
+              viewBox="0 0 13.99993896484375 14"
+              preserveAspectRatio="xMidYMid meet"
+              xmlns="http://www.w3.org/2000/svg"
+              class="box-border w-[18px] shrink-0 h-[18px]"
+            >
+              <path
+                d="M6.71973 0.60156q-0.81006 0.02734-1.56885 0.31446-0.75537 0.28711-1.41162 0.80664-0.19824 0.15381-0.48535 0.44775-0.28711 0.29395-0.44092 0.48877-0.42041 0.57422-0.67334 1.17578-0.24951 0.60156-0.34863 1.31592-0.04102 0.23926-0.03418 0.68017 0.00684 0.44092 0.03418 0.69385 0.14014 0.88184 0.56054 1.79102 0.50586 1.07666 1.44922 2.27637 0.94678 1.19629 2.19092 2.31738 0.22559 0.19482 0.32129 0.27343 0.09912 0.0752 0.19824 0.11622 0.22217 0.11279 0.48877 0.11279 0.2666 0 0.48877-0.11279 0.11279-0.04101 0.19482-0.10254 0.08545-0.06494 0.31104-0.25977 0.96387-0.86816 1.79101-1.83203 0.82715-0.96728 1.37403-1.86621 0.75537-1.27148 0.98437-2.42676 0.23242-1.15527-0.06152-2.29004-0.35205-1.35693-1.35693-2.36523-0.36572-0.37939-0.74512-0.64258-0.37598-0.2666-0.8374-0.46484-1.12109-0.51611-2.42334-0.44776z m0.88183 1.18946q0.67334 0.09912 1.28174 0.42041 0.6084 0.32129 1.0835 0.82714 0.68701 0.71436 0.95361 1.66114 0.2666 0.94336 0.08203 1.90722-0.34863 1.72266-2.26611 3.92041-0.32129 0.36572-1.00147 1.03907-0.68018 0.66992-0.73486 0.66992-0.05469 0-0.73486-0.66992-0.68018-0.67334-1.00147-1.03907-1.79102-2.05762-2.21142-3.70849-0.08545-0.32129-0.1128-0.69385-0.02734-0.37256 0-0.69385 0.07178-0.66992 0.34864-1.29199 0.28027-0.62549 0.75879-1.11426 0.51611-0.54688 1.20312-0.875 0.68701-0.33154 1.44238-0.38623 0.12646-0.01367 0.44776 0 0.32129 0.01367 0.46142 0.02735z m-0.85449 1.72265q-0.7417 0.08545-1.28857 0.57422-0.5708 0.50244-0.7417 1.26123-0.04102 0.15381-0.04102 0.42041 0 0.26318 0.02734 0.43408 0.11279 0.72803 0.63233 1.25782 0.44775 0.46143 1.06299 0.62548 0.61523 0.16064 1.22363-0.00683 0.6084-0.1709 1.05957-0.63233 0.50244-0.5332 0.62891-1.24414 0.01367-0.1709 0.01367-0.43408 0-0.2666-0.04102-0.40674-0.1709-0.77246-0.7417-1.2749-0.46484-0.40674-1.0664-0.5332-0.15381-0.02734-0.3794-0.04102-0.22217-0.01367-0.34863 0z m0.51953 1.18946q0.29395 0.05811 0.54688 0.30761 0.18115 0.18457 0.26318 0.37256 0.08545 0.18799 0.08545 0.44092 0 0.5332-0.39307 0.88183-0.32129 0.29395-0.76904 0.29395-0.44775 0-0.76904-0.29395-0.44775-0.40674-0.3794-1.0083 0.01367-0.2085 0.09571-0.36914 0.08545-0.16406 0.25293-0.33154 0.1709-0.16748 0.35205-0.24268 0.18115-0.07861 0.43408-0.07861 0.16748 0 0.28027 0.02735z"
+                fill="#F5FF00"
+              ></path>
+            </svg>
+            <div
+              data-pencil-name="T"
+              class="text-[13px]/[normal] box-border text-[#F5FF00] font-[Inter,system-ui,sans-serif] font-extrabold tracking-[2px] text-left [white-space:nowrap]"
+            >
+              COURTS · COMING SOON
+            </div>
+          </div>
+          <div
+            data-pencil-name="H"
+            class="box-border w-full h-fit shrink-0 flex flex-col gap-0 justify-start items-start"
+          >
+            <div
+              data-pencil-name="L1"
+              class="text-[80px]/[76px] box-border w-full text-[#FFFFFF] font-[Nunito,system-ui,sans-serif] font-extrabold tracking-[-1px] text-left"
+            >
+              YOUR COURT.
+            </div>
+            <div
+              data-pencil-name="L2"
+              class="text-[80px]/[76px] box-border w-full text-[#F5FF00] font-[Nunito,system-ui,sans-serif] font-extrabold tracking-[-1px] text-left"
+            >
+              BOOKED IN SECONDS.
+            </div>
+          </div>
+          <div
+            data-pencil-name="Sub"
+            class="text-[20px]/[27px] box-border w-[500px] text-[#A69FD1] font-[Inter,system-ui,sans-serif] font-medium text-left"
+          >
+            See real-time availability at clubs around you, compare prices, and lock your slot
+            instantly. No phone calls, no waiting.
+          </div>
+        </div>
+        <div
+          data-pencil-name="Availability Bar"
+          class="box-border w-[1240px] h-fit [box-shadow:0px_16px_44px_0px_#00000099] absolute left-[100px] top-[520px] flex flex-row gap-[24px] p-[18px_24px] justify-start items-center bg-[#120A33F2] [border:1px_solid_#2A1F5C] rounded-[28px] [z-index:4]"
+        >
+          <div
+            data-pencil-name="Club"
+            class="box-border w-fit shrink-0 h-fit flex flex-col gap-[3px] justify-start items-start"
+          >
+            <div
+              data-pencil-name="N"
+              class="text-[20px]/[normal] box-border text-[#FFFFFF] font-[Nunito,system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
+            >
+              Padel Club Athens
+            </div>
+            <div
+              data-pencil-name="Loc"
+              class="box-border w-fit h-fit shrink-0 flex flex-row gap-[5px] justify-start items-center"
+            >
+              <svg
+                data-pencil-name="I"
+                data-icon-name="map-pin"
+                data-icon-set="lucide"
+                viewBox="0 0 13.99993896484375 14"
+                preserveAspectRatio="xMidYMid meet"
+                xmlns="http://www.w3.org/2000/svg"
+                class="box-border w-[13px] shrink-0 h-[13px]"
+              >
+                <path
+                  d="M6.71973 0.60156q-0.81006 0.02734-1.56885 0.31446-0.75537 0.28711-1.41162 0.80664-0.19824 0.15381-0.48535 0.44775-0.28711 0.29395-0.44092 0.48877-0.42041 0.57422-0.67334 1.17578-0.24951 0.60156-0.34863 1.31592-0.04102 0.23926-0.03418 0.68017 0.00684 0.44092 0.03418 0.69385 0.14014 0.88184 0.56054 1.79102 0.50586 1.07666 1.44922 2.27637 0.94678 1.19629 2.19092 2.31738 0.22559 0.19482 0.32129 0.27343 0.09912 0.0752 0.19824 0.11622 0.22217 0.11279 0.48877 0.11279 0.2666 0 0.48877-0.11279 0.11279-0.04101 0.19482-0.10254 0.08545-0.06494 0.31104-0.25977 0.96387-0.86816 1.79101-1.83203 0.82715-0.96728 1.37403-1.86621 0.75537-1.27148 0.98437-2.42676 0.23242-1.15527-0.06152-2.29004-0.35205-1.35693-1.35693-2.36523-0.36572-0.37939-0.74512-0.64258-0.37598-0.2666-0.8374-0.46484-1.12109-0.51611-2.42334-0.44776z m0.88183 1.18946q0.67334 0.09912 1.28174 0.42041 0.6084 0.32129 1.0835 0.82714 0.68701 0.71436 0.95361 1.66114 0.2666 0.94336 0.08203 1.90722-0.34863 1.72266-2.26611 3.92041-0.32129 0.36572-1.00147 1.03907-0.68018 0.66992-0.73486 0.66992-0.05469 0-0.73486-0.66992-0.68018-0.67334-1.00147-1.03907-1.79102-2.05762-2.21142-3.70849-0.08545-0.32129-0.1128-0.69385-0.02734-0.37256 0-0.69385 0.07178-0.66992 0.34864-1.29199 0.28027-0.62549 0.75879-1.11426 0.51611-0.54688 1.20312-0.875 0.68701-0.33154 1.44238-0.38623 0.12646-0.01367 0.44776 0 0.32129 0.01367 0.46142 0.02735z m-0.85449 1.72265q-0.7417 0.08545-1.28857 0.57422-0.5708 0.50244-0.7417 1.26123-0.04102 0.15381-0.04102 0.42041 0 0.26318 0.02734 0.43408 0.11279 0.72803 0.63233 1.25782 0.44775 0.46143 1.06299 0.62548 0.61523 0.16064 1.22363-0.00683 0.6084-0.1709 1.05957-0.63233 0.50244-0.5332 0.62891-1.24414 0.01367-0.1709 0.01367-0.43408 0-0.2666-0.04102-0.40674-0.1709-0.77246-0.7417-1.2749-0.46484-0.40674-1.0664-0.5332-0.15381-0.02734-0.3794-0.04102-0.22217-0.01367-0.34863 0z m0.51953 1.18946q0.29395 0.05811 0.54688 0.30761 0.18115 0.18457 0.26318 0.37256 0.08545 0.18799 0.08545 0.44092 0 0.5332-0.39307 0.88183-0.32129 0.29395-0.76904 0.29395-0.44775 0-0.76904-0.29395-0.44775-0.40674-0.3794-1.0083 0.01367-0.2085 0.09571-0.36914 0.08545-0.16406 0.25293-0.33154 0.1709-0.16748 0.35205-0.24268 0.18115-0.07861 0.43408-0.07861 0.16748 0 0.28027 0.02735z"
+                  fill="#6E67A0"
+                ></path>
+              </svg>
+              <div
+                data-pencil-name="T"
+                class="text-[13px]/[normal] box-border text-[#A69FD1] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+              >
+                Marousi · 1.4 km · Indoor
+              </div>
+            </div>
+          </div>
+          <div data-pencil-name="D" class="box-border w-[1px] shrink-0 h-[44px] bg-[#2A1F5C]"></div>
+          <div
+            data-pencil-name="Slots"
+            class="box-border [flex:1_1_0] h-fit flex flex-col gap-[7px] justify-start items-start"
+          >
+            <div
+              data-pencil-name="L"
+              class="text-[11px]/[normal] box-border text-[#6E67A0] font-[Inter,system-ui,sans-serif] font-bold tracking-[1px] text-left [white-space:nowrap]"
+            >
+              AVAILABLE TODAY
+            </div>
+            <div
+              data-pencil-name="Row"
+              class="box-border w-fit h-fit shrink-0 flex flex-row gap-[8px] justify-start items-start"
+            >
+              <div
+                data-pencil-name="18:00"
+                class="box-border w-fit shrink-0 h-fit flex flex-row gap-0 p-[8px_14px] justify-start items-start bg-[#00FFA31F] [border:1px_solid_#00FFA3] rounded-[12px]"
+              >
+                <div
+                  data-pencil-name="T"
+                  class="text-[13px]/[normal] box-border text-[#00FFA3] font-[Inter,system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
+                >
+                  18:00
+                </div>
+              </div>
+              <div
+                data-pencil-name="19:30"
+                class="box-border w-fit shrink-0 h-fit flex flex-row gap-0 p-[8px_14px] justify-start items-start bg-[#00FFA31F] [border:1px_solid_#00FFA3] rounded-[12px]"
+              >
+                <div
+                  data-pencil-name="T"
+                  class="text-[13px]/[normal] box-border text-[#00FFA3] font-[Inter,system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
+                >
+                  19:30
+                </div>
+              </div>
+              <div
+                data-pencil-name="21:00"
+                class="box-border w-fit shrink-0 h-fit flex flex-row gap-0 p-[8px_14px] justify-start items-start bg-[#00FFA31F] [border:1px_solid_#00FFA3] rounded-[12px]"
+              >
+                <div
+                  data-pencil-name="T"
+                  class="text-[13px]/[normal] box-border text-[#00FFA3] font-[Inter,system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
+                >
+                  21:00
+                </div>
+              </div>
+              <div
+                data-pencil-name="22:30"
+                class="box-border w-fit shrink-0 h-fit flex flex-row gap-0 p-[8px_14px] justify-start items-start bg-[#00FFA31F] [border:1px_solid_#00FFA3] rounded-[12px]"
+              >
+                <div
+                  data-pencil-name="T"
+                  class="text-[13px]/[normal] box-border text-[#00FFA3] font-[Inter,system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
+                >
+                  22:30
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            data-pencil-name="D2"
+            class="box-border w-[1px] shrink-0 h-[44px] bg-[#2A1F5C]"
+          ></div>
+          <div
+            data-pencil-name="Price"
+            class="box-border w-fit shrink-0 h-fit flex flex-col gap-0 justify-start items-end"
+          >
+            <div
+              data-pencil-name="P"
+              class="text-[28px]/[normal] box-border text-[#F5FF00] font-[Nunito,system-ui,sans-serif] font-extrabold text-left [white-space:nowrap]"
+            >
+              €24
+            </div>
+            <div
+              data-pencil-name="U"
+              class="text-[11px]/[normal] box-border text-[#6E67A0] font-[Inter,system-ui,sans-serif] font-normal text-left [white-space:nowrap]"
+            >
+              / 90 min
+            </div>
+          </div>
+          <div
+            data-pencil-name="Book"
+            class="box-border w-fit shrink-0 h-fit flex flex-row gap-[8px] p-[14px_26px] justify-start items-center bg-[#F5FF00] rounded-[12px]"
+          >
+            <div
+              data-pencil-name="T"
+              class="text-[15px]/[normal] box-border text-[#080420] font-[Inter,system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
+            >
+              Book
+            </div>
+            <svg
+              data-pencil-name="I"
+              data-icon-name="arrow-right"
+              data-icon-set="lucide"
+              viewBox="0 0 13.99993896484375 14"
+              preserveAspectRatio="xMidYMid meet"
+              xmlns="http://www.w3.org/2000/svg"
+              class="box-border w-[16px] shrink-0 h-[16px]"
+            >
+              <path
+                d="M6.90088 2.35156q-0.18115 0.02734-0.32129 0.16748-0.11279 0.11279-0.14697 0.28028-0.03418 0.16748 0.02051 0.32129 0.02734 0.08545 0.25976 0.3247 0.23242 0.23584 1.36377 1.37061 1.58252 1.58252 1.58252 1.59619 0 0.01367-3.45557 0.01367l-3.44531 0-0.08545 0.04102q-0.22217 0.11279-0.30078 0.33838-0.0752 0.22217 0.00684 0.43408 0.05811 0.0957 0.14013 0.18115 0.08545 0.08203 0.16748 0.11963 0.08545 0.03418 0.53321 0.03418l3.01123 0q3.42822 0 3.42822 0.01367 0 0.01367-1.58252 1.59619-1.13135 1.13477-1.36377 1.37402-0.23242 0.23584-0.25976 0.3213-0.05469 0.15381-0.02051 0.32128 0.03418 0.16748 0.14697 0.28028 0.18115 0.18115 0.42041 0.18115l0.04102 0q0.11279 0 0.19824-0.05469 0.14014-0.09912 0.51611-0.46484l1.68164-1.67822q2.1123-2.10205 2.15332-2.18409 0.07178-0.12646 0.07178-0.28027 0-0.15381-0.07178-0.28027-0.04102-0.08203-2.1499-2.18067-2.10547-2.10205-2.17725-2.13623-0.06836-0.0376-0.23584-0.06494-0.04102 0-0.12646 0.01367z"
+                fill="#080420"
+              ></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div
+        data-pencil-name="Section/Scoring"
+        class="box-border w-full h-[640px] shrink-0 bg-[#120A33] overflow-hidden relative"
+      >
+        <div
+          data-pencil-name="Photo"
+          class="box-border w-[720px] h-[640px] absolute left-[720px] top-0 bg-[url('images/generated-1784937138608.jpg')] bg-no-repeat bg-cover bg-center [z-index:0]"
+        ></div>
+        <div
+          data-pencil-name="Overlay"
+          class="box-border w-[400px] h-[640px] absolute left-[520px] top-0 [background-image:linear-gradient(0deg,_#120A33_0%,_#12073300_100%)] bg-no-repeat bg-[length:100%_100%] [z-index:1]"
+        ></div>
+        <div
+          data-pencil-name="Copy"
+          class="box-border w-[560px] h-fit absolute left-[100px] top-[140px] flex flex-col gap-[24px] justify-start items-start [z-index:2]"
+        >
+          <div
+            data-pencil-name="Eyebrow"
+            class="box-border w-fit h-fit shrink-0 flex flex-row gap-[10px] justify-start items-center"
+          >
+            <svg
+              data-pencil-name="I"
+              data-icon-name="watch"
+              data-icon-set="lucide"
+              viewBox="0 0 13.99993896484375 14"
+              preserveAspectRatio="xMidYMid meet"
+              xmlns="http://www.w3.org/2000/svg"
+              class="box-border w-[18px] shrink-0 h-[18px]"
+            >
+              <path
+                d="M6.00537 0.58789q-0.51611 0.05469-0.92285 0.39307-0.40674 0.33496-0.56055 0.82373-0.04102 0.12646-0.2666 1.24756l-0.2085 1.13476-0.08544 0.08203q-0.39307 0.43408-0.66651 1.01514-0.27002 0.58105-0.3418 1.19629-0.02734 0.19824-0.02734 0.51953 0 0.32129 0.02734 0.51953 0.07178 0.61523 0.3418 1.20313 0.27344 0.58789 0.68018 1.02197l0.08545 0.08203 0.22216 1.10742q0.22559 1.12109 0.26661 1.26123 0.12646 0.41699 0.46142 0.72803 0.33838 0.30762 0.79981 0.43408 0.11279 0.02734 0.2666 0.03418 0.15381 0.00684 0.93652 0.00684l0.02735 0q0.82715 0 1.00146-0.01367 0.17432-0.01367 0.37256-0.08545l0.01367 0q0.29395-0.0957 0.55713-0.33497 0.2666-0.23926 0.40674-0.51953 0.08545-0.15381 0.14013-0.38964 0.05811-0.23926 0.23926-1.1211l0.22559-1.16211 0.10937-0.11279q0.71435-0.85449 0.92627-2.0166 0.04102-0.18115 0.04102-0.64258 0-0.46143-0.04102-0.64258-0.21191-1.22021-0.98095-2.07471l-0.1128-0.10937-0.22216-1.12109q-0.21191-1.10742-0.26661-1.26123-0.14014-0.44775-0.49218-0.75538-0.34863-0.30762-0.81006-0.42041-0.12646-0.02734-1.06641-0.02734-0.93652 0-1.07666 0z m2.0166 1.20313q0.08545 0.04443 0.16748 0.12988 0.08545 0.08203 0.11963 0.14697 0.03418 0.06152 0.14697 0.60156 0.11279 0.53662 0.10596 0.54346-0.00684 0.00684-0.23242-0.07519-0.62891-0.21191-1.32275-0.21192-0.69385 0-1.30909 0.21192-0.2085 0.06836-0.23925 0.08203-0.02734 0.01367-0.02735 0l0.08545-0.53321q0.0957-0.4751 0.15039-0.61523 0.05811-0.14014 0.21192-0.22217 0.11279-0.07178 0.25976-0.08545 0.14697-0.01367 0.88867-0.01367l0.79981 0.01367q0.12646 0 0.19482 0.02735z m-0.5332 2.33789q0.82715 0.14014 1.45605 0.70752 0.63232 0.56738 0.86817 1.39453 0.09912 0.34863 0.09912 0.76904 0 0.42041-0.11279 0.76904-0.2085 0.77246-0.76905 1.31934-0.56055 0.54346-1.31591 0.73828-0.33496 0.08545-0.71436 0.08545-0.37939 0-0.71436-0.08545-0.84082-0.2085-1.42871-0.85107-0.58789-0.646-0.72802-1.48682-0.04102-0.22217-0.04102-0.48877 0-0.2666 0.04102-0.48877 0.07178-0.44775 0.29394-0.875 0.22559-0.42725 0.54688-0.73486 0.51953-0.47852 1.16894-0.68018 0.65283-0.20166 1.3501-0.09228z m-0.62891 1.13476q-0.12646 0.02734-0.23925 0.1333-0.10938 0.10596-0.16749 0.23242-0.02734 0.06836-0.02734 0.18799 0 0.11963 0 0.66309l0 0.64599q0 0.12646 0.02734 0.19483 0.05811 0.12646 0.16749 0.21875 0.11279 0.08887 0.51953 0.35547 0.50244 0.30762 0.55713 0.33838 0.05811 0.02734 0.19824 0.04101 0.2666 0.01367 0.43408-0.15381 0.14014-0.14014 0.17432-0.30078 0.0376-0.16064-0.03418-0.34521-0.04102-0.11279-0.14698-0.20166-0.10596-0.09229-0.3999-0.27344l-0.33496-0.2085-0.01367-0.56054q0-0.39307-0.00684-0.48194-0.00684-0.09229-0.04443-0.16748-0.03418-0.07861-0.11279-0.15381-0.0752-0.07861-0.15381-0.11279-0.0752-0.0376-0.19483-0.05127-0.11621-0.01367-0.20166 0z m1.75 5.50293q0 0.04101-0.11279 0.56055-0.11279 0.51611-0.12646 0.56055-0.04102 0.08203-0.11963 0.16748-0.0752 0.08203-0.16065 0.12646l-0.0957 0.04102-1.93115 0-0.08545-0.04102q-0.08545-0.03076-0.17774-0.11963-0.08887-0.09228-0.11621-0.17431-0.02734-0.04443-0.14013-0.56739-0.11279-0.52637-0.10596-0.5332 0.00684-0.00684 0.21875 0.06152 0.33496 0.12646 0.70068 0.18457 0.18115 0.04102 0.64258 0.04102 0.30762 0 0.42041-0.00684 0.11279-0.00684 0.25293-0.03418 0.37598-0.07178 0.71094-0.19824 0.22559-0.08203 0.22558-0.06836z"
+                fill="#00FFA3"
+              ></path>
+            </svg>
+            <div
+              data-pencil-name="T"
+              class="text-[13px]/[normal] box-border text-[#00FFA3] font-[Inter,system-ui,sans-serif] font-extrabold tracking-[2px] text-left [white-space:nowrap]"
+            >
+              APPLE WATCH &amp; IPHONE
+            </div>
+          </div>
+          <div
+            data-pencil-name="H"
+            class="box-border w-full h-fit shrink-0 flex flex-col gap-0 justify-start items-start"
+          >
+            <div
+              data-pencil-name="L1"
+              class="text-[76px]/[72px] box-border w-full text-[#FFFFFF] font-[Nunito,system-ui,sans-serif] font-extrabold tracking-[-1px] text-left"
+            >
+              ONE TAP.
+            </div>
+            <div
+              data-pencil-name="L2"
+              class="text-[76px]/[72px] box-border w-full text-[#00FFA3] font-[Nunito,system-ui,sans-serif] font-extrabold tracking-[-1px] text-left"
+            >
+              FULL SCORE.
+            </div>
+          </div>
+          <div
+            data-pencil-name="Sub"
+            class="text-[20px]/[27px] box-border w-[480px] text-[#A69FD1] font-[Inter,system-ui,sans-serif] font-medium text-left"
+          >
+            Tap the team that won the point — Padlboard derives games, sets, serve and side, and
+            tracks your heart rate live. Leave your phone in the bag.
+          </div>
+          <div
+            data-pencil-name="Chips"
+            class="box-border w-fit h-fit shrink-0 flex flex-row gap-[10px] p-[4px_0px_0px_0px] justify-start items-start"
+          >
+            <div
+              data-pencil-name="Live heart rate"
+              class="box-border w-fit shrink-0 h-fit flex flex-row gap-0 p-[9px_15px] justify-start items-start bg-[#1A1046] [border:1px_solid_#2A1F5C] rounded-[40px]"
+            >
+              <div
+                data-pencil-name="T"
+                class="text-[13px]/[normal] box-border text-[#FFFFFF] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
+              >
+                Live heart rate
+              </div>
+            </div>
+            <div
+              data-pencil-name="Haptic feedback"
+              class="box-border w-fit shrink-0 h-fit flex flex-row gap-0 p-[9px_15px] justify-start items-start bg-[#1A1046] [border:1px_solid_#2A1F5C] rounded-[40px]"
+            >
+              <div
+                data-pencil-name="T"
+                class="text-[13px]/[normal] box-border text-[#FFFFFF] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
+              >
+                Haptic feedback
+              </div>
+            </div>
+            <div
+              data-pencil-name="Auto serve &amp; side"
+              class="box-border w-fit shrink-0 h-fit flex flex-row gap-0 p-[9px_15px] justify-start items-start bg-[#1A1046] [border:1px_solid_#2A1F5C] rounded-[40px]"
+            >
+              <div
+                data-pencil-name="T"
+                class="text-[13px]/[normal] box-border text-[#FFFFFF] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
+              >
+                Auto serve &amp; side
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          data-pencil-name="Score Float"
+          class="box-border w-[184px] h-fit [box-shadow:0px_0px_36px_0px_#00FFA333] absolute left-[800px] top-[230px] flex flex-col gap-[10px] p-[18px] justify-start items-start bg-[#080420F2] [border:1.5px_solid_#00FFA3] rounded-[28px] [z-index:3]"
+        >
+          <div
+            data-pencil-name="You"
+            class="box-border w-full h-fit shrink-0 flex flex-row gap-0 p-[12px_14px] justify-between items-center bg-[#00FFA31F] rounded-[12px]"
+          >
+            <div
+              data-pencil-name="L"
+              class="box-border w-fit shrink-0 h-fit flex flex-row gap-[8px] justify-start items-center"
+            >
+              <div
+                data-pencil-name="D"
+                class="box-border w-[9px] shrink-0 h-[9px] bg-[#00FFA3] rounded-full"
+              ></div>
+              <div
+                data-pencil-name="T"
+                class="text-[13px]/[normal] box-border text-[#FFFFFF] font-[Inter,system-ui,sans-serif] font-extrabold tracking-[1px] text-left [white-space:nowrap]"
+              >
+                YOU
+              </div>
+            </div>
+            <div
+              data-pencil-name="S"
+              class="text-[32px]/[normal] box-border text-[#00FFA3] font-[Nunito,system-ui,sans-serif] font-extrabold text-left [white-space:nowrap]"
+            >
+              40
+            </div>
+          </div>
+          <div
+            data-pencil-name="Opp"
+            class="box-border w-full h-fit shrink-0 flex flex-row gap-0 p-[12px_14px] justify-between items-center bg-[#9B5CFF24] rounded-[12px]"
+          >
+            <div
+              data-pencil-name="T"
+              class="text-[13px]/[normal] box-border text-[#A69FD1] font-[Inter,system-ui,sans-serif] font-extrabold tracking-[1px] text-left [white-space:nowrap]"
+            >
+              RIVALS
+            </div>
+            <div
+              data-pencil-name="S"
+              class="text-[32px]/[normal] box-border text-[#9B5CFF] font-[Nunito,system-ui,sans-serif] font-extrabold text-left [white-space:nowrap]"
+            >
+              30
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        data-pencil-name="Section/Download CTA"
+        class="box-border w-full h-[560px] shrink-0 [background-image:linear-gradient(-108.072deg,_#6A00FF_12.392%,_#1A0A4E_53.761%,_#080420_87.608%)] bg-no-repeat bg-[length:100%_100%] overflow-hidden relative"
+      >
+        <div
+          data-pencil-name="Glow"
+          class="box-border w-[520px] h-[520px] opacity-[0.35] [filter:blur(80px)] absolute left-[1000px] top-[-120px] bg-[#00FFA3] rounded-full [z-index:0]"
+        ></div>
+        <div
+          data-pencil-name="Glow2"
+          class="box-border w-[480px] h-[480px] opacity-[0.3] [filter:blur(85px)] absolute left-[-160px] top-[280px] bg-[#F5FF00] rounded-full [z-index:1]"
+        ></div>
+        <div
+          data-pencil-name="Content"
+          class="box-border w-[1440px] h-[560px] absolute left-0 top-0 flex flex-col gap-[24px] p-[0px_120px] justify-center items-center [z-index:2]"
+        >
+          <div
+            data-pencil-name="Eyebrow"
+            class="text-[15px]/[normal] box-border text-[#00FFA3] font-[Inter,system-ui,sans-serif] font-extrabold tracking-[3px] text-left [white-space:nowrap]"
+          >
+            READY TO PLAY?
+          </div>
+          <div
+            data-pencil-name="Head"
+            class="text-[88px]/[84px] box-border w-[1000px] text-[#FFFFFF] font-[Nunito,system-ui,sans-serif] font-extrabold tracking-[-2px] text-center"
+          >
+            Get in the game
+          </div>
+          <div
+            data-pencil-name="Sub"
+            class="text-[20px]/[27px] box-border w-[640px] text-[#FFFFFF] font-[Inter,system-ui,sans-serif] font-medium text-center"
+          >
+            Games, coaches, courts and live scoring — the whole padel world in one app. Free to
+            download, ready in seconds.
+          </div>
+          <div
+            data-pencil-name="Buttons"
+            class="box-border w-fit h-fit shrink-0 flex flex-row gap-[14px] p-[10px_0px_0px_0px] justify-start items-center"
+          >
+            <div
+              data-pencil-name="AppStore"
+              class="box-border w-fit shrink-0 h-fit [box-shadow:0px_0px_34px_0px_#F5FF0066] flex flex-row gap-[10px] p-[16px_30px] justify-start items-center bg-[#F5FF00] rounded-[20px]"
+            >
+              <svg
+                data-pencil-name="I"
+                data-icon-name="apple"
+                data-icon-set="lucide"
+                viewBox="0 0 13.99993896484375 14"
+                preserveAspectRatio="xMidYMid meet"
+                xmlns="http://www.w3.org/2000/svg"
+                class="box-border w-[24px] shrink-0 h-[24px]"
+              >
+                <path
+                  d="M7.44775 0.60156q-0.39307 0.02734-0.70068 0.33496-0.14014 0.15381-0.2085 0.28028-0.08545 0.1709-0.09912 0.31103-0.01367 0.13672-0.01367 0.61524 0 0.57422-0.01367 0.57422-0.01367 0-0.2085-0.08545-0.71436-0.29395-1.52099-0.29395-0.80322 0-1.50391 0.28027-0.16748 0.06836-0.3999 0.18799-0.23242 0.11963-0.36914 0.20508-0.68701 0.46143-1.15869 1.17578-0.46826 0.71436-0.6084 1.53809-0.06836 0.40674-0.05469 0.99463 0.01367 0.58789 0.11279 1.18945 0.28027 1.75 1.17578 3.2915 0.18115 0.29394 0.44776 0.66651 0.2666 0.36914 0.51611 0.66308 0.19824 0.23926 0.37256 0.3794 0.17432 0.13672 0.41357 0.26318 0.48877 0.23926 1.04932 0.23926 0.30762 0 0.53662-0.05469 0.23242-0.05811 0.61182-0.23926 0.32129-0.15381 0.58105-0.21533 0.25977-0.06494 0.59473-0.06494 0.33496 0 0.59473 0.06494 0.25977 0.06152 0.58105 0.21533 0.36572 0.16748 0.60156 0.23243 0.23926 0.06152 0.54688 0.06152 0.86816 0 1.53808-0.56055 0.22559-0.19482 0.60499-0.68701 1.46973-1.90381 1.8457-4.29639 0.08545-0.56055 0.09912-1.15527 0.01367-0.59473-0.05469-0.98779-0.14014-0.85449-0.63232-1.58252-0.48877-0.72803-1.2168-1.17578-0.25293-0.16748-0.58105-0.30762-0.32813-0.14014-0.6084-0.2085-0.58789-0.15381-1.26123-0.10595-0.67334 0.04785-1.26123 0.28711-0.19482 0.08545-0.2085 0.08545-0.01367 0-0.01367-0.47852l0-0.48877 0.08545 0q0.12305-0.01367 0.25635-0.10254 0.1333-0.09229 0.1914-0.20508 0.02734-0.07178 0.04102-0.18115 0.04102-0.18457-0.05127-0.36572-0.08887-0.18115-0.25635-0.24951-0.16748-0.07178-0.39307-0.04444z m-2.43701 2.92578q0.43408 0.05811 0.80322 0.21192 0.37256 0.15381 0.72461 0.44775 0.15381 0.12646 0.23584 0.16065 0.08545 0.03418 0.22559 0.03418 0.14014 0 0.22217-0.03418 0.08545-0.03418 0.23926-0.16065 0.51953-0.42041 1.12793-0.58789 0.6084-0.16748 1.2373-0.0581 0.58789 0.09912 1.09033 0.42724 0.50586 0.32813 0.83057 0.82031 0.27685 0.43408 0.39648 0.875 0.11963 0.44092 0.10596 1.01514-0.04102 0.89551-0.23242 1.69531-0.18799 0.79639-0.56397 1.60645-0.25293 0.51953-0.65966 1.11426-0.40674 0.59473-0.70069 0.875-0.19482 0.16748-0.48193 0.23925-0.28711 0.06836-0.55371 0.01368-0.12646-0.04101-0.42041-0.17432-0.29395-0.1333-0.54004-0.2085-0.24268-0.07861-0.5503-0.13671-0.15381-0.02734-0.54687-0.02735-0.39307 0-0.54688 0.02735-0.30762 0.0581-0.55371 0.13671-0.24268 0.0752-0.53662 0.2085-0.29395 0.1333-0.42041 0.17432-0.2666 0.05469-0.55371-0.01368-0.28711-0.07178-0.48535-0.25293-0.19482-0.18115-0.4751-0.55029-0.27686-0.37256-0.51611-0.76562-0.12646-0.2085-0.30078-0.56397-0.17432-0.35889-0.28711-0.62549-0.2666-0.68701-0.40674-1.35693-0.14014-0.67334-0.16748-1.44238-0.01367-0.46484 0.05469-0.82032 0.07178-0.35547 0.25293-0.69384 0.42041-0.85449 1.2373-1.28858 0.82031-0.43408 1.71582-0.32129z"
+                  fill="#080420"
+                ></path>
+              </svg>
+              <div
+                data-pencil-name="C"
+                class="box-border w-fit shrink-0 h-fit flex flex-col gap-0 justify-start items-start"
+              >
+                <div
+                  data-pencil-name="S"
+                  class="text-[11px]/[normal] box-border text-[#080420] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
+                >
+                  Download on the
+                </div>
+                <div
+                  data-pencil-name="B"
+                  class="text-[20px]/[normal] box-border text-[#080420] font-[Nunito,system-ui,sans-serif] font-extrabold text-left [white-space:nowrap]"
+                >
+                  App Store
+                </div>
+              </div>
+            </div>
+            <div
+              data-pencil-name="Watch"
+              class="box-border w-fit shrink-0 h-fit flex flex-row gap-[10px] p-[16px_26px] justify-start items-center bg-[#FFFFFF14] [border:1.5px_solid_#FFFFFF3D] rounded-[20px]"
+            >
+              <svg
+                data-pencil-name="I"
+                data-icon-name="watch"
+                data-icon-set="lucide"
+                viewBox="0 0 13.99993896484375 14"
+                preserveAspectRatio="xMidYMid meet"
+                xmlns="http://www.w3.org/2000/svg"
+                class="box-border w-[22px] shrink-0 h-[22px]"
+              >
+                <path
+                  d="M6.00537 0.58789q-0.51611 0.05469-0.92285 0.39307-0.40674 0.33496-0.56055 0.82373-0.04102 0.12646-0.2666 1.24756l-0.2085 1.13476-0.08544 0.08203q-0.39307 0.43408-0.66651 1.01514-0.27002 0.58105-0.3418 1.19629-0.02734 0.19824-0.02734 0.51953 0 0.32129 0.02734 0.51953 0.07178 0.61523 0.3418 1.20313 0.27344 0.58789 0.68018 1.02197l0.08545 0.08203 0.22216 1.10742q0.22559 1.12109 0.26661 1.26123 0.12646 0.41699 0.46142 0.72803 0.33838 0.30762 0.79981 0.43408 0.11279 0.02734 0.2666 0.03418 0.15381 0.00684 0.93652 0.00684l0.02735 0q0.82715 0 1.00146-0.01367 0.17432-0.01367 0.37256-0.08545l0.01367 0q0.29395-0.0957 0.55713-0.33497 0.2666-0.23926 0.40674-0.51953 0.08545-0.15381 0.14013-0.38964 0.05811-0.23926 0.23926-1.1211l0.22559-1.16211 0.10937-0.11279q0.71435-0.85449 0.92627-2.0166 0.04102-0.18115 0.04102-0.64258 0-0.46143-0.04102-0.64258-0.21191-1.22021-0.98095-2.07471l-0.1128-0.10937-0.22216-1.12109q-0.21191-1.10742-0.26661-1.26123-0.14014-0.44775-0.49218-0.75538-0.34863-0.30762-0.81006-0.42041-0.12646-0.02734-1.06641-0.02734-0.93652 0-1.07666 0z m2.0166 1.20313q0.08545 0.04443 0.16748 0.12988 0.08545 0.08203 0.11963 0.14697 0.03418 0.06152 0.14697 0.60156 0.11279 0.53662 0.10596 0.54346-0.00684 0.00684-0.23242-0.07519-0.62891-0.21191-1.32275-0.21192-0.69385 0-1.30909 0.21192-0.2085 0.06836-0.23925 0.08203-0.02734 0.01367-0.02735 0l0.08545-0.53321q0.0957-0.4751 0.15039-0.61523 0.05811-0.14014 0.21192-0.22217 0.11279-0.07178 0.25976-0.08545 0.14697-0.01367 0.88867-0.01367l0.79981 0.01367q0.12646 0 0.19482 0.02735z m-0.5332 2.33789q0.82715 0.14014 1.45605 0.70752 0.63232 0.56738 0.86817 1.39453 0.09912 0.34863 0.09912 0.76904 0 0.42041-0.11279 0.76904-0.2085 0.77246-0.76905 1.31934-0.56055 0.54346-1.31591 0.73828-0.33496 0.08545-0.71436 0.08545-0.37939 0-0.71436-0.08545-0.84082-0.2085-1.42871-0.85107-0.58789-0.646-0.72802-1.48682-0.04102-0.22217-0.04102-0.48877 0-0.2666 0.04102-0.48877 0.07178-0.44775 0.29394-0.875 0.22559-0.42725 0.54688-0.73486 0.51953-0.47852 1.16894-0.68018 0.65283-0.20166 1.3501-0.09228z m-0.62891 1.13476q-0.12646 0.02734-0.23925 0.1333-0.10938 0.10596-0.16749 0.23242-0.02734 0.06836-0.02734 0.18799 0 0.11963 0 0.66309l0 0.64599q0 0.12646 0.02734 0.19483 0.05811 0.12646 0.16749 0.21875 0.11279 0.08887 0.51953 0.35547 0.50244 0.30762 0.55713 0.33838 0.05811 0.02734 0.19824 0.04101 0.2666 0.01367 0.43408-0.15381 0.14014-0.14014 0.17432-0.30078 0.0376-0.16064-0.03418-0.34521-0.04102-0.11279-0.14698-0.20166-0.10596-0.09229-0.3999-0.27344l-0.33496-0.2085-0.01367-0.56054q0-0.39307-0.00684-0.48194-0.00684-0.09229-0.04443-0.16748-0.03418-0.07861-0.11279-0.15381-0.0752-0.07861-0.15381-0.11279-0.0752-0.0376-0.19483-0.05127-0.11621-0.01367-0.20166 0z m1.75 5.50293q0 0.04101-0.11279 0.56055-0.11279 0.51611-0.12646 0.56055-0.04102 0.08203-0.11963 0.16748-0.0752 0.08203-0.16065 0.12646l-0.0957 0.04102-1.93115 0-0.08545-0.04102q-0.08545-0.03076-0.17774-0.11963-0.08887-0.09228-0.11621-0.17431-0.02734-0.04443-0.14013-0.56739-0.11279-0.52637-0.10596-0.5332 0.00684-0.00684 0.21875 0.06152 0.33496 0.12646 0.70068 0.18457 0.18115 0.04102 0.64258 0.04102 0.30762 0 0.42041-0.00684 0.11279-0.00684 0.25293-0.03418 0.37598-0.07178 0.71094-0.19824 0.22559-0.08203 0.22558-0.06836z"
+                  fill="#FFFFFF"
+                ></path>
+              </svg>
+              <div
+                data-pencil-name="T"
+                class="text-[15px]/[normal] box-border text-[#FFFFFF] font-[Inter,system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
+              >
+                Also on Apple Watch
+              </div>
+            </div>
+          </div>
+          <div
+            data-pencil-name="Note"
+            class="text-[13px]/[normal] box-border text-[#A69FD1] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+          >
+            Requires iPhone · Apple Watch optional · No ads
+          </div>
+        </div>
+      </div>
+      <div
+        data-pencil-name="Section/For Business"
+        class="box-border w-full h-fit shrink-0 flex flex-row gap-[64px] p-[64px_100px] justify-between items-center bg-[#120A33] [border-width:1px_0px_1px_0px] [border-style:solid] [border-color:#2A1F5C]"
+      >
+        <div
+          data-pencil-name="Left"
+          class="box-border w-[680px] shrink-0 h-fit flex flex-col gap-[18px] justify-start items-start"
+        >
+          <div
+            data-pencil-name="Eyebrow"
+            class="box-border w-fit h-fit shrink-0 flex flex-row gap-[8px] justify-start items-center"
+          >
+            <svg
+              data-pencil-name="I"
+              data-icon-name="building-2"
+              data-icon-set="lucide"
+              viewBox="0 0 13.99993896484375 14"
+              preserveAspectRatio="xMidYMid meet"
+              xmlns="http://www.w3.org/2000/svg"
+              class="box-border w-[17px] shrink-0 h-[17px]"
+            >
+              <path
+                d="M4.35449 1.20313q-0.43408 0.07178-0.77929 0.35205-0.3418 0.28027-0.50928 0.66992l-0.02735 0.04443q-0.05811 0.15381-0.07177 0.22217-0.02734 0.11279-0.02735 0.36572l-0.01367 2.39258-0.34863 0q-0.33838 0-0.47852 0.01367-0.4751 0.07178-0.85449 0.37256-0.37598 0.30078-0.55713 0.76221l-0.01367 0.02734q-0.04443 0.14014-0.05811 0.23926-0.01367 0.15381-0.02734 0.57422l0 1.67822q-0.01367 2.17041 0.01367 2.33789 0.02734 0.30762 0.16748 0.60156 0.15381 0.32471 0.44092 0.56397 0.28711 0.23584 0.65283 0.34863l0.15381 0.05469 9.9668 0 0.15381-0.05469q0.36572-0.11279 0.65283-0.34863 0.28711-0.23926 0.44092-0.56397 0.14014-0.28027 0.18115-0.60156 0.01367-0.16748 0-3.20605l0-2.37891q0-0.54688-0.02734-0.72803-0.01367-0.12646-0.05811-0.25293l-0.02734-0.04101q-0.14014-0.37939-0.44092-0.66651-0.30078-0.28711-0.67676-0.39648-0.15723-0.05811-0.31787-0.07178-0.16065-0.01367-0.44092-0.01367l-0.34863 0 0-0.44775q0-0.29395-0.01367-0.38965-0.01367-0.09912-0.02735-0.18457-0.23926-0.81348-0.96728-1.14844-0.15381-0.06836-0.29395-0.11279l-0.14013-0.04102-2.57715 0q-2.5874 0-2.7002 0.02734z m5.20899 1.17578q0.2085 0.09912 0.30761 0.30761l0.04102 0.09912 0.01367 8.89014-1.17578 0 0-0.67334q0-0.55713-0.02051-0.74512-0.02051-0.19141-0.10595-0.3999-0.18115-0.43408-0.54004-0.72119-0.35547-0.28711-0.8169-0.35889-0.2666-0.04102-0.5332 0-0.46143 0.07178-0.82031 0.35889-0.35547 0.28711-0.53663 0.72119-0.08545 0.2085-0.10595 0.3999-0.02051 0.18799-0.02051 0.74512l0 0.67334-1.17578 0 0.01367-8.89014 0.04102-0.09912q0.07178-0.14014 0.18798-0.229 0.11963-0.09229 0.25977-0.11963 0.08545 0 2.47803 0l2.40967 0 0.09912 0.04102z m-3.83838 1.72265q-0.18115 0.02734-0.32129 0.18115-0.14014 0.15381-0.15381 0.35206 0 0.14014 0.06152 0.28027 0.06494 0.14014 0.19141 0.22217l0.01367 0.01367q0.06836 0.05811 0.15039 0.07178 0.08545 0.01367 0.35205 0.02734l1.96192 0q0.2666-0.01367 0.34863-0.02734 0.08545-0.01367 0.15381-0.07178l0.01367-0.01367q0.21191-0.14014 0.24609-0.36914 0.03418-0.23242-0.09912-0.43409-0.1333-0.20508-0.38281-0.23242-0.11279-0.02734-1.2749-0.02734-1.16211 0-1.26123 0.02734z m6.1455 0.60156q0.21192 0.08545 0.32471 0.29395l0.04102 0.09912 0 6.13184-0.04102 0.09912q-0.04443 0.08203-0.11621 0.16064-0.06836 0.0752-0.13672 0.11963-0.14014 0.06836-0.57422 0.06836l-0.29394 0 0-7 0.34863 0q0.23926 0 0.30762 0.00684 0.07178 0.00684 0.14013 0.0205z m-8.94482 4.34083l0 2.63183-0.29394 0q-0.43408 0-0.57422-0.06836-0.06836-0.04443-0.14014-0.11963-0.06836-0.07861-0.11279-0.16064l-0.04102-0.09912 0-4.38184 0.04102-0.09912q0.04443-0.08203 0.1333-0.16406 0.09229-0.08545 0.1914-0.12989 0.05469-0.01367 0.12989-0.0205 0.07861-0.00684 0.3042-0.00684l0.3623 0 0 2.61817z m2.70361-2.59083q-0.09912 0.04443-0.1914 0.12989-0.08887 0.08203-0.12647 0.16064-0.03418 0.0752-0.04101 0.11621-0.00684 0.04102-0.00684 0.14014 0 0.15381 0.04102 0.25293 0.11279 0.2085 0.3247 0.29394 0.06836 0.02734 0.24952 0.02735l1.12109 0 1.12109 0q0.18115 0 0.24952-0.02735 0.21191-0.08545 0.3247-0.29394 0.04102-0.09912 0.04102-0.25293 0-0.09912-0.00684-0.14014-0.00684-0.04102-0.03418-0.11279-0.04443-0.08203-0.13672-0.16406-0.08887-0.08545-0.17431-0.11963-0.08203-0.0376-0.26319-0.0376l-1.12109 0-1.12109 0q-0.19482 0.01367-0.24952 0.02734z m1.62354 3.52735q0.18115 0.08545 0.2666 0.2666l0.05469 0.08545 0 1.34326-1.14844 0 0-1.34326 0.05469-0.08545q0.11279-0.22217 0.36572-0.30762 0.04102-0.01367 0.18115-0.00683 0.14014 0.00684 0.22559 0.04785z"
+                fill="#00FFA3"
+              ></path>
+            </svg>
+            <div
+              data-pencil-name="T"
+              class="text-[13px]/[normal] box-border text-[#00FFA3] font-[Inter,system-ui,sans-serif] font-extrabold tracking-[2px] text-left [white-space:nowrap]"
+            >
+              FOR CLUBS &amp; VENUES
+            </div>
+          </div>
+          <div
+            data-pencil-name="H"
+            class="box-border w-full h-fit shrink-0 flex flex-col gap-0 justify-start items-start"
+          >
+            <div
+              data-pencil-name="L1"
+              class="text-[44px]/[46px] box-border w-full text-[#FFFFFF] font-[Nunito,system-ui,sans-serif] font-extrabold text-left"
+            >
+              Own a padel court?
+            </div>
+            <div
+              data-pencil-name="L2"
+              class="text-[44px]/[46px] box-border w-full text-[#00FFA3] font-[Nunito,system-ui,sans-serif] font-extrabold text-left"
+            >
+              Fill it with players.
+            </div>
+          </div>
+          <div
+            data-pencil-name="Sub"
+            class="text-[20px]/[27px] box-border w-[560px] text-[#A69FD1] font-[Inter,system-ui,sans-serif] font-medium text-left"
+          >
+            List your courts, get discovered by thousands of nearby players, and turn quiet off-peak
+            hours into booked, paid games.
+          </div>
+        </div>
+        <div
+          data-pencil-name="Right"
+          class="box-border w-[380px] shrink-0 h-fit flex flex-col gap-[14px] justify-start items-start"
+        >
+          <div
+            data-pencil-name="StatCard"
+            class="box-border w-full h-fit shrink-0 [box-shadow:0px_0px_24px_0px_#00FFA31F] flex flex-col gap-[2px] p-[22px] justify-start items-start bg-[#1A1046] [border:1.5px_solid_#00FFA3] rounded-[28px]"
+          >
+            <div
+              data-pencil-name="V"
+              class="text-[44px]/[normal] box-border text-[#00FFA3] font-[Nunito,system-ui,sans-serif] font-extrabold text-left [white-space:nowrap]"
+            >
+              €2,400
+            </div>
+            <div
+              data-pencil-name="L"
+              class="text-[15px]/[normal] box-border text-[#A69FD1] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
+            >
+              avg extra revenue / month
+            </div>
+          </div>
+          <div
+            data-pencil-name="ListBtn"
+            class="box-border w-full h-fit shrink-0 [box-shadow:0px_0px_22px_0px_#F5FF0055] flex flex-row gap-[9px] p-[16px] justify-center items-center bg-[#F5FF00] rounded-[20px]"
+          >
+            <div
+              data-pencil-name="T"
+              class="text-[20px]/[normal] box-border text-[#080420] font-[Inter,system-ui,sans-serif] font-extrabold text-left [white-space:nowrap]"
+            >
+              List your court — free
+            </div>
+            <svg
+              data-pencil-name="I"
+              data-icon-name="arrow-right"
+              data-icon-set="lucide"
+              viewBox="0 0 13.99993896484375 14"
+              preserveAspectRatio="xMidYMid meet"
+              xmlns="http://www.w3.org/2000/svg"
+              class="box-border w-[19px] shrink-0 h-[19px]"
+            >
+              <path
+                d="M6.90088 2.35156q-0.18115 0.02734-0.32129 0.16748-0.11279 0.11279-0.14697 0.28028-0.03418 0.16748 0.02051 0.32129 0.02734 0.08545 0.25976 0.3247 0.23242 0.23584 1.36377 1.37061 1.58252 1.58252 1.58252 1.59619 0 0.01367-3.45557 0.01367l-3.44531 0-0.08545 0.04102q-0.22217 0.11279-0.30078 0.33838-0.0752 0.22217 0.00684 0.43408 0.05811 0.0957 0.14013 0.18115 0.08545 0.08203 0.16748 0.11963 0.08545 0.03418 0.53321 0.03418l3.01123 0q3.42822 0 3.42822 0.01367 0 0.01367-1.58252 1.59619-1.13135 1.13477-1.36377 1.37402-0.23242 0.23584-0.25976 0.3213-0.05469 0.15381-0.02051 0.32128 0.03418 0.16748 0.14697 0.28028 0.18115 0.18115 0.42041 0.18115l0.04102 0q0.11279 0 0.19824-0.05469 0.14014-0.09912 0.51611-0.46484l1.68164-1.67822q2.1123-2.10205 2.15332-2.18409 0.07178-0.12646 0.07178-0.28027 0-0.15381-0.07178-0.28027-0.04102-0.08203-2.1499-2.18067-2.10547-2.10205-2.17725-2.13623-0.06836-0.0376-0.23584-0.06494-0.04102 0-0.12646 0.01367z"
+                fill="#080420"
+              ></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div
+        data-pencil-name="Section/Footer"
+        class="box-border w-full h-fit shrink-0 flex flex-col gap-[40px] p-[64px_100px_32px_100px] justify-start items-start bg-[#080420]"
+      >
+        <div
+          data-pencil-name="Top"
+          class="box-border w-full h-fit shrink-0 flex flex-row gap-0 justify-between items-start"
+        >
+          <div
+            data-pencil-name="Brand"
+            class="box-border w-[360px] shrink-0 h-fit flex flex-col gap-[16px] justify-start items-start"
+          >
+            <div
+              data-pencil-name="Logo"
+              class="box-border w-fit h-fit shrink-0 flex flex-row gap-[10px] justify-start items-center"
+            >
+              <div
+                data-pencil-name="Emblem"
+                class="box-border w-[34px] shrink-0 h-[34px] [box-shadow:0px_0px_14px_0px_#F5FF0055] flex flex-col gap-0 justify-center items-center bg-[#F5FF00] rounded-[10px]"
+              >
+                <div
+                  data-pencil-name="Mark"
+                  class="box-border w-[16px] h-[19px] shrink-0 bg-[#f1ff2900] relative"
+                >
+                  <svg
+                    data-pencil-name="P Shape"
+                    viewBox="0 0 85.42 98.91"
+                    preserveAspectRatio="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="box-border w-[21px] h-[24px] absolute left-[-2.5px] top-[-2.5px] overflow-visible [z-index:0]"
+                  >
+                    <path
+                      d="M39.16406 0.03331c-1.797 0-6.418-0.076-8.045 0.12-9.215 0.905-17.304 4.46-23.274 11.729-3.27644 3.95929-5.61846 8.60608-6.852 13.595-1.346 5.678-0.937 37.973-0.927 44.01l16.334 0c-0.012-4.98 0.028-29.936 0.129-34.914 0.11-5.444 1.126-9.62 5.053-13.593 5.515-5.581 12.5-5.052 19.724-4.934 3.474 0.069 7.301-0.048 10.807-0.052 10.64-0.012 17.637 8.913 17.168 19.171-0.248 5.444-1.398 10.106-5.523 14.04999-3.434 3.231-6.824 4.8-11.489 5.29201-10.672-0.009-21.215-1.472-24.895 11.76599-1.098 3.953-0.629 10.63-0.61 14.837l0 14.52 0.03 3.28199c5.342-0.737 8.887-2.356 12.223-6.69 4.67-6.069 3.283-11.155 3.864-18.055 0.104-1.237 0.72-3.366 3.194-3.52 11.021 0.305 19.228-0.891 27.675-8.87599 7.2083-6.83454 11.40161-16.25591 11.655-26.18599 0.24-9.81-2.6-18.444-9.466-25.607-5.94946-6.28607-14.20413-9.87553-22.859-9.94-4.557-0.082-9.348-0.007-13.916-0.006"
+                      fill="#1A1046"
+                    ></path>
+                  </svg>
+                  <svg
+                    data-pencil-name="Dot Grid"
+                    viewBox="0 0 32 20"
+                    preserveAspectRatio="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="box-border w-[8px] h-[5px] absolute left-[4px] top-[4px] overflow-visible [z-index:1]"
+                  >
+                    <path
+                      d="M3.14948 0.09174c1.40626-0.3063 2.86866 0.16649 3.82946 1.23805 0.9608 1.07157 1.27185 2.57669 0.81452 3.94133-0.45732 1.36464-1.6125 2.37839-3.02498 2.65461-2.15173 0.4208-4.2412-0.96897-4.68493-3.11609-0.44373-2.14712 0.92367-4.2513 3.06593-4.7179m12.00001 0c1.40626-0.3063 2.86866 0.16649 3.82945 1.23805 0.9608 1.07157 1.27185 2.57669 0.81452 3.94133-0.45732 1.36464-1.6125 2.37839-3.02498 2.65461-2.15173 0.4208-4.2412-0.96897-4.68493-3.11609-0.44373-2.14712 0.92367-4.2513 3.06593-4.7179m12 0c1.40626-0.3063 2.86866 0.16649 3.82946 1.23805 0.9608 1.07157 1.27185 2.57669 0.81452 3.94133-0.45732 1.36464-1.6125 2.37839-3.02498 2.65461-2.15173 0.4208-4.2412-0.96897-4.68493-3.11609-0.44373-2.14712 0.92367-4.2513 3.06593-4.7179m-24 12c1.40626-0.3063 2.86866 0.16649 3.82946 1.23805 0.9608 1.07157 1.27185 2.57668 0.81452 3.94133-0.45732 1.36464-1.6125 2.37839-3.02498 2.65461-2.15173 0.4208-4.2412-0.96897-4.68493-3.11608-0.44373-2.14712 0.92367-4.2513 3.06593-4.71792m12.00001 0c1.40626-0.3063 2.86866 0.16649 3.82945 1.23806 0.9608 1.07157 1.27185 2.57668 0.81452 3.94133-0.45732 1.36464-1.6125 2.37839-3.02498 2.65461-2.15173 0.4208-4.2412-0.96897-4.68493-3.11608-0.44373-2.14712 0.92367-4.2513 3.06593-4.71792m12 0c1.40626-0.3063 2.86866 0.16649 3.82946 1.23806 0.9608 1.07157 1.27185 2.57668 0.81452 3.94133-0.45732 1.36464-1.6125 2.37839-3.02498 2.65461-2.15173 0.4208-4.2412-0.96897-4.68493-3.11608-0.44373-2.14712 0.92367-4.2513 3.06593-4.71792"
+                      fill="#1A1046"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+              <div
+                data-pencil-name="W"
+                class="text-[22px]/[normal] box-border text-[#FFFFFF] font-[Nunito,system-ui,sans-serif] font-extrabold text-left [white-space:nowrap]"
+              >
+                Padlboard
+              </div>
+            </div>
+            <div
+              data-pencil-name="Tag"
+              class="text-[15px]/[20px] box-border w-[320px] text-[#A69FD1] font-[Inter,system-ui,sans-serif] font-medium text-left"
+            >
+              Games, coaches, courts and live scoring — the whole padel world in one app.
+            </div>
+          </div>
+          <div
+            data-pencil-name="Cols"
+            class="box-border w-fit shrink-0 h-fit flex flex-row gap-[72px] justify-start items-start"
+          >
+            <div
+              data-pencil-name="Product"
+              class="box-border w-fit shrink-0 h-fit flex flex-col gap-[14px] justify-start items-start"
+            >
+              <div
+                data-pencil-name="H"
+                class="text-[11px]/[normal] box-border text-[#6E67A0] font-[Inter,system-ui,sans-serif] font-bold tracking-[1.5px] text-left [white-space:nowrap]"
+              >
+                PRODUCT
+              </div>
+              <div
+                data-pencil-name="Games"
+                class="text-[15px]/[normal] box-border text-[#A69FD1] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+              >
+                Games
+              </div>
+              <div
+                data-pencil-name="Coaches"
+                class="text-[15px]/[normal] box-border text-[#A69FD1] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+              >
+                Coaches
+              </div>
+              <div
+                data-pencil-name="Courts"
+                class="text-[15px]/[normal] box-border text-[#A69FD1] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+              >
+                Courts
+              </div>
+              <div
+                data-pencil-name="Scoring"
+                class="text-[15px]/[normal] box-border text-[#A69FD1] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+              >
+                Scoring
+              </div>
+            </div>
+            <div
+              data-pencil-name="Company"
+              class="box-border w-fit shrink-0 h-fit flex flex-col gap-[14px] justify-start items-start"
+            >
+              <div
+                data-pencil-name="H"
+                class="text-[11px]/[normal] box-border text-[#6E67A0] font-[Inter,system-ui,sans-serif] font-bold tracking-[1.5px] text-left [white-space:nowrap]"
+              >
+                COMPANY
+              </div>
+              <div
+                data-pencil-name="About"
+                class="text-[15px]/[normal] box-border text-[#A69FD1] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+              >
+                About
+              </div>
+              <div
+                data-pencil-name="Careers"
+                class="text-[15px]/[normal] box-border text-[#A69FD1] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+              >
+                Careers
+              </div>
+              <div
+                data-pencil-name="Press"
+                class="text-[15px]/[normal] box-border text-[#A69FD1] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+              >
+                Press
+              </div>
+              <div
+                data-pencil-name="Contact"
+                class="text-[15px]/[normal] box-border text-[#A69FD1] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+              >
+                Contact
+              </div>
+            </div>
+            <div
+              data-pencil-name="Legal"
+              class="box-border w-fit shrink-0 h-fit flex flex-col gap-[14px] justify-start items-start"
+            >
+              <div
+                data-pencil-name="H"
+                class="text-[11px]/[normal] box-border text-[#6E67A0] font-[Inter,system-ui,sans-serif] font-bold tracking-[1.5px] text-left [white-space:nowrap]"
+              >
+                LEGAL
+              </div>
+              <div
+                data-pencil-name="Privacy"
+                class="text-[15px]/[normal] box-border text-[#A69FD1] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+              >
+                Privacy
+              </div>
+              <div
+                data-pencil-name="Terms"
+                class="text-[15px]/[normal] box-border text-[#A69FD1] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+              >
+                Terms
+              </div>
+              <div
+                data-pencil-name="GDPR"
+                class="text-[15px]/[normal] box-border text-[#A69FD1] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+              >
+                GDPR
+              </div>
+              <div
+                data-pencil-name="Cookies"
+                class="text-[15px]/[normal] box-border text-[#A69FD1] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+              >
+                Cookies
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          data-pencil-name="Divider"
+          class="box-border w-full h-[1px] shrink-0 bg-[#2A1F5C]"
+        ></div>
+        <div
+          data-pencil-name="Bottom"
+          class="box-border w-full h-fit shrink-0 flex flex-row gap-0 justify-between items-center"
+        >
+          <div
+            data-pencil-name="Copy"
+            class="text-[13px]/[normal] box-border text-[#6E67A0] font-[Inter,system-ui,sans-serif] font-medium text-left [white-space:nowrap]"
+          >
+            © 2026 Padlboard · Made in the EU
+          </div>
+          <div
+            data-pencil-name="Social"
+            class="box-border w-fit shrink-0 h-fit flex flex-row gap-[10px] justify-start items-start"
+          >
+            <div
+              data-pencil-name="instagram"
+              class="box-border w-[36px] shrink-0 h-[36px] flex flex-row gap-0 justify-center items-center bg-[#1A1046] [border:1px_solid_#2A1F5C] rounded-[10px]"
+            >
+              <svg
+                data-pencil-name="I"
+                data-icon-name="instagram"
+                data-icon-set="lucide"
+                viewBox="0 0 13.99993896484375 14"
+                preserveAspectRatio="xMidYMid meet"
+                xmlns="http://www.w3.org/2000/svg"
+                class="box-border w-[16px] shrink-0 h-[16px]"
+              >
+                <path
+                  d="M3.83496 0.60156q-0.51611 0.02734-1.03564 0.23242-0.51611 0.20166-0.92286 0.53663-0.56055 0.44775-0.88867 1.07324-0.32813 0.62207-0.38623 1.3501-0.02734 0.19482-0.02734 3.20605 0 3.01123 0.02734 3.20605 0.11279 1.28857 1.0083 2.18409 0.89551 0.89551 2.18409 1.0083 0.19482 0.02734 3.20605 0.02734 3.01123 0 3.20605-0.02734 1.28857-0.11279 2.18409-1.0083 0.89551-0.89551 1.0083-2.18409 0.02734-0.19482 0.02734-3.20605 0-3.01123-0.02734-3.20605-0.11279-1.28857-1.0083-2.18409-0.7998-0.79639-1.9585-0.99463-0.12647-0.01367-0.63232-0.02734l-2.64551 0q-3.10693 0-3.31885 0.01367z m6.33008 1.16211q0.81006 0.09912 1.39111 0.68018 0.58105 0.58105 0.68018 1.39111 0.01367 0.18457 0.01367 3.16504 0 2.98047-0.01367 3.16504-0.08545 0.79639-0.646 1.37061-0.46143 0.46143-1.07666 0.64599l-0.01367 0q-0.15381 0.04101-0.30762 0.04102-0.22559 0.02734-0.88183 0.02734l-4.6211 0q-0.65625 0-0.88183-0.02734-0.15381 0-0.30762-0.04102l-0.01367 0q-0.56055-0.15723-0.98779-0.56055-0.42725-0.40674-0.62208-0.95361l-0.01367-0.05469q-0.05811-0.15381-0.07177-0.29394-0.02734-0.21191-0.02735-0.78614l0-5.05175q0-0.58789 0.02735-0.78614 0.01367-0.15381 0.07177-0.30761l0.01367-0.05469q0.16748-0.50586 0.56055-0.89551 0.60156-0.60156 1.44238-0.67334 0.14014-0.01367 3.15479-0.01367 3.01807 0 3.13086 0.01367z m-0.07178 1.45606q-0.18115 0.02734-0.31445 0.18115-0.1333 0.15381-0.14697 0.35205-0.01367 0.24951 0.1538 0.43408 0.16748 0.18115 0.42041 0.18115 0.2085 0 0.36231-0.11962 0.15723-0.11963 0.21191-0.30079 0.05469-0.18115-0.03076-0.36914-0.08203-0.19141-0.25635-0.28711-0.17432-0.09912-0.3999-0.07177z m-3.48633 0.86816q-0.61523 0.08545-1.16894 0.44434-0.55029 0.35547-0.88867 0.89892-0.25293 0.40674-0.37598 0.92627-0.04443 0.15381-0.05127 0.23926-0.00684 0.08203-0.00684 0.34863 0 0.26318 0.00684 0.36231 0.00684 0.09912 0.0376 0.22558 0.0957 0.44775 0.27685 0.79981 0.18457 0.34863 0.49219 0.66992 0.82373 0.8374 2.0166 0.88184 0.43408 0.01367 0.78272-0.08545 0.62891-0.15381 1.13135-0.56739 0.50586-0.41357 0.78613-1.00146 0.16748-0.32129 0.25293-0.69727 0.02734-0.1709 0.02734-0.5332 0-0.2666-0.01367-0.39307-0.01367-0.12646-0.05469-0.34863-0.19824-0.76904-0.7793-1.3501-0.58105-0.58105-1.35009-0.76562-0.57422-0.14014-1.1211-0.05469z m0.77246 1.17578q0.51611 0.11279 0.87842 0.47852 0.36572 0.3623 0.47852 0.87842 0.02734 0.18457 0.02051 0.43066-0.00684 0.24268-0.06495 0.43408-0.05469 0.18799-0.18115 0.41016-0.06836 0.12646-0.22217 0.28027-0.15381 0.15381-0.2666 0.23926-0.25293 0.16748-0.5332 0.24951-0.4751 0.12646-0.94336-0.01367-0.46826-0.14014-0.80664-0.49561-0.33496-0.35889-0.43408-0.84765-0.02734-0.14014-0.02051-0.34864 0.00684-0.21191 0.02051-0.33837 0.11279-0.51611 0.48877-0.88526 0.37939-0.37256 0.89892-0.47168 0.12646-0.02734 0.33496-0.02734 0.21191 0 0.35205 0.02734z"
+                  fill="#A69FD1"
+                ></path>
+              </svg>
+            </div>
+            <div
+              data-pencil-name="twitter"
+              class="box-border w-[36px] shrink-0 h-[36px] flex flex-row gap-0 justify-center items-center bg-[#1A1046] [border:1px_solid_#2A1F5C] rounded-[10px]"
+            >
+              <svg
+                data-pencil-name="I"
+                data-icon-name="twitter"
+                data-icon-set="lucide"
+                viewBox="0 0 13.99993896484375 14"
+                preserveAspectRatio="xMidYMid meet"
+                xmlns="http://www.w3.org/2000/svg"
+                class="box-border w-[16px] shrink-0 h-[16px]"
+              >
+                <path
+                  d="M8.90381 1.77734q-0.48877 0.07178-0.9502 0.30762-0.35205 0.18457-0.63232 0.40674-0.40674 0.36572-0.6665 0.89209-0.25635 0.52295-0.29737 1.0835l-0.01709 0.19482-0.08203-0.01367q-0.84082-0.09912-1.55517-0.36573-1.39795-0.52979-2.36524-1.59619-0.14014-0.15381-0.20508-0.20166-0.06152-0.04785-0.12988-0.09228-0.11279-0.05469-0.23926-0.05469-0.2085 0-0.3418 0.09912-0.1333 0.0957-0.25976 0.34863-0.44775 0.89551-0.54688 1.89014-0.0957 0.99463 0.18116 1.96192 0.28027 1.03564 0.90234 1.86962 0.62549 0.83057 1.53467 1.39112l0.21191 0.14013-0.19824 0.08203q-0.88184 0.3794-1.83203 0.3794-0.32471 0-0.40674 0.02734-0.2666 0.07178-0.37256 0.32471-0.10254 0.24951 0.00684 0.50244 0.05811 0.08203 0.1333 0.15381 0.07861 0.06836 0.25976 0.18115 1.41504 0.88184 3.06592 1.09375 0.25293 0.04102 0.84082 0.04102 0.4751 0 0.69043-0.02051 0.21875-0.02051 0.61182-0.09228 1.06299-0.19482 2.05078-0.69727 0.98779-0.50586 1.77051-1.26123 0.98096-0.95361 1.54834-2.12939 0.56738-1.17578 0.69043-2.51905 0.03076-0.25293 0.03076-0.7417 0-0.49219-0.03076-0.68701l-0.02735-0.15381 0.18116-0.23926q0.1709-0.22217 0.3247-0.46142 0.18115-0.30762 0.36914-0.72803 0.18799-0.42041 0.24268-0.62207 0.0581-0.20166-0.04102-0.38965-0.0957-0.19141-0.27685-0.27685-0.09912-0.04102-0.23926-0.04102-0.14014 0-0.19824 0.02051-0.05469 0.02051-0.29395 0.16064-0.23584 0.14014-0.6084 0.3042-0.36914 0.16064-0.44091 0.16065-0.04102 0-0.2085-0.1128-0.46143-0.32129-1.0083-0.46142-0.23926-0.05811-0.58105-0.07861-0.3418-0.02051-0.59473 0.0205z m0.64258 1.14844q0.56055 0.04102 1.12109 0.51953 0.12647 0.0957 0.21533 0.1333 0.09229 0.03418 0.2461 0.03418 0.21191 0 0.39306-0.0581 0.05469-0.01367-0.22558 0.29394-0.16748 0.19824-0.19483 0.31787-0.02734 0.11621 0.01367 0.41016 0.02734 0.2666 0.04102 0.73145 0.01709 0.46143-0.01367 0.71093-0.14014 1.55518-1.02198 2.86426-0.88184 1.30908-2.30712 2.06445-0.7998 0.42041-1.75 0.61524-0.51953 0.09912-1.1211 0.09912-0.5332 0-1.0083-0.08545-0.15381-0.01367-0.42724-0.08203-0.27344-0.07178-0.30079-0.08545-0.02734-0.01367 0.09913-0.05469 0.3623-0.11279 0.74511-0.31445 0.38623-0.20508 0.69727-0.44092 0.3623-0.2666 0.44775-0.42041 0.02734-0.07178 0.03418-0.11279 0.00684-0.04102 0.00684-0.16065 0-0.11963-0.02051-0.18798-0.02051-0.07178-0.09228-0.1709-0.04102-0.05469-0.14014-0.10938-0.0957-0.05811-0.19483-0.09912-1.16211-0.3623-1.97558-1.31592-0.81006-0.95361-1.0083-2.19775-0.02734-0.18115-0.03418-0.52295-0.00684-0.34521 0.00683-0.52637 0.04102-0.42041 0.14014-0.72802l0.02734-0.09913 0.12647 0.1128q0.65967 0.58789 1.52783 1.01513 0.86816 0.42725 1.77734 0.6084 0.5332 0.11279 1.14844 0.14014 0.42041 0.02734 0.58789-0.00684 0.16748-0.03418 0.28711-0.14697 0.11963-0.11279 0.16065-0.2666 0.04102-0.15381 0-0.33496-0.02734-0.09912-0.03418-0.32813-0.00684-0.23242 0.01367-0.35888 0.02051-0.12646 0.08203-0.30079 0.06494-0.17432 0.14697-0.30078 0.21191-0.34863 0.58789-0.58789 0.37939-0.23926 0.79981-0.2666 0.16748-0.01367 0.20849-0.01367l0.18116 0.01367z"
+                  fill="#A69FD1"
+                ></path>
+              </svg>
+            </div>
+            <div
+              data-pencil-name="youtube"
+              class="box-border w-[36px] shrink-0 h-[36px] flex flex-row gap-0 justify-center items-center bg-[#1A1046] [border:1px_solid_#2A1F5C] rounded-[10px]"
+            >
+              <svg
+                data-pencil-name="I"
+                data-icon-name="youtube"
+                data-icon-set="lucide"
+                viewBox="0 0 13.99993896484375 14"
+                preserveAspectRatio="xMidYMid meet"
+                xmlns="http://www.w3.org/2000/svg"
+                class="box-border w-[16px] shrink-0 h-[16px]"
+              >
+                <path
+                  d="M6.20361 2.29688q-1.48682 0.05469-2.88476 0.23583-1.13477 0.14014-1.37403 0.22559-0.3623 0.14014-0.6289 0.43408-0.2666 0.29395-0.39307 0.67334-0.06836 0.22217-0.16064 0.76905-0.08887 0.54688-0.14698 1.104-0.15381 1.76367 0.14014 3.57178 0.07178 0.4751 0.12647 0.69385 0.05469 0.21533 0.14013 0.38281 0.15381 0.29395 0.40674 0.52636 0.25293 0.229 0.57422 0.3418 0.2085 0.07178 1.11768 0.19141 0.9126 0.11621 1.72265 0.18799 0.61523 0.04101 1.00147 0.05468 0.38623 0.01367 1.15527 0.01367 0.76904 0 1.15527-0.01367 0.38623-0.01367 1.00147-0.05468 0.85449-0.07178 1.75-0.18799 0.89551-0.11963 1.104-0.19141 0.39307-0.15381 0.66651-0.44092 0.27344-0.28711 0.3999-0.67675 0.06836-0.22559 0.15722-0.77247 0.09229-0.54688 0.1504-1.104 0.18115-2.00293-0.22559-4.07422-0.15381-0.78613-0.70068-1.18945-0.19482-0.15723-0.39991-0.22559-0.20166-0.06836-0.60498-0.14013-1.3877-0.2085-2.91211-0.29395-0.31104-0.01367-1.18603-0.02734-0.875-0.01367-1.15186 0l0-0.01367z m1.85938 1.18945q1.36035 0.05469 2.6626 0.22217 0.88184 0.11279 0.99121 0.18457 0.14014 0.08203 0.20849 0.229 0.07178 0.14697 0.19825 0.90234 0.28027 1.97559 0 3.93409-0.12646 0.77246-0.19483 0.91259-0.11279 0.23584-0.36572 0.29395-0.19482 0.04102-0.88867 0.1333-0.69385 0.08887-1.18262 0.1333-0.71436 0.05469-1.22705 0.0752-0.50928 0.02051-1.26465 0.0205-0.75537 0-1.26807-0.0205-0.50928-0.02051-1.22363-0.0752-0.48877-0.04443-1.18262-0.1333-0.69385-0.09229-0.88867-0.1333-0.25293-0.0581-0.36572-0.29395-0.05469-0.09912-0.14014-0.58105-0.08203-0.48535-0.12646-0.96045-0.0957-0.93652-0.05469-1.93799 0.04102-1.00146 0.22559-1.92431 0.04102-0.21191 0.07519-0.30079 0.03418-0.09229 0.10254-0.16748 0.07178-0.07861 0.16406-0.11963 0.09229-0.04443 0.30078-0.07177 1.55518-0.25293 3.24707-0.32129 0.37939-0.01367 1.10743-0.01367 0.72803 0 1.09033 0.01367z m-2.4336 1.2168q-0.09912 0.04443-0.1914 0.12988-0.08887 0.08203-0.1333 0.16406l-0.04102 0.09912 0 3.80762 0.04102 0.09912q0.09912 0.19482 0.30761 0.28027 0.21191 0.08203 0.40674 0.01367 0.05811-0.01367 1.56201-0.91601 1.50391-0.90576 1.56202-0.94678 0.18115-0.16748 0.18798-0.42041 0.00684-0.25293-0.17431-0.42041-0.04443-0.05469-1.54834-0.95703-1.50391-0.90576-1.58936-0.9331-0.08203-0.02734-0.19482-0.02735-0.11279 0-0.19483 0.02735z m1.9585 2.29687q0 0.01367-0.58789 0.3623l-0.57422 0.35206 0-1.42872 0.57422 0.35206q0.58789 0.34863 0.58789 0.3623z"
+                  fill="#A69FD1"
+                ></path>
+              </svg>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-
-    <p class="teaser-line" data-i18n="teaser">Επιπλέον ανταμοιβές, επιτεύγματα, και πολλά ακόμα — φτιαγμένο για παίκτες που παίρνουν το padel στα σοβαρά.</p>
-  </div>
-</section>
-
-<footer>
-  <div class="wrap">
-    <div class="footer-bottom">
-      <div class="footer-brand">
-        <div class="logo">
-          <img src="logo.png" alt="">
-          <span>Padlboard</span>
-        </div>
-        <span class="tag" data-i18n="footer_tag">Σκόραρε. Κατέγραψε. Ανέβα επίπεδο. Έρχεται σύντομα.</span>
-      </div>
-      <div class="social">
-        <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
-        <a href="#" aria-label="Twitter"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
-        <a href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
-      </div>
-    </div>
-    <div class="footer-legal">
-      <span id="copyright"></span>
-      <div class="links">
-        <a href="/privacy" data-i18n="footer_privacy">Απόρρητο</a>
-        <a href="/terms" data-i18n="footer_terms">Όροι</a>
-        <a href="/support" data-i18n="footer_support">Υποστήριξη</a>
-        <a href="mailto:dimitristsipoutas@gmail.com" data-i18n="footer_contact">Επικοινωνία</a>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<script>
-  // ---------- i18n ----------
-  // Markup ships in Greek by default (the primary market — see
-  // docs/padlboard-master-plan.md's "Greece-first beachhead"), so the `el`
-  // table below just mirrors what's already in the DOM (used when switching
-  // back from English without a reload); `en` is the only table actually
-  // applied at runtime.
-  const translations = {
-    el: {
-      badge: 'Έρχεται σύντομα',
-      h1_line1: 'Το Padlboard θα είναι',
-      h1_line2: 'κοντά σου σύντομα.',
-      sub: 'Σκόραρε. Κατέγραψε. Ανέβα επίπεδο. Ο σύντροφος του padel για iPhone & Apple Watch φτάνει σε λίγο — μπες στη λίστα αναμονής και γίνε πρώτος στο γήπεδο.',
-      join_btn: 'Μπες στη λίστα αναμονής',
-      trust1: 'Οι πρώτοι 500 κερδίζουν αποκλειστικά προνόμια',
-      trust2: 'Ποτέ spam',
-      trust3: 'Ένα email μόνο, όταν κάνουμε launch',
-      shots_eyebrow: 'Πρώτη ματιά',
-      shots_heading: 'Μια πρώτη γεύση από αυτό που έρχεται',
-      shots_sub: 'Πραγματικές οθόνες από την εφαρμογή που φτιάχνουμε τις τελευταίες λεπτομέρειες.',
-      shot1_caption: 'Live σκοράρισμα με ένα tap',
-      shot2_caption: 'Προφίλ & ανταμοιβές',
-      shot3_caption: 'Κλείσε γήπεδο',
-      also_on: '⌚ Επίσης σε Apple Watch',
-      watch1_caption: 'Live σκοράρισμα',
-      watch2_caption: 'Σύνοψη αγώνα',
-      features_eyebrow: 'Τι να περιμένεις',
-      features_heading: 'Ένας νέος τρόπος να παίζεις padel',
-      features_sub: 'Μια πρώτη ματιά στα εργαλεία που θα αλλάξουν τον τρόπο που παρακολουθείς το παιχνίδι σου.',
-      card1_title: 'Σκοράρισμα με ένα tap',
-      card1_body: 'Ένα tap ανά πόντο, τα υπόλοιπα τα αναλαμβάνουμε εμείς.',
-      card2_title: 'Σκόραρε από τον καρπό σου',
-      card2_body: 'Πλήρες live σκοράρισμα στο Apple Watch.',
-      card3_title: 'Αναλυτικά στατιστικά αγώνα',
-      card3_body: 'Ποσοστό σερβίς, χάρτες χτυπημάτων, βαθμολογία απόδοσης.',
-      card4_title: 'Κλείσε πραγματικά γήπεδα',
-      card4_body: 'Βρες & κλείσε γήπεδα padel κοντά σου.',
-      teaser: 'Επιπλέον ανταμοιβές, επιτεύγματα, και πολλά ακόμα — φτιαγμένο για παίκτες που παίρνουν το padel στα σοβαρά.',
-      footer_tag: 'Σκόραρε. Κατέγραψε. Ανέβα επίπεδο. Έρχεται σύντομα.',
-      footer_privacy: 'Απόρρητο',
-      footer_terms: 'Όροι',
-      footer_support: 'Υποστήριξη',
-      footer_contact: 'Επικοινωνία',
-      status_joining: 'Καταχώρηση…',
-      status_ok: 'Είσαι στη λίστα — θα σου στείλουμε email μόλις κάνουμε launch.',
-      status_dupe: 'Είσαι ήδη στη λίστα!',
-      status_error: 'Κάτι πήγε στραβά — δοκίμασε ξανά.'
-    },
-    en: {
-      badge: 'Coming soon',
-      h1_line1: 'Padlboard will be',
-      h1_line2: 'with you shortly.',
-      sub: 'Score. Track. Elevate. The padel companion for iPhone & Apple Watch is almost here — join the waitlist and be first on the court.',
-      join_btn: 'Join the waitlist',
-      trust1: 'First 500 get founder perks',
-      trust2: 'No spam, ever',
-      trust3: 'One email when we launch',
-      shots_eyebrow: 'Sneak peek',
-      shots_heading: "A glimpse of what's coming",
-      shots_sub: "Real screens from the app we're putting the finishing touches on.",
-      shot1_caption: 'Live tap-to-score',
-      shot2_caption: 'Profile & rewards',
-      shot3_caption: 'Book a court',
-      also_on: '⌚ Also on Apple Watch',
-      watch1_caption: 'Live scoring',
-      watch2_caption: 'Match summary',
-      features_eyebrow: 'What to expect',
-      features_heading: 'A new way to play padel',
-      features_sub: 'A sneak peek at the tools that will change how you track your game.',
-      card1_title: 'Tap to score',
-      card1_body: 'One tap per point, we handle the rest.',
-      card2_title: 'Score on your wrist',
-      card2_body: 'Full live scoring on Apple Watch.',
-      card3_title: 'Deep match stats',
-      card3_body: 'Serve %, shot maps, performance score.',
-      card4_title: 'Book real courts',
-      card4_body: 'Find & reserve padel courts nearby.',
-      teaser: 'Plus rewards, achievements, and a lot more — built for players who take their padel seriously.',
-      footer_tag: 'Score. Track. Elevate. Launching soon.',
-      footer_privacy: 'Privacy',
-      footer_terms: 'Terms',
-      footer_support: 'Support',
-      footer_contact: 'Contact',
-      status_joining: 'Joining…',
-      status_ok: "You're on the list — we'll email you at launch.",
-      status_dupe: "You're already on the list!",
-      status_error: 'Something went wrong — please try again.'
-    }
-  };
-
-  const LANG_KEY = 'padlboard-lang';
-  let currentLang = localStorage.getItem(LANG_KEY) || 'el';
-
-  const langCurrentEl = document.getElementById('lang-current');
-  const langSwitcher = document.getElementById('lang-switcher');
-  const langPill = document.getElementById('lang-pill');
-
-  function applyLanguage(lang) {
-    const dict = translations[lang];
-    document.querySelectorAll('[data-i18n]').forEach((el) => {
-      const key = el.dataset.i18n;
-      if (dict[key] !== undefined) el.textContent = dict[key];
-    });
-    document.documentElement.lang = lang;
-    langCurrentEl.textContent = lang === 'el' ? 'ΕΛ' : 'EN';
-    document.querySelectorAll('.lang-option').forEach((btn) => {
-      btn.dataset.active = String(btn.dataset.lang === lang);
-    });
-    currentLang = lang;
-    localStorage.setItem(LANG_KEY, lang);
-  }
-
-  if (currentLang !== 'el') applyLanguage(currentLang);
-  else applyLanguage('el'); // sets pill/option active state to match the baked-in Greek markup
-
-  langPill.addEventListener('click', () => {
-    const isOpen = langSwitcher.dataset.open === 'true';
-    langSwitcher.dataset.open = String(!isOpen);
-    langPill.setAttribute('aria-expanded', String(!isOpen));
-  });
-
-  document.querySelectorAll('.lang-option').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      applyLanguage(btn.dataset.lang);
-      langSwitcher.dataset.open = 'false';
-      langPill.setAttribute('aria-expanded', 'false');
-    });
-  });
-
-  document.addEventListener('click', (event) => {
-    if (!langSwitcher.contains(event.target)) {
-      langSwitcher.dataset.open = 'false';
-      langPill.setAttribute('aria-expanded', 'false');
-    }
-  });
-
-  // ---------- Footer year ----------
-  document.getElementById('copyright').textContent = `© ${new Date().getFullYear()} Padlboard · Made for padel in the EU`;
-
-  // ---------- Waitlist form ----------
-  const SUPABASE_URL = 'https://hcgyuslsqorhvsmxvemf.supabase.co';
-  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhjZ3l1c2xzcW9yaHZzbXh2ZW1mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMyNTEwNDUsImV4cCI6MjA5ODgyNzA0NX0.MYl6pUmxDM6qSM2wmHoXdLbNh4lwHYBuYOK3jgGy5k0';
-
-  const form = document.getElementById('waitlist-form');
-  const statusEl = document.getElementById('status');
-  const submitBtn = document.getElementById('submit-btn');
-
-  form.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    const email = document.getElementById('email').value.trim();
-    if (!email) return;
-
-    submitBtn.disabled = true;
-    statusEl.dataset.state = 'pending';
-    statusEl.textContent = translations[currentLang].status_joining;
-
-    try {
-      const response = await fetch(`${SUPABASE_URL}/rest/v1/waitlist_signups`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'apikey': SUPABASE_ANON_KEY,
-          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-          'Prefer': 'return=minimal'
-        },
-        body: JSON.stringify({ email })
-      });
-
-      if (response.ok) {
-        statusEl.dataset.state = 'ok';
-        statusEl.textContent = translations[currentLang].status_ok;
-        form.reset();
-      } else if (response.status === 409) {
-        statusEl.dataset.state = 'ok';
-        statusEl.textContent = translations[currentLang].status_dupe;
-      } else {
-        throw new Error('Request failed');
-      }
-    } catch (err) {
-      statusEl.dataset.state = 'error';
-      statusEl.textContent = translations[currentLang].status_error;
-    } finally {
-      submitBtn.disabled = false;
-    }
-  });
-</script>
+  
+</div></div>
 </body>
 </html>

@@ -86,7 +86,7 @@
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
-html,body{margin:0;padding:0;background:#080420;overflow-x:hidden}
+html,body{margin:0;padding:0;background:#080420}
 #d-landing{display:none}
 #m-landing{display:block;background:#0a0426;color:#fff;font-family:Inter,system-ui,sans-serif;min-height:100vh;padding:28px 22px 40px;box-sizing:border-box;text-align:center}
 #m-landing .m-logo{width:64px;border-radius:14px}
@@ -161,11 +161,11 @@ addEventListener('DOMContentLoaded',function(){
 
     <div
       data-pencil-name="Landing Page v2 · Sport Energy"
-      class="box-border w-[1440px] h-fit flex flex-col gap-0 justify-start items-start bg-[#080420] overflow-hidden"
+      class="box-border w-[1440px] h-fit flex flex-col gap-0 justify-start items-start bg-[#080420] overflow-hidden relative"
     >
       <div
         data-pencil-name="Section/Hero"
-        class="box-border w-full h-[920px] shrink-0 overflow-hidden relative"
+        class="box-border w-full h-[920px] shrink-0 overflow-hidden relative [z-index:0]"
       >
         <div
           data-pencil-name="Hero Photo"
@@ -173,7 +173,7 @@ addEventListener('DOMContentLoaded',function(){
         ></div>
         <div
           data-pencil-name="Overlay"
-          class="box-border w-[1440px] h-[920px] absolute left-0 top-0 [background-image:linear-gradient(-90deg,_#080420F2_0%,_#080420A6_50%,_#08042066_100%)] bg-no-repeat bg-[length:100%_100%] [z-index:1]"
+          class="box-border w-[1440px] h-[946px] absolute left-0 top-0 [background-image:linear-gradient(-90deg,_#080420F2_0%,_#080420A6_50%,_#08042066_100%)] bg-no-repeat bg-[length:100%_100%] [z-index:1]"
         ></div>
         <div
           data-pencil-name="Overlay Bottom"
@@ -265,20 +265,6 @@ addEventListener('DOMContentLoaded',function(){
               data-pencil-name="Download"
               class="box-border w-fit shrink-0 h-fit flex flex-row gap-[8px] p-[11px_20px] justify-start items-center bg-[#F5FF00] rounded-[12px]"
             >
-              <svg
-                data-pencil-name="I"
-                data-icon-name="apple"
-                data-icon-set="lucide"
-                viewBox="0 0 13.99993896484375 14"
-                preserveAspectRatio="xMidYMid meet"
-                xmlns="http://www.w3.org/2000/svg"
-                class="box-border w-[16px] shrink-0 h-[16px]"
-              >
-                <path
-                  d="M7.44775 0.60156q-0.39307 0.02734-0.70068 0.33496-0.14014 0.15381-0.2085 0.28028-0.08545 0.1709-0.09912 0.31103-0.01367 0.13672-0.01367 0.61524 0 0.57422-0.01367 0.57422-0.01367 0-0.2085-0.08545-0.71436-0.29395-1.52099-0.29395-0.80322 0-1.50391 0.28027-0.16748 0.06836-0.3999 0.18799-0.23242 0.11963-0.36914 0.20508-0.68701 0.46143-1.15869 1.17578-0.46826 0.71436-0.6084 1.53809-0.06836 0.40674-0.05469 0.99463 0.01367 0.58789 0.11279 1.18945 0.28027 1.75 1.17578 3.2915 0.18115 0.29394 0.44776 0.66651 0.2666 0.36914 0.51611 0.66308 0.19824 0.23926 0.37256 0.3794 0.17432 0.13672 0.41357 0.26318 0.48877 0.23926 1.04932 0.23926 0.30762 0 0.53662-0.05469 0.23242-0.05811 0.61182-0.23926 0.32129-0.15381 0.58105-0.21533 0.25977-0.06494 0.59473-0.06494 0.33496 0 0.59473 0.06494 0.25977 0.06152 0.58105 0.21533 0.36572 0.16748 0.60156 0.23243 0.23926 0.06152 0.54688 0.06152 0.86816 0 1.53808-0.56055 0.22559-0.19482 0.60499-0.68701 1.46973-1.90381 1.8457-4.29639 0.08545-0.56055 0.09912-1.15527 0.01367-0.59473-0.05469-0.98779-0.14014-0.85449-0.63232-1.58252-0.48877-0.72803-1.2168-1.17578-0.25293-0.16748-0.58105-0.30762-0.32813-0.14014-0.6084-0.2085-0.58789-0.15381-1.26123-0.10595-0.67334 0.04785-1.26123 0.28711-0.19482 0.08545-0.2085 0.08545-0.01367 0-0.01367-0.47852l0-0.48877 0.08545 0q0.12305-0.01367 0.25635-0.10254 0.1333-0.09229 0.1914-0.20508 0.02734-0.07178 0.04102-0.18115 0.04102-0.18457-0.05127-0.36572-0.08887-0.18115-0.25635-0.24951-0.16748-0.07178-0.39307-0.04444z m-2.43701 2.92578q0.43408 0.05811 0.80322 0.21192 0.37256 0.15381 0.72461 0.44775 0.15381 0.12646 0.23584 0.16065 0.08545 0.03418 0.22559 0.03418 0.14014 0 0.22217-0.03418 0.08545-0.03418 0.23926-0.16065 0.51953-0.42041 1.12793-0.58789 0.6084-0.16748 1.2373-0.0581 0.58789 0.09912 1.09033 0.42724 0.50586 0.32813 0.83057 0.82031 0.27685 0.43408 0.39648 0.875 0.11963 0.44092 0.10596 1.01514-0.04102 0.89551-0.23242 1.69531-0.18799 0.79639-0.56397 1.60645-0.25293 0.51953-0.65966 1.11426-0.40674 0.59473-0.70069 0.875-0.19482 0.16748-0.48193 0.23925-0.28711 0.06836-0.55371 0.01368-0.12646-0.04101-0.42041-0.17432-0.29395-0.1333-0.54004-0.2085-0.24268-0.07861-0.5503-0.13671-0.15381-0.02734-0.54687-0.02735-0.39307 0-0.54688 0.02735-0.30762 0.0581-0.55371 0.13671-0.24268 0.0752-0.53662 0.2085-0.29395 0.1333-0.42041 0.17432-0.2666 0.05469-0.55371-0.01368-0.28711-0.07178-0.48535-0.25293-0.19482-0.18115-0.4751-0.55029-0.27686-0.37256-0.51611-0.76562-0.12646-0.2085-0.30078-0.56397-0.17432-0.35889-0.28711-0.62549-0.2666-0.68701-0.40674-1.35693-0.14014-0.67334-0.16748-1.44238-0.01367-0.46484 0.05469-0.82032 0.07178-0.35547 0.25293-0.69384 0.42041-0.85449 1.2373-1.28858 0.82031-0.43408 1.71582-0.32129z"
-                  fill="#080420"
-                ></path>
-              </svg>
               <div
                 data-pencil-name="T"
                 class="text-[15px]/[normal] box-border text-[#080420] font-[Inter,system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
@@ -384,10 +370,21 @@ addEventListener('DOMContentLoaded',function(){
             </div>
           </div>
         </div>
+        <div class="box-border w-[460px] h-[555px] absolute left-[873px] top-[200px] [z-index:5]">
+          <div
+            class="box-border w-[228px] h-[407px] [box-shadow:0px_4px_24px_0px_#4b3edeff] absolute left-0 top-[56px] bg-[url('image-5.png')] bg-no-repeat bg-cover bg-center rounded-[24px] [z-index:0]"
+          ></div>
+          <div
+            class="box-border w-[266px] h-[500px] [box-shadow:0px_4px_24px_0px_#5a19e6ff] absolute left-[194px] top-0 bg-[url('image-7.png')] bg-no-repeat bg-cover bg-center rounded-[24px] [z-index:1]"
+          ></div>
+          <div
+            class="box-border w-[124px] h-[204px] absolute left-[142px] top-[351px] bg-[url('image-8.png')] bg-no-repeat bg-cover bg-center [z-index:2]"
+          ></div>
+        </div>
       </div>
       <div
         data-pencil-name="Section/Find Games"
-        class="box-border w-full h-[660px] shrink-0 bg-[#080420] overflow-hidden relative"
+        class="box-border w-full h-[660px] shrink-0 bg-[#080420] overflow-hidden relative [z-index:1]"
       >
         <div
           data-pencil-name="Photo"
@@ -588,7 +585,7 @@ addEventListener('DOMContentLoaded',function(){
       </div>
       <div
         data-pencil-name="Section/Coaches"
-        class="box-border w-full h-[680px] shrink-0 bg-[#120A33] overflow-hidden relative"
+        class="box-border w-full h-[680px] shrink-0 bg-[#120A33] overflow-hidden relative [z-index:2]"
       >
         <div
           data-pencil-name="Photo"
@@ -838,7 +835,7 @@ addEventListener('DOMContentLoaded',function(){
       </div>
       <div
         data-pencil-name="Section/Courts"
-        class="box-border w-full h-[680px] shrink-0 bg-[#080420] overflow-hidden relative"
+        class="box-border w-full h-[680px] shrink-0 bg-[#080420] overflow-hidden relative [z-index:3]"
       >
         <div
           data-pencil-name="Photo"
@@ -1057,7 +1054,7 @@ addEventListener('DOMContentLoaded',function(){
       </div>
       <div
         data-pencil-name="Section/Scoring"
-        class="box-border w-full h-[640px] shrink-0 bg-[#120A33] overflow-hidden relative"
+        class="box-border w-full h-[640px] shrink-0 bg-[#120A33] overflow-hidden relative [z-index:4]"
       >
         <div
           data-pencil-name="Photo"
@@ -1210,7 +1207,7 @@ addEventListener('DOMContentLoaded',function(){
       </div>
       <div
         data-pencil-name="Section/Download CTA"
-        class="box-border w-full h-[560px] shrink-0 [background-image:linear-gradient(-108.072deg,_#6A00FF_12.392%,_#1A0A4E_53.761%,_#080420_87.608%)] bg-no-repeat bg-[length:100%_100%] overflow-hidden relative"
+        class="box-border w-full h-[560px] shrink-0 [background-image:linear-gradient(-108.072deg,_#6A00FF_12.392%,_#1A0A4E_53.761%,_#080420_87.608%)] bg-no-repeat bg-[length:100%_100%] overflow-hidden relative [z-index:5]"
       >
         <div
           data-pencil-name="Glow"
@@ -1319,7 +1316,7 @@ addEventListener('DOMContentLoaded',function(){
       </div>
       <div
         data-pencil-name="Section/For Business"
-        class="box-border w-full h-fit shrink-0 flex flex-row gap-[64px] p-[64px_100px] justify-between items-center bg-[#120A33] [border-width:1px_0px_1px_0px] [border-style:solid] [border-color:#2A1F5C]"
+        class="box-border w-full h-fit shrink-0 flex flex-row gap-[64px] p-[64px_100px] justify-between items-center bg-[#120A33] [border-width:1px_0px_1px_0px] [border-style:solid] [border-color:#2A1F5C] relative [z-index:6]"
       >
         <div
           data-pencil-name="Left"
@@ -1425,7 +1422,7 @@ addEventListener('DOMContentLoaded',function(){
       </div>
       <div
         data-pencil-name="Section/Footer"
-        class="box-border w-full h-fit shrink-0 flex flex-col gap-[40px] p-[64px_100px_32px_100px] justify-start items-start bg-[#080420]"
+        class="box-border w-full h-fit shrink-0 flex flex-col gap-[40px] p-[64px_100px_32px_100px] justify-start items-start bg-[#080420] relative [z-index:7]"
       >
         <div
           data-pencil-name="Top"
@@ -1676,6 +1673,9 @@ addEventListener('DOMContentLoaded',function(){
           </div>
         </div>
       </div>
+      <div
+        class="box-border w-[1883px] h-[3801px] absolute left-0 top-[8607px] bg-[url('image-6.png')] bg-no-repeat bg-cover bg-center [z-index:8]"
+      ></div>
     </div>
   
 </div></div>

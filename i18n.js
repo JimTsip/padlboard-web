@@ -121,32 +121,57 @@
     if (mh1) mh1.style.display = ""; // hero headline is EN brand copy either way
     document.documentElement.lang = lang;
     localStorage.setItem("padl_lang", lang);
-    var sw = document.getElementById("lang-switch");
-    if (sw) sw.querySelectorAll("button").forEach(function (b) {
+    document.querySelectorAll(".lang-switch button").forEach(function (b) {
       b.classList.toggle("on", b.dataset.lang === lang);
     });
+  }
+
+  function makePill() {
+    var box = document.createElement("div");
+    box.className = "lang-switch";
+    ["el", "en"].forEach(function (lang) {
+      var b = document.createElement("button");
+      b.textContent = lang.toUpperCase();
+      b.dataset.lang = lang;
+      b.addEventListener("click", function (e) { e.stopPropagation(); apply(lang); });
+      box.appendChild(b);
+    });
+    return box;
   }
 
   function buildSwitcher() {
     var css = document.createElement("style");
     css.textContent =
-      "#lang-switch{position:fixed;top:14px;right:14px;z-index:9999;display:flex;gap:2px;" +
-      "background:rgba(8,4,32,.72);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);" +
-      "border-radius:999px;padding:3px}" +
-      "#lang-switch button{border:0;background:transparent;color:#cfc8ee;font:700 12px Inter,sans-serif;" +
-      "padding:5px 11px;border-radius:999px;cursor:pointer}" +
-      "#lang-switch button.on{background:#F5FF00;color:#080420}";
+      ".lang-switch{display:inline-flex;gap:2px;align-self:center;" +
+      "background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);" +
+      "border-radius:999px;padding:3px;margin-left:18px;flex:none}" +
+      ".lang-switch button{border:0;background:transparent;color:#cfc8ee;font:700 12px Inter,sans-serif;" +
+      "padding:5px 11px;border-radius:999px;cursor:pointer;line-height:1}" +
+      ".lang-switch button.on{background:#F5FF00;color:#080420}" +
+      "#m-landing .m-head{display:flex;align-items:center;justify-content:space-between}" +
+      "#m-landing .lang-switch{margin-left:0}";
     document.head.appendChild(css);
-    var box = document.createElement("div");
-    box.id = "lang-switch";
-    ["el", "en"].forEach(function (lang) {
-      var b = document.createElement("button");
-      b.textContent = lang.toUpperCase();
-      b.dataset.lang = lang;
-      b.addEventListener("click", function () { apply(lang); });
-      box.appendChild(b);
+
+    // Desktop: slot the pill into the header row, right next to the Download
+    // button of the design (it lives inside the scaled stage, so it scales
+    // with the rest of the nav).
+    var candidates = Array.prototype.slice.call(document.querySelectorAll("#d-landing div"));
+    var download = candidates.find(function (d) {
+      var t = (d.textContent || "").replace(/\s+/g, " ").trim();
+      return (t === "Download" || t === "Κατέβασέ το") && d.querySelectorAll("div,span").length <= 2;
     });
-    document.body.appendChild(box);
+    if (download && download.parentElement) {
+      download.parentElement.insertBefore(makePill(), download);
+    } else {
+      // Fallback: fixed top-right if the header structure ever changes.
+      var fixedBox = makePill();
+      fixedBox.style.cssText += "position:fixed;top:14px;right:14px;z-index:9999;background:rgba(8,4,32,.72)";
+      document.body.appendChild(fixedBox);
+    }
+
+    // Mobile: right side of the header, opposite the logo.
+    var mobileHead = document.querySelector("#m-landing .m-head");
+    if (mobileHead) mobileHead.appendChild(makePill());
   }
 
   document.addEventListener("DOMContentLoaded", function () {

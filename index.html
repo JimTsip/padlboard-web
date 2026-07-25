@@ -81,16 +81,17 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Nunito:wght@200..1000&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Nunito:wght@200..1000&family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
 <script>tailwind = { config: { corePlugins: { preflight: false } } };</script>
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
 html,body{margin:0;padding:0;background:#080420}
 #d-landing{display:none}
+#d-landing [class*="font-[Nunito"]{font-family:Nunito,'M PLUS Rounded 1c',system-ui,sans-serif !important}
 #m-landing{display:block;background:#0a0426;color:#fff;font-family:Inter,system-ui,sans-serif;min-height:100vh;padding:28px 22px 40px;box-sizing:border-box;text-align:center}
 #m-landing .m-logo{width:64px;border-radius:14px}
-#m-landing h1{font-family:Nunito,Inter,sans-serif;font-weight:900;font-size:clamp(26px,7.6vw,44px);line-height:1.05;margin:26px 0 0;letter-spacing:-.5px}
+#m-landing h1{font-family:Nunito,'M PLUS Rounded 1c',Inter,sans-serif;font-weight:900;font-size:clamp(26px,7.6vw,44px);line-height:1.05;margin:26px 0 0;letter-spacing:-.5px}
 #m-landing h1 span{color:#F5FF00}
 #m-landing .m-sub{color:#cfc8ee;font-size:15px;line-height:1.6;max-width:34ch;margin:16px auto 24px}
 #m-landing .m-store{display:inline-flex;align-items:center;gap:10px;background:#F5FF00;color:#080420;text-decoration:none;font-weight:800;border-radius:16px;padding:12px 22px;font-size:17px;line-height:1.1;text-align:left}
@@ -105,8 +106,8 @@ html,body{margin:0;padding:0;background:#080420}
   #d-landing{display:block;overflow-x:hidden}
   #d-landing .pencil-stage{width:1440px;margin:0 auto;position:relative}
 }
-@media (min-width:1024px) and (max-width:1439px){
-  #d-landing .pencil-stage{transform-origin:top center;transform:scale(calc(100vw/1440px))}
+@media (min-width:1024px){
+  #d-landing .pencil-stage{transform-origin:top center}
 }
 </style>
 <script>
@@ -115,7 +116,7 @@ function fitStage(){
   var s=document.querySelector('#d-landing .pencil-stage');
   if(!s) return;
   var w=window.innerWidth;
-  if(w>=1024&&w<1440){s.style.transform='scale('+(w/1440)+')';s.parentElement.style.height=(s.offsetHeight*w/1440)+'px';}
+  if(w>=1024){s.style.transform='scale('+(w/1440)+')';s.parentElement.style.height=(s.offsetHeight*w/1440)+'px';}
   else{s.style.transform='';s.parentElement.style.height='';}
 }
 addEventListener('resize',fitStage);addEventListener('load',fitStage);

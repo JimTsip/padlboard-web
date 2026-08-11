@@ -1,15 +1,32 @@
 # Padlboard
 
-> Padlboard is a padel scoring companion for Apple Watch, iPhone, and web. Currently pre-launch — this site is a coming-soon landing page collecting waitlist signups.
+> Padlboard is the padel companion for Apple Watch and iPhone: live scoring with a single tap, open matches near you, courts, coaches and real match statistics. Free on the App Store.
 
 ## What it does
-Live padel scoring reduced to one input: tap the team that won the point. Padlboard derives games, sets, serve, side, and golden point automatically from that single tap. Ships first on Apple Watch (the primary scoring device) and iPhone (setup, sync, and stats), with a web app planned. Backed by Supabase, EU-hosted.
+Live padel scoring reduced to one input: tap the team that won the point. Padlboard derives games, sets, serve, side and golden point automatically from that single tap, on the Apple Watch while you play and on the iPhone for setup, history and stats.
+
+Around the scoring sits the rest of the padel week:
+
+- **Open matches** — post a match that is short a player, or join a game near you that needs a fourth, matched by level.
+- **Courts** — find and reserve courts.
+- **Coaches** — find and book coaches.
+- **Stats** — every match tracked, so you see how you actually play rather than how you remember playing.
+
+## Platforms
+Apple Watch and iPhone. Free to download.
+
+App Store: https://apps.apple.com/app/id6788730009
 
 ## Status
-Pre-launch / coming soon. No public app release yet. The only live surface is this waitlist landing page at https://padlboard.ai.
+Live. Current version 1.0.1.
 
-## Primary market
-Greece first, then Spain — the site defaults to Greek with an English toggle.
+## Languages
+Greek and English. The site defaults to Greek with an English toggle. Primary market is Greece, then Spain.
 
-## Contact
-https://padlboard.ai (waitlist signup form)
+## Pages
+- [Home](https://padlboard.ai/): what the app does and the download.
+- [Support](https://padlboard.ai/support.html): how to reach a person.
+- [Privacy](https://padlboard.ai/privacy.html), [Terms](https://padlboard.ai/terms.html), [Cookies](https://padlboard.ai/cookies.html), [GDPR](https://padlboard.ai/gdpr.html).
+
+## Made by
+The Last Click (https://thelastclick.gr).

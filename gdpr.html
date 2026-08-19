@@ -68,13 +68,13 @@
   </header>
 
   <div data-lang="el">
-    <p class="updated">Τελευταία ενημέρωση: 25 Ιουλίου 2026</p>
+    <p class="updated">Τελευταία ενημέρωση: 19 Αυγούστου 2026</p>
     <h1>GDPR &amp; τα δικαιώματά σου</h1>
     <p>Το Padlboard σχεδιάστηκε με βάση τον Γενικό Κανονισμό Προστασίας Δεδομένων (ΕΕ 2016/679). Εδώ θα βρεις ποιος επεξεργάζεται τα δεδομένα σου, πού αποθηκεύονται και πώς ασκείς τα δικαιώματά σου. Η πλήρης περιγραφή του τι συλλέγουμε βρίσκεται στην <a href="/privacy">Πολιτική Απορρήτου</a>.</p>
     <h2>Υπεύθυνος επεξεργασίας</h2>
     <p>Padlboard (Dimitrios Tsipoutas) · <a href="mailto:hello@padlboard.ai">hello@padlboard.ai</a></p>
     <h2>Πού αποθηκεύονται τα δεδομένα</h2>
-    <p>Όλα τα δεδομένα λογαριασμού και αγώνων αποθηκεύονται σε υποδομή εντός της <strong>Ευρωπαϊκής Ένωσης</strong> (Supabase, περιοχή eu-central-1, Φρανκφούρτη). Δεν μεταφέρονται εκτός ΕΕ για αποθήκευση.</p>
+    <p>Όλα τα δεδομένα λογαριασμού και αγώνων αποθηκεύονται σε υποδομή εντός της <strong>Ευρωπαϊκής Ένωσης</strong> (Cloudflare D1, με τη βάση δεσμευμένη σε <strong>δικαιοδοσία ΕΕ</strong> — η αποθήκευση και η επεξεργασία περιορίζονται εντός ΕΕ). Δεν μεταφέρονται εκτός ΕΕ για αποθήκευση.</p>
     <h2>Νομικές βάσεις επεξεργασίας</h2>
     <ul>
       <li><strong>Εκτέλεση σύμβασης:</strong> λογαριασμός, αγώνες, φίλοι, κρατήσεις — ό,τι χρειάζεται για να λειτουργήσει η εφαρμογή.</li>
@@ -91,22 +91,23 @@
     </ul>
     <h2>Εκτελούντες την επεξεργασία</h2>
     <ul>
-      <li><strong>Supabase</strong> — βάση δεδομένων &amp; αυθεντικοποίηση (ΕΕ)</li>
+      <li><strong>Cloudflare</strong> — φιλοξενία, βάση δεδομένων &amp; αυθεντικοποίηση (δικαιοδοσία ΕΕ)</li>
+      <li><strong>Supabase</strong> — η προηγούμενη βάση δεδομένων (ΕΕ, Φρανκφούρτη)· εξυπηρετεί ακόμα τις συσκευές που δεν έχουν ενημερωθεί στη νέα έκδοση</li>
       <li><strong>Apple</strong> — Sign in with Apple, ειδοποιήσεις push, HealthKit (στη συσκευή σου)</li>
       <li><strong>Google Firebase</strong> — ανώνυμα δεδομένα σφαλμάτων και διαγνωστικών</li>
-      <li><strong>Resend</strong> — email επιβεβαίωσης λογαριασμού</li>
+      <li><strong>Resend</strong> — email με κωδικούς σύνδεσης, επιβεβαίωσης και αλλαγής κωδικού (ΕΕ)</li>
     </ul>
     <h2>Καταγγελία</h2>
     <p>Αν θεωρείς ότι τα δικαιώματά σου παραβιάζονται, έχεις δικαίωμα καταγγελίας στην Αρχή Προστασίας Δεδομένων Προσωπικού Χαρακτήρα (<a href="https://www.dpa.gr" rel="noopener">dpa.gr</a>).</p>
   </div>
   <div data-lang="en">
-    <p class="updated">Last updated: July 25, 2026</p>
+    <p class="updated">Last updated: August 19, 2026</p>
     <h1>GDPR &amp; your rights</h1>
     <p>Padlboard is built around the EU General Data Protection Regulation (2016/679). This page explains who processes your data, where it lives, and how to exercise your rights. What we collect is described in full in the <a href="/privacy">Privacy Policy</a>.</p>
     <h2>Data controller</h2>
     <p>Padlboard (Dimitrios Tsipoutas) · <a href="mailto:hello@padlboard.ai">hello@padlboard.ai</a></p>
     <h2>Where your data lives</h2>
-    <p>All account and match data is stored on infrastructure inside the <strong>European Union</strong> (Supabase, region eu-central-1, Frankfurt). It is not stored outside the EU.</p>
+    <p>All account and match data is stored on infrastructure inside the <strong>European Union</strong> (Cloudflare D1, with the database bound to <strong>EU jurisdiction</strong> — storage and processing are restricted to the EU). It is not stored outside the EU.</p>
     <h2>Legal bases</h2>
     <ul>
       <li><strong>Contract:</strong> your account, matches, friends and bookings — what the app needs to function.</li>
@@ -123,10 +124,11 @@
     </ul>
     <h2>Processors</h2>
     <ul>
-      <li><strong>Supabase</strong> — database &amp; authentication (EU)</li>
+      <li><strong>Cloudflare</strong> — hosting, database &amp; authentication (EU jurisdiction)</li>
+      <li><strong>Supabase</strong> — the previous database (EU, Frankfurt); still serving devices that have not updated to the new app version</li>
       <li><strong>Apple</strong> — Sign in with Apple, push notifications, HealthKit (on your device)</li>
       <li><strong>Google Firebase</strong> — anonymous crash and diagnostics data</li>
-      <li><strong>Resend</strong> — account confirmation emails</li>
+      <li><strong>Resend</strong> — sign-in, confirmation and password-reset code emails (EU)</li>
     </ul>
     <h2>Complaints</h2>
     <p>You may lodge a complaint with your supervisory authority — in Greece, the Hellenic Data Protection Authority (<a href="https://www.dpa.gr" rel="noopener">dpa.gr</a>).</p>

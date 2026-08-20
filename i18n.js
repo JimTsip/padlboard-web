@@ -175,16 +175,21 @@
       "#m-landing .lang-switch{margin-left:0}";
     document.head.appendChild(css);
 
-    // Desktop: slot the pill into the header row, right next to the Download
-    // button of the design (it lives inside the scaled stage, so it scales
-    // with the rest of the nav).
+    // Desktop: slot the pill into the header row (it lives inside the scaled
+    // stage, so it scales with the rest of the nav).
+    //
+    // Μπαίνει ΠΡΙΝ τη «Σύνδεση», όχι πριν το «Κατέβασέ το»: αλλιώς ο διακόπτης
+    // γλώσσας σφηνώνεται ανάμεσα στα δύο κουμπιά και τα χωρίζει. Η σειρά που
+    // θέλουμε είναι EL/EN · Σύνδεση · Κατέβασέ το.
+    var login = document.querySelector('#d-landing a[href="/login"]');
     var candidates = Array.prototype.slice.call(document.querySelectorAll("#d-landing div"));
     var download = candidates.find(function (d) {
       var t = (d.textContent || "").replace(/\s+/g, " ").trim();
       return (t === "Download" || t === "Κατέβασέ το") && d.querySelectorAll("div,span").length <= 2;
     });
-    if (download && download.parentElement) {
-      download.parentElement.insertBefore(makePill(), download);
+    var anchorEl = login || download;
+    if (anchorEl && anchorEl.parentElement) {
+      anchorEl.parentElement.insertBefore(makePill(), anchorEl);
     } else {
       // Fallback: fixed top-right if the header structure ever changes.
       var fixedBox = makePill();

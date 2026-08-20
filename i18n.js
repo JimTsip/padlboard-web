@@ -95,16 +95,37 @@
   };
 
   var textNodes = null;
+  /**
+   * Το HTML της σελίδας είναι ΕΛΛΗΝΙΚΟ: το markup μεταφράστηκε μια για πάντα,
+   * ώστε ένας crawler που δεν τρέχει JavaScript να διαβάζει ελληνικά — η αγορά
+   * είναι η Ελλάδα, και πριν από αυτό το raw HTML είχε 317 αγγλικές λέξεις
+   * έναντι 22 ελληνικών.
+   *
+   * Γι' αυτό εδώ κοιτάμε ΚΑΙ τις δύο κατευθύνσεις: αν ο κόμβος είναι ελληνικός
+   * τον γυρνάμε ανάποδα με το αντίστροφο λεξικό, αν είναι αγγλικός (παλιό
+   * cache, μελλοντικό export από το Pencil) δουλεύει όπως πριν.
+   */
+  var EN_BY_EL = null;
+  function reverse() {
+    if (EN_BY_EL) return EN_BY_EL;
+    EN_BY_EL = {};
+    Object.keys(EL).forEach(function (en) { EN_BY_EL[EL[en]] = en; });
+    return EN_BY_EL;
+  }
+
   function collect() {
     textNodes = [];
     var root = document.getElementById("d-landing");
     if (!root) return;
+    var back = reverse();
     var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
     var n;
     while ((n = walker.nextNode())) {
       var raw = n.nodeValue;
       var key = raw.replace(/\s+/g, " ").trim();
-      if (key && EL[key]) textNodes.push({ node: n, en: raw, el: EL[key] });
+      if (!key) continue;
+      if (EL[key]) textNodes.push({ node: n, en: raw, el: raw.replace(key, EL[key]) });
+      else if (back[key]) textNodes.push({ node: n, en: raw.replace(key, back[key]), el: raw });
     }
   }
 

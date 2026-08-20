@@ -172,6 +172,22 @@ html,body{margin:0;padding:0;background:#080420}
   #d-landing [data-pencil-name="ListBtn"]{white-space:normal}
   #d-landing [data-pencil-name="ListBtn"] > div{white-space:normal;text-align:center}
 }
+
+/* Κείμενο αναζήτησης: ίδια γλώσσα σχεδίασης με το υπόλοιπο site, διακριτικό. */
+.pb-seo{background:#0B0526;border-top:1px solid rgba(255,255,255,.07);padding:56px 20px 64px}
+.pb-seo-wrap{max-width:900px;margin:0 auto;color:#A69FD1;font:400 15px/1.65 Inter,system-ui,sans-serif}
+.pb-seo h2{color:#fff;font:800 22px/1.3 Nunito,system-ui,sans-serif;margin:0 0 12px}
+.pb-seo h2:not(:first-child){margin-top:38px}
+.pb-seo p{margin:0 0 14px}
+.pb-seo a{color:#F5FF00;text-decoration:none}
+.pb-seo a:hover{text-decoration:underline}
+.pb-seo-links{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.pb-seo-links a{display:inline-block;padding:8px 14px;border-radius:999px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#cfc8ee;font-size:14px}
+.pb-seo-links a:hover{border-color:#F5FF00;color:#F5FF00;text-decoration:none}
+.pb-faq{margin:0}
+.pb-faq dt{color:#fff;font-weight:700;margin-top:18px}
+.pb-faq dd{margin:6px 0 0}
 </style>
 <script>
 // Fit the fixed 1440px artboard on 1024-1439px screens.
@@ -1698,5 +1714,69 @@ addEventListener('DOMContentLoaded',function(){
     </div>
   
 </div></div>
+
+<!-- ── Κείμενο αναζήτησης ──────────────────────────────────────────────────
+     ΔΕΝ είναι «SEO κείμενο» με στοιβαγμένες λέξεις-κλειδιά. Κάνει δύο δουλειές
+     που μετράνε πραγματικά: (1) λέει με ελληνικές λέξεις τι είναι το site,
+     γιατί μέχρι τώρα η αρχική δεν έγραφε πουθενά «γήπεδα padel Αττική» και
+     τέτοιες φράσεις που όντως ψάχνει ο κόσμος· (2) συνδέει τις 11 σελίδες
+     περιφερειών, που αλλιώς τις έβρισκε μόνο το sitemap. Το εσωτερικό linking
+     είναι ο τρόπος που η Google καταλαβαίνει τι είναι σημαντικό. -->
+<section class="pb-seo">
+  <div class="pb-seo-wrap">
+    <h2>Γήπεδα padel σε όλη την Ελλάδα</h2>
+    <p>Το Padlboard μαζεύει σε ένα μέρος τα γήπεδα padel της χώρας — με διεύθυνση,
+      ωράριο, τηλέφωνο και φωτογραφίες, ώστε να ξέρεις πού θα παίξεις πριν
+      ξεκινήσεις. Δες τα κλαμπ ανά περιοχή:</p>
+    <ul class="pb-seo-links">
+      <li><a href="/courts/perioxi/attiki">Γήπεδα padel Αττική</a></li>
+      <li><a href="/courts/perioxi/thessaloniki">Γήπεδα padel Θεσσαλονίκη</a></li>
+      <li><a href="/courts/perioxi/thessalia">Γήπεδα padel Θεσσαλία</a></li>
+      <li><a href="/courts/perioxi/achaia">Γήπεδα padel Αχαΐα</a></li>
+      <li><a href="/courts/perioxi/irakleio">Γήπεδα padel Ηράκλειο</a></li>
+      <li><a href="/courts/perioxi/chania">Γήπεδα padel Χανιά</a></li>
+      <li><a href="/courts/perioxi/peloponnisos">Γήπεδα padel Πελοπόννησος</a></li>
+      <li><a href="/courts/perioxi/kerkyra">Γήπεδα padel Κέρκυρα</a></li>
+      <li><a href="/courts/perioxi/zakynthos">Γήπεδα padel Ζάκυνθος</a></li>
+      <li><a href="/courts/perioxi/dodekanisa">Γήπεδα padel Δωδεκάνησα</a></li>
+      <li><a href="/courts/perioxi/aitoloakarnania">Γήπεδα padel Αιτωλοακαρνανία</a></li>
+      <li><a href="/courts">Όλα τα γήπεδα</a></li>
+    </ul>
+
+    <h2>Προπονητές, παρέα και σκορ</h2>
+    <p>Εκτός από τα γήπεδα, στο Padlboard βρίσκεις <a href="/coaches">προπονητές padel</a>
+      ανά περιοχή και ειδικότητα, μπαίνεις σε <a href="/games">ανοιχτά παιχνίδια</a>
+      που ψάχνουν τέταρτο παίκτη, και κρατάς το σκορ των αγώνων σου από το iPhone
+      ή το Apple Watch — ένα άγγιγμα ανά πόντο, τα σετ και τα γκέιμ βγαίνουν μόνα τους.</p>
+
+    <h2>Συχνές ερωτήσεις</h2>
+    <dl class="pb-faq">
+      <dt>Πόσο κοστίζει το Padlboard;</dt>
+      <dd>Η εφαρμογή είναι δωρεάν. Κατεβάζεις, φτιάχνεις λογαριασμό και ξεκινάς να
+        καταγράφεις αγώνες χωρίς συνδρομή.</dd>
+
+      <dt>Χρειάζομαι Apple Watch;</dt>
+      <dd>Όχι. Το σκοράρισμα δουλεύει και μόνο από το iPhone. Το Apple Watch το
+        κάνει πιο άνετο μέσα στο γήπεδο και προσθέτει παλμούς και θερμίδες.</dd>
+
+      <dt>Πώς βρίσκω γήπεδο κοντά μου;</dt>
+      <dd>Άνοιξε τα <a href="/courts">γήπεδα</a> και διάλεξε περιοχή. Μέσα στην
+        εφαρμογή η λίστα ταξινομείται με την πραγματική απόσταση από εσένα.</dd>
+
+      <dt>Έχω γήπεδο. Πώς μπαίνει στο Padlboard;</dt>
+      <dd>Άνοιξε τη σελίδα του κλαμπ σου και πάτα «Είναι δικό σου το γήπεδο;», ή
+        γράψε μας στο <a href="mailto:hello@padlboard.ai">hello@padlboard.ai</a>.
+        Η καταχώριση είναι δωρεάν.</dd>
+    </dl>
+  </div>
+</section>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Πόσο κοστίζει το Padlboard;","acceptedAnswer":{"@type":"Answer","text":"Η εφαρμογή είναι δωρεάν. Κατεβάζεις, φτιάχνεις λογαριασμό και ξεκινάς να καταγράφεις αγώνες χωρίς συνδρομή."}},
+{"@type":"Question","name":"Χρειάζομαι Apple Watch;","acceptedAnswer":{"@type":"Answer","text":"Όχι. Το σκοράρισμα δουλεύει και μόνο από το iPhone. Το Apple Watch το κάνει πιο άνετο μέσα στο γήπεδο και προσθέτει παλμούς και θερμίδες."}},
+{"@type":"Question","name":"Πώς βρίσκω γήπεδο κοντά μου;","acceptedAnswer":{"@type":"Answer","text":"Άνοιξε τα γήπεδα στο padlboard.ai/courts και διάλεξε περιοχή. Μέσα στην εφαρμογή η λίστα ταξινομείται με την πραγματική απόσταση από εσένα."}},
+{"@type":"Question","name":"Έχω γήπεδο. Πώς μπαίνει στο Padlboard;","acceptedAnswer":{"@type":"Answer","text":"Άνοιξε τη σελίδα του κλαμπ σου και πάτα «Είναι δικό σου το γήπεδο;», ή γράψε στο hello@padlboard.ai. Η καταχώριση είναι δωρεάν."}}]}
+</script>
 </body>
 </html>

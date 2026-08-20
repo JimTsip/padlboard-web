@@ -109,7 +109,10 @@ html,body{margin:0;padding:0;background:#080420}
 #d-landing{display:none}
 #d-landing [class*="font-[Nunito"]{font-family:Nunito,'M PLUS Rounded 1c',system-ui,sans-serif !important}
 #m-landing{display:block;background:#0a0426;color:#fff;font-family:Inter,system-ui,sans-serif;min-height:100vh;padding:28px 22px 40px;box-sizing:border-box;text-align:center}
+#m-landing .m-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
 #m-landing .m-logo{width:64px;border-radius:14px}
+#m-landing .m-login{color:#fff;text-decoration:none;font-weight:700;font-size:14px;
+  border:1px solid rgba(255,255,255,.24);border-radius:12px;padding:9px 16px;white-space:nowrap}
 #m-landing h1{font-family:Nunito,'M PLUS Rounded 1c',Inter,sans-serif;font-weight:900;font-size:clamp(26px,7.6vw,44px);line-height:1.05;margin:26px 0 0;letter-spacing:-.5px}
 #m-landing h1 span{color:#F5FF00}
 #m-landing .m-sub{color:#cfc8ee;font-size:15px;line-height:1.6;max-width:34ch;margin:16px auto 24px}
@@ -170,7 +173,8 @@ addEventListener('DOMContentLoaded',function(){
 <body>
 
 <div id="m-landing">
-  <header class="m-head"><img src="logo.png" alt="Padlboard" class="m-logo"></header>
+  <header class="m-head"><img src="logo.png" alt="Padlboard" class="m-logo">
+    <a class="m-login" href="https://padlboard-site.thelastclick.workers.dev/login">Σύνδεση</a></header>
   <h1>EVERYTHING<br>PADEL. <span>ONE APP.</span></h1>
   <p class="m-sub" data-i18n>Σκόραρε με ένα άγγιγμα από το Apple Watch ή το iPhone, βρες παρέα, γήπεδα και προπονητές — και δες πώς πραγματικά παίζεις.</p>
   <a class="m-store" href="https://apps.apple.com/gr/app/padlboard/id6788730009">
@@ -269,24 +273,27 @@ addEventListener('DOMContentLoaded',function(){
               data-pencil-name="Links"
               class="box-border w-fit shrink-0 h-fit flex flex-row gap-[28px] justify-start items-center"
             >
-              <div
+              <a
                 data-pencil-name="Games"
-                class="text-[15px]/[normal] box-border text-[#FFFFFF] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
+                href="https://padlboard-site.thelastclick.workers.dev/games"
+                class="text-[15px]/[normal] box-border text-[#FFFFFF] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap] no-underline"
               >
                 Games
-              </div>
-              <div
+              </a>
+              <a
                 data-pencil-name="Coaches"
-                class="text-[15px]/[normal] box-border text-[#FFFFFF] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
+                href="https://padlboard-site.thelastclick.workers.dev/coaches"
+                class="text-[15px]/[normal] box-border text-[#FFFFFF] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap] no-underline"
               >
                 Coaches
-              </div>
-              <div
+              </a>
+              <a
                 data-pencil-name="Courts"
-                class="text-[15px]/[normal] box-border text-[#FFFFFF] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
+                href="https://padlboard-site.thelastclick.workers.dev/courts"
+                class="text-[15px]/[normal] box-border text-[#FFFFFF] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap] no-underline"
               >
                 Courts
-              </div>
+              </a>
               <div
                 data-pencil-name="Scoring"
                 class="text-[15px]/[normal] box-border text-[#FFFFFF] font-[Inter,system-ui,sans-serif] font-semibold text-left [white-space:nowrap]"
@@ -294,6 +301,15 @@ addEventListener('DOMContentLoaded',function(){
                 Scoring
               </div>
             </div>
+            <a
+              data-pencil-name="Login"
+              href="https://padlboard-site.thelastclick.workers.dev/login"
+              class="box-border w-fit shrink-0 h-fit flex flex-row gap-[8px] p-[11px_18px] justify-start items-center rounded-[12px] border border-[rgba(255,255,255,0.24)] no-underline"
+            >
+              <div class="text-[14px]/[normal] box-border text-[#FFFFFF] font-[Inter,system-ui,sans-serif] font-bold text-left [white-space:nowrap]">
+                Log in
+              </div>
+            </a>
             <div
               data-pencil-name="Download"
               class="box-border w-fit shrink-0 h-fit flex flex-row gap-[8px] p-[11px_20px] justify-start items-center bg-[#F5FF00] rounded-[12px]"

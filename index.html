@@ -174,8 +174,11 @@ html,body{margin:0;padding:0;background:#080420}
 }
 
 /* Κείμενο αναζήτησης: ίδια γλώσσα σχεδίασης με το υπόλοιπο site, διακριτικό. */
-.pb-seo{background:#0B0526;border-top:1px solid rgba(255,255,255,.07);padding:56px 20px 64px}
-.pb-seo-wrap{max-width:900px;margin:0 auto;color:#A69FD1;font:400 15px/1.65 Inter,system-ui,sans-serif}
+/* Το stage είναι flex column: χωρίς width:100% η ενότητα μαζεύεται στο
+   πλάτος του κειμένου της και φαίνεται κολλημένη αριστερά. */
+.pb-seo{background:#0B0526;border-top:1px solid rgba(255,255,255,.07);padding:56px 40px 64px;
+  width:100%;align-self:stretch;box-sizing:border-box}
+.pb-seo-wrap{max-width:1040px;margin:0 auto;color:#A69FD1;font:400 15px/1.65 Inter,system-ui,sans-serif}
 .pb-seo h2{color:#fff;font:800 22px/1.3 Nunito,system-ui,sans-serif;margin:0 0 12px}
 .pb-seo h2:not(:first-child){margin-top:38px}
 .pb-seo p{margin:0 0 14px}

@@ -1,33 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://padlboard.ai/</loc>
-    <lastmod>2026-08-11</lastmod>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://padlboard.ai/support.html</loc>
-    <lastmod>2026-08-11</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://padlboard.ai/privacy.html</loc>
-    <lastmod>2026-08-11</lastmod>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://padlboard.ai/terms.html</loc>
-    <lastmod>2026-08-11</lastmod>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://padlboard.ai/cookies.html</loc>
-    <lastmod>2026-08-11</lastmod>
-    <priority>0.4</priority>
-  </url>
-  <url>
-    <loc>https://padlboard.ai/gdpr.html</loc>
-    <lastmod>2026-08-11</lastmod>
-    <priority>0.4</priority>
-  </url>
-</urlset>
+<!-- Ευρετήριο: οι στατικές σελίδες ζουν στο GitHub Pages, οι καταχωρήσεις
+     (γήπεδα, προπονητές) παράγονται από τη βάση μέσα στον padlboard-site Worker. -->
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap><loc>https://padlboard.ai/sitemap-pages.xml</loc></sitemap>
+  <sitemap><loc>https://padlboard.ai/sitemap-listings.xml</loc></sitemap>
+</sitemapindex>

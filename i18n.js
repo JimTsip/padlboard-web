@@ -4,6 +4,8 @@
 // switcher works both ways without touching the exported markup.
 (function () {
   var EL = {
+    "Log in": "Σύνδεση",
+    "Players": "Παίκτες",
     "Games": "Παιχνίδια",
     "Coaches": "Προπονητές",
     "Courts": "Γήπεδα",

@@ -17,7 +17,7 @@
     "Find open games near you, book top coaches, reserve courts, and track every match on your Apple Watch. The whole padel world — in one app.":
       "Βρες ανοιχτά παιχνίδια κοντά σου, κλείσε κορυφαίους προπονητές, κράτησε γήπεδα και κατέγραψε κάθε αγώνα στο Apple Watch σου. Όλος ο κόσμος του padel — σε ένα app.",
     "Download on the": "Κατέβασέ το στο",
-    "Explore the app": "Εξερεύνησε το app",
+    "Explore the app": "Σύνδεση",
     "OPEN MATCHES": "ΑΝΟΙΧΤΑ ΠΑΙΧΝΙΔΙΑ",
     "NEVER SIT": "ΠΟΤΕ ΞΑΝΑ",
     "ON THE BENCH.": "ΣΤΟΝ ΠΑΓΚΟ.",

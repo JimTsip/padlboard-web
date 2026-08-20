@@ -138,6 +138,40 @@ html,body{margin:0;padding:0;background:#080420}
 @media (min-width:1024px){
   #d-landing .pencil-stage{transform-origin:top center}
 }
+
+/* ── Διορθώσεις για τα ελληνικά ────────────────────────────────────────────
+   Το export του Pencil έχει ενότητες σταθερού ύψους, μετρημένες πάνω στο
+   αγγλικό κείμενο. Τα ελληνικά είναι μακρύτερα και τα κεφαλαία με τόνο πιο
+   ψηλά από το line-height, οπότε το κείμενο ξεχείλιζε ή κοβόταν.
+
+   ΠΡΟΣΟΧΗ: `height:auto` ΔΕΝ δουλεύει εδώ. Τα παιδιά των ενοτήτων είναι
+   absolute, άρα η ενότητα δεν «βλέπει» το ύψος τους και μαζεύεται στο μηδέν.
+   Χρειάζεται ρητό min-height, μετρημένο από το κατώτερο κείμενο.
+
+   Οι διορθώσεις μένουν ΕΔΩ και όχι στις κλάσεις του export, ώστε ένα νέο
+   export να μη τις σβήσει και να ξέρουμε πάντα τι πειράξαμε. */
+@media (min-width:1024px){
+  /* Τα κεφαλαία με τόνο (Ά, Ό, Ή) θέλουν λίγο παραπάνω ύψος γραμμής. */
+  #d-landing [data-pencil-name="L1"],
+  #d-landing [data-pencil-name="L2"]{line-height:1.06em}
+
+  /* «ΚΛΕΙΣΜΕΝΟ ΣΕ ΔΕΥΤΕΡΟΛΕΠΤΑ.» δεν χωρούσε στα 640px με 80px γράμματα. */
+  #d-landing [data-pencil-name="Section/Courts"] [data-pencil-name="L1"],
+  #d-landing [data-pencil-name="Section/Courts"] [data-pencil-name="L2"]{font-size:68px}
+
+  /* Προπονητές: το κείμενο έφτανε στα 801px μέσα σε κουτί 680px — κοβόταν.
+     Η φωτογραφία και το overlay τεντώνονται ώστε να μη μείνει κενό. */
+  #d-landing [data-pencil-name="Section/Coaches"]{min-height:820px}
+  #d-landing [data-pencil-name="Section/Coaches"] > [data-pencil-name="Photo"],
+  #d-landing [data-pencil-name="Section/Coaches"] > [data-pencil-name="Overlay"]{height:100%!important}
+
+  /* Τελικό CTA: το κείμενο ξεπερνούσε κατά 10px. */
+  #d-landing [data-pencil-name="Section/Download CTA"]{min-height:590px}
+
+  /* «Καταχώρισε το γήπεδό σου — δωρεάν»: σπάει σε δεύτερη σειρά αντί να βγει έξω. */
+  #d-landing [data-pencil-name="ListBtn"]{white-space:normal}
+  #d-landing [data-pencil-name="ListBtn"] > div{white-space:normal;text-align:center}
+}
 </style>
 <script>
 // Fit the fixed 1440px artboard on 1024-1439px screens.
@@ -152,7 +186,7 @@ addEventListener('resize',fitStage);addEventListener('load',fitStage);
 // CTAs open the App Store; footer/legal items open their pages.
 addEventListener('DOMContentLoaded',function(){
   var words=['Download','App Store','Get in the game','Get the app','Κατέβασέ το','Μπες στο παιχνίδι'];
-  var links={'Privacy':'/privacy','Απόρρητο':'/privacy','Terms':'/terms','Όροι':'/terms',
+  var links={'Σύνδεση':'/login','Log in':'/login','Privacy':'/privacy','Απόρρητο':'/privacy','Terms':'/terms','Όροι':'/terms',
              'GDPR':'/gdpr','Cookies':'/cookies',
              'Contact':'mailto:hello@padlboard.ai','Επικοινωνία':'mailto:hello@padlboard.ai',
              'About':'mailto:hello@padlboard.ai','Σχετικά':'mailto:hello@padlboard.ai',
@@ -391,7 +425,7 @@ addEventListener('DOMContentLoaded',function(){
                 data-pencil-name="T"
                 class="text-[15px]/[normal] box-border text-[#FFFFFF] font-[Inter,system-ui,sans-serif] font-bold text-left [white-space:nowrap]"
               >
-                Εξερεύνησε το app
+                Σύνδεση
               </div>
             </div>
           </div>
